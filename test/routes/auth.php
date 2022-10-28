@@ -66,7 +66,7 @@ Route::prefix('/teacher')->name('teacher.')->group(function(){
 
     Route::get('/login',[TeacherAuth::class,'create'])->middleware('guest:teacher')->name('login');
     Route::post('/login',[TeacherAuth::class,'store'])->middleware('guest:teacher');
-    Route::get('/logout',[TeacherAuth::class,'destroy'])->name('logout');
+    Route::post('/logout',[TeacherAuth::class,'destroy'])->name('logout');
     Route::get('/dashboard',[TeacherController::class,'index'])->middleware('teacher');
 });
 
@@ -79,7 +79,11 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
 Route::get('/login',[AdminAuth::class,'create'])->middleware('guest:admin')->name('login');
 Route::post('/login',[AdminAuth::class,'store'])->middleware('guest:admin');
-Route::get('/logout',[AdminAuth::class,'destroy'])->middleware('admin')->name('logout');
-Route::get('/dashboard',[AdminController::class,'index'])->middleware('admin');
+
+Route::middleware('admin')->group(function(){
+    Route::post('/logout',[AdminAuth::class,'destroy'])->name('logout');
+Route::get('/dashboard',[AdminController::class,'index']);
+});
+
 
 });
