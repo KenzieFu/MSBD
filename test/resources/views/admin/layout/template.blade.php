@@ -18,11 +18,17 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+        <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+        
+
     <!-- Custom styles for this template-->
     <link href="/css/admin/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css"/>
- 
+  
 
+
+
+ 
+    @vite('resources/css/app.css')
 </head>
 
 <body id="page-top" class="m-0 p-0"> 
@@ -79,7 +85,19 @@
 
 
 
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+    <script >
+        $(".mydatatable").DataTable();
+    </script>
+
+ 
+
    
    <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
@@ -91,19 +109,7 @@
     <!-- Custom scripts for all pages-->
     <script src="/js/admin/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/js/admin/demo/chart-area-demo.js"></script>
-    <script src="/js/admin/demo/chart-pie-demo.js"></script>
-    <script>
-
-        $(document).ready( function () {
-            $('#myTable').DataTable();
-            } );
-    </script>
-   
+ 
 
 </body>
 

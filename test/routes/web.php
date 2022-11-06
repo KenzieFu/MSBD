@@ -59,6 +59,9 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::middleware('admin')->group(function(){
         Route::post('/logout',[AdminAuth::class,'destroy'])->name('logout');
     Route::get('/dashboard',[AdminController::class,'index']);
+    Route::get('/tabel-siswa',[AdminController::class,'userTable']);
+    Route::get('/tabel-guru',[AdminController::class,'teacherTable']);
+    Route::get('/tabel-admin',[AdminController::class,'adminTable']);
     });
     
     
