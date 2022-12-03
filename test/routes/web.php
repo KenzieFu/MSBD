@@ -82,6 +82,10 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::get('/tabel-guru',[AdminViewController::class,'teacherTable'])->name('tGuru'); //Page Menampilan daftar guru
     Route::get('/tabel-admin',[AdminViewController::class,'adminTable'])->name('tAdmin'); //Page Menampilkan daftar Admin
 
+    Route::get('/thnak',[AdminViewController::class,'thnak'])->name('thnak'); //Page Tahun Akademik
+
+    
+
     ////////////////////////////////////////////////////
 
 

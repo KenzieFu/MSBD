@@ -70,14 +70,16 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+                <form method="POST" action="{{ route('admin.logout') }}">
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form method="POST" action="{{ route('admin.logout') }}">
+                    <div class="modal-footer">
+                    <button class="btn btn-secondary bg-red-500 text-white " type="button" data-dismiss="modal">Cancel</button>
+                    
                         @csrf
-                        <button class="btn btn-primary" type="submit">Logout</button>
-                    </form>
+                        <button class="btn btn-primary bg-green-500 text-white" type="submit">Logout</button>
+                    
                 </div>
+            </form>
             </div>
         </div>
     </div>

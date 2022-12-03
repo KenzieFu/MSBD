@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Admin as admin;
+use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
 
 class AdminViewController extends Controller
@@ -37,6 +38,13 @@ class AdminViewController extends Controller
     //fungsi untuk menampilkan page form menambahkan siswa baru
     public function pageAddUser(){
         return view('admin.page.CRUD.createSiswa');
+    }
+
+    //fungsi utk menampilkan page thn akademik
+    public function thnak()
+    {
+        $thnak=TahunAkademik::get();
+        return view('admin.page.thnaka',compact('thnak'));
     }
 
 
