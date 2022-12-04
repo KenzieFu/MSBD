@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string("NIM");
             $table->enum("gender",["L","P","N"])->nullable();
             $table->string("alamat")->nullable();
-            $table->string("Kota Lahir")->nullable();
+            $table->string("Kota_Lahir")->nullable();
             $table->string('name');
-            $table->integer("angkatan");
+            $table->integer("tingkat")->default(7);
+            $table->string("angkatan");
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();

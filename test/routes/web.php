@@ -92,8 +92,8 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     //Pge form mendaftar akun/macam2 user
 
         //Create User
-        Route::get('/create-siswa',[AdminViewController::class,'pageAddUser'])->name('cSiswa');                //tampilan form
-        Route::post('/create-siswa',[AdminCRUDController::class,''])->name('postSiswa');            //Input data 
+        Route::get('/create-siswa',[AdminViewController::class,'pageAddUser'])->name('cvSiswa');                //tampilan form
+        Route::post('/create-siswa',[AdminCRUDController::class,'createSiswa'])->name('cSiswa');            //Input data 
         
         /////////////////////////////////////
 
