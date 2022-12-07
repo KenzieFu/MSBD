@@ -18,7 +18,13 @@ class TahunAkademikSeeder extends Seeder
         TahunAkademik::create([
             "TahunAjaran"=>"2021/2022",
             "kurikulum"=>"K13",
-            "angkatan"=>1,
+            
+            
+        ]);
+        TahunAkademik::create([
+            "TahunAjaran"=>"2021/2022",
+            "kurikulum"=>"K13",
+         
             
         ]);
     }

@@ -26,9 +26,9 @@ return new class extends Migration
 
         //Trigger validasi pengaktifan tahun ajaran
         DB::unprepared('
-            CREATE OR REPLACE TRIGGER validasi_thnAjaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+            CREATE OR REPLACE TRIGGER validasi_thnAjaran AFTER UPDATE ON tahun_akademiks FOR EACH ROW
                 BEGIN
-                CALL validasi_thnAjaran();
+                CALL validasi_statusAkademik();
                 END;
         ');
         //Trigger untuk Validasi insert untuk menentukan angkatan

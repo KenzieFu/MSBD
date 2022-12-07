@@ -43,17 +43,17 @@ return new class extends Migration
 
         ///////////////Procedure
         //procedure untuk cek validasi tahun akademik tidak ada yang bole mengaktifkan dua tahun ajaran sekaligus
-        DB::raw("
-        CREATE OR REPLACE PROCEDURE validasi_thnAjaran()
+        DB::unprepared('
+        CREATE OR REPLACE PROCEDURE validasi_statusAkademik()
         BEGIN
-        DECLARE check INT ;
-        SET check=(SELECT (COUNT(*) as b) FROM tahun_akademiks WHERE ((status='Aktif') || (status='Pendaftaran')));
-        IF(check > 1) THEN
-            SIGNAL SQLSTATE '45000';
-            SET MESSAGE_TEXT='Hanya boleh Mengaktifkan Satu Tahun Ajaran Saja';
-        END IF;
+        DECLARE vcheck INT;
+        SET vcheck:=(SELECT COUNT(*) FROM tahun_akademiks WHERE (status="Aktif") OR (status="Pendaftaran"));
+        	IF vcheck > 1 THEN
+            	SIGNAL SQLSTATE "45000"
+            	SET MESSAGE_TEXT="Hanya boleh Mengaktifkan Satu Tahun Ajaran Saja";
+        	END IF;
         END;
-        ");
+        ');
     }
 
     /**
@@ -63,6 +63,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        
     }
 };

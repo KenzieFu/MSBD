@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("TahunAjaran");
             $table->string("kurikulum");
             $table->string("angkatan");
-            $table->enum("status",["Aktif","Tidak Aktif","Selesai","Pendaftaran"])->default("Aktif");
+            $table->enum("status",["Aktif","Tidak Aktif","Selesai","Pendaftaran"])->default("Tidak Aktif");
             $table->timestamps();
         });
     }
