@@ -38,6 +38,22 @@ return new class extends Migration
             RETURN res;
             END;    
         ');
+
+
+
+        ///////////////Procedure
+        //procedure untuk cek validasi tahun akademik tidak ada yang bole mengaktifkan dua tahun ajaran sekaligus
+        DB::raw("
+        CREATE OR REPLACE PROCEDURE validasi_thnAjaran()
+        BEGIN
+        DECLARE check INT ;
+        SET check=(SELECT (COUNT(*) as b) FROM tahun_akademiks WHERE ((status='Aktif') || (status='Pendaftaran')));
+        IF(check > 1) THEN
+            SIGNAL SQLSTATE '45000';
+            SET MESSAGE_TEXT='Hanya boleh Mengaktifkan Satu Tahun Ajaran Saja';
+        END IF;
+        END;
+        ");
     }
 
     /**

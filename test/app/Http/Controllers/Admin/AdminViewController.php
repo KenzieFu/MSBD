@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Admin as admin;
+use App\Models\Kelas;
 use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
 
@@ -47,6 +48,12 @@ class AdminViewController extends Controller
         return view('admin.page.thnaka',compact('thnak'));
     }
 
+    //Fungi Menampilkan Kelas
+    public function kelas()
+    {
+        $class=Kelas::get();
+        return view ('admin.page.kelas',compact('class'));
+    }
 
 
 }

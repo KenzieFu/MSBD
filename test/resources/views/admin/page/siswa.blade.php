@@ -16,15 +16,24 @@
        <table  class="table table-stripped mydatatable text-[15px]">
         <thead class="bg-green-500">
             <tr class="text-white text-xl font-bold">
-                <td>Id</td>
+                <td>NIS</td>
                 <td>Name</td>
+                <td>Angkatan</td>
+                <td>Status</td>
+                <td>Gender</td>
+                <td>SMP</td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
             @foreach ($users as $user)
             <tr>
-                <td>{{ $user->id }}</td>
+                <td>{{ $user->NIS }}</td>
                 <td>{{ $user->name }}</td>
+                <td>{{ $user->angkatan }}</td>
+                <td>{{ $user->status }}</td>
+                <td>{{ $user->gender}}</td>
+                <td>{{ $user->SMP}}</td>
             </tr>
        
             @endforeach

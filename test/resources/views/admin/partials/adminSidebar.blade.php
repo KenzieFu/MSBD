@@ -39,8 +39,10 @@
                 <a class="collapse-item" href="{{ route('admin.tSiswa') }}">Siswa</a>
                 <a class="collapse-item" href={{ route('admin.tGuru') }}>Guru</a>
                 <a class="collapse-item" href={{ route('admin.tAdmin') }}>Admin</a>
+                <a class="collapse-item" href={{ route('admin.kelas') }}>Daftar Kelas</a>
                 
             </div>
+            
         </div>
     </li>
 

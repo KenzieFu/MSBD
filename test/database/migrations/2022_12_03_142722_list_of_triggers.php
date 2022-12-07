@@ -23,6 +23,21 @@ return new class extends Migration
             SET NEW.password=SHA("NEW.NIM");
             END;
         '); */
+
+        //Trigger validasi pengaktifan tahun ajaran
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER validasi_thnAjaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+                BEGIN
+                CALL validasi_thnAjaran();
+                END;
+        ');
+        //Trigger untuk Validasi insert untuk menentukan angkatan
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER angkatan_thnAka BEFORE INSERT ON tahun_akademiks FOR EACH ROW
+            BEGIN
+            SET NEW.angkatan=(SELECT COUNT(*) as row FROM tahun_akademiks)+1;
+            END;
+        ');
       
     }
 

@@ -25,8 +25,9 @@ class TeacherSeeder extends Seeder
 
       User::create([
         'name'=>"Student",
-        'NIM'=>"0135001",
+        'NIS'=>"0135001",
         'email'=>"student@gmail.com",
+        'gender'=>"L",
         'password'=>Hash::make("0135001"),
         'angkatan'=>1
       ]);

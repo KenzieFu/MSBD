@@ -6,6 +6,7 @@ use Database\Seeders\TeacherSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\TahunAkademikSeeder;
+use Database\Seeders\KelasSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TeacherSeeder::class,
             AdminSeeder::class,
-            TahunAkademikSeeder::class
+            TahunAkademikSeeder::class,
+            KelasSeeder::class
         ]);
     }
 }

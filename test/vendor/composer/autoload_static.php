@@ -551,6 +551,7 @@ class ComposerStaticInit065127bc4d38f22b65ef118c42b97070
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\TeacherLoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/TeacherLoginRequest.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
+        'App\\Models\\Kelas' => __DIR__ . '/../..' . '/app/Models/Kelas.php',
         'App\\Models\\TahunAkademik' => __DIR__ . '/../..' . '/app/Models/TahunAkademik.php',
         'App\\Models\\Teacher' => __DIR__ . '/../..' . '/app/Models/Teacher.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

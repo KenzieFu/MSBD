@@ -3,7 +3,12 @@
 <div class="m-3 flex justify-between">
     <h2 class="font-bold text-3xl">Daftar Tahun Akademik </h2>
     <div class="bg-green-400 flex  justify-center align-center p-2 rounded-lg ">
-        <a href="{{ route('admin.cSiswa') }}" class="text-white text-lg  hover:no-underline hover:text-[18px] hover:opacity-50">Tambah</a>
+
+        <a class="text-white text-lg cursor-pointer  hover:no-underline hover:text-[18px] hover:opacity-50" data-toggle="modal" data-target="#TahunModal">
+             Tambah
+        </a>
+        
+       {{--  <a href="{{ route('admin.cSiswa') }}" class="text-white text-lg  hover:no-underline hover:text-[18px] hover:opacity-50">Tambah</a> --}}
     </div>
 </div>
 <div class="container">
@@ -14,6 +19,7 @@
             <td>TahunAjaran</td>
             <td>Kurikulum</td>
             <td>Status</td>
+        
         </tr>
     </thead>
     <tbody>
@@ -23,10 +29,38 @@
             <td>{{ $row->TahunAjaran }}</td>
             <td>{{ $row->kurikulum }}</td>
             <td>{{ $row->status }}</td>
+            
         </tr>
    
         @endforeach
     </tbody>
    </table>
+</div>
+
+
+ <!--Add Tahun akademik Modal-->
+ <div class="modal fade" id="TahunModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+ aria-hidden="true">
+ <div class="modal-dialog" role="document">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">Tambah Tahun Ajaran</h5>
+             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">×</span>
+             </button>
+         </div>
+         <form method="POST" action="{{ route('admin.cSiswa') }}">
+            @csrf
+         <div class="modal-body">Kurikulum</div>
+             <div class="modal-footer">
+             <button class="btn btn-secondary bg-red-500 text-white " type="button" data-dismiss="modal">Cancel</button>
+             
+                
+                 <button class="btn btn-primary bg-green-500 text-white" type="submit">Logout</button>
+             
+         </div>
+     </form>
+     </div>
+ </div>
 </div>
 @endsection

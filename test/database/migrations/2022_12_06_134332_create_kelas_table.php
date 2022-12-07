@@ -13,16 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tahun_akademiks', function (Blueprint $table) {
+        Schema::create('kelas', function (Blueprint $table) {
             $table->id();
-            $table->string("TahunAjaran");
-            $table->string("kurikulum");
-            $table->string("angkatan");
-            $table->enum("status",["Aktif","Tidak Aktif","Selesai","Pendaftaran"])->default("Aktif");
+            $table->string("nama_kelas");
             $table->timestamps();
         });
     }
-    //Trigger cek klo tahun akademik cuman bole satu yg aktif ,pendaftaran 
 
     /**
      * Reverse the migrations.
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tahun_akademiks');
+        Schema::dropIfExists('kelas');
     }
 };

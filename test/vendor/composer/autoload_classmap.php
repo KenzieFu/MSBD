@@ -38,6 +38,7 @@ return array(
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Http\\Requests\\TeacherLoginRequest' => $baseDir . '/app/Http/Requests/TeacherLoginRequest.php',
     'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
+    'App\\Models\\Kelas' => $baseDir . '/app/Models/Kelas.php',
     'App\\Models\\TahunAkademik' => $baseDir . '/app/Models/TahunAkademik.php',
     'App\\Models\\Teacher' => $baseDir . '/app/Models/Teacher.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
