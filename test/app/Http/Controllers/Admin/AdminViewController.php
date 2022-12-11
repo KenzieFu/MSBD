@@ -9,6 +9,7 @@ use App\Models\Admin as admin;
 use App\Models\Kelas;
 use App\Models\TahunAkademik;
 use Illuminate\Support\Facades\DB;
+use App\Models\Rombel;
 use Illuminate\Http\Request;
 
 
@@ -62,6 +63,22 @@ class AdminViewController extends Controller
     {
         $class=Kelas::get();
         return view ('admin.page.kelas',compact('class'));
+    }
+    //fungsi untuk menampilkan rombel
+    public function rombel()
+    {  
+        $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+        $rombel=null;
+        if(!$active)
+        {
+            $rombel=Rombel::get();
+        }
+        else
+        {
+            $rombel=Rombel::where('id_thnakademik','=',$active->id);
+        }
+       
+        return view ('admin.page.rombel',compact('rombel'));
     }
 
 

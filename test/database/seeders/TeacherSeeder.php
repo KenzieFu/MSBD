@@ -18,7 +18,8 @@ class TeacherSeeder extends Seeder
     public function run()
     {
       Teacher::create([
-        'name'=>"Teacher",
+        "NIG"=>"GZL",
+        'name'=>"Gozali",
         'email'=>"teacher@gmail.com",
         'password'=>Hash::make("12345678")
       ]);

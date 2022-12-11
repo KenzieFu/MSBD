@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             TahunAkademikSeeder::class,
             KelasSeeder::class,
-            StudentSeeder::class
+            StudentSeeder::class,
+            RombelSeeder::class,
         ]);
     }
 }
