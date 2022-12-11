@@ -18,6 +18,7 @@
             <td>Id</td>
             <td>TahunAjaran</td>
             <td>Kurikulum</td>
+            <td>Angkatan</td>
             <td>Status</td>
         
         </tr>
@@ -28,7 +29,19 @@
             <td>{{ $row->id }}</td>
             <td>{{ $row->TahunAjaran }}</td>
             <td>{{ $row->kurikulum }}</td>
-            <td>{{ $row->status }}</td>
+
+            <td>{{ $row->angkatan }}</td>
+            <form method="POST" action="{{ route('admin.uthnak') }}">
+                @csrf
+                <input type="hidden" name="id" value="{{ $row->id }}">
+                <td>
+                @if($row->status =="Aktif")
+            <button class="rounded-lg bg-green-500 text-white p-1" type="submit">{{ $row->status }}</button>     
+                @else
+             <button class="rounded-lg bg-red-500 text-white p-1" type="submit">{{ $row->status }}</button>
+                 @endif
+            </td>   
+            </form>
             
         </tr>
    
@@ -49,18 +62,29 @@
                  <span aria-hidden="true">×</span>
              </button>
          </div>
-         <form method="POST" action="{{ route('admin.cSiswa') }}">
+         <form method="POST" action="{{ route('admin.cthnak') }}">
             @csrf
-         <div class="modal-body">Kurikulum</div>
+         <div class="modal-body flex flex-col gap-3">
+            <div >
+                <label class="mr-[40px]" for="kuri">Kurikulum</label>
+                <input class="rounded-lg "name="kurikulum" type="text" id="kuri">
+            </div>
+            <div >
+                <label for="thn_ajaran">Tahun Ajaran</label>
+                <input class="rounded-lg mx-3" type="text" name="thn_ajaran" id="thn_ajaran">
+            </div>
+         </div>
              <div class="modal-footer">
              <button class="btn btn-secondary bg-red-500 text-white " type="button" data-dismiss="modal">Cancel</button>
              
                 
-                 <button class="btn btn-primary bg-green-500 text-white" type="submit">Logout</button>
+                 <button class="btn btn-primary bg-green-500 text-white" type="submit">Submit</button>
              
          </div>
      </form>
      </div>
  </div>
 </div>
+
+
 @endsection

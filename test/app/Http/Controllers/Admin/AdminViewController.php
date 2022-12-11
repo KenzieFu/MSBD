@@ -8,7 +8,9 @@ use App\Models\User;
 use App\Models\Admin as admin;
 use App\Models\Kelas;
 use App\Models\TahunAkademik;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 
 class AdminViewController extends Controller
 {
@@ -38,7 +40,14 @@ class AdminViewController extends Controller
 
     //fungsi untuk menampilkan page form menambahkan siswa baru
     public function pageAddUser(){
-        return view('admin.page.CRUD.createSiswa');
+        $daftarkelas=Kelas::get();
+      
+        $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+        if(!$active)
+        {
+            return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
+        }
+        return view('admin.page.CRUD.createSiswa',compact('daftarkelas'));
     }
 
     //fungsi utk menampilkan page thn akademik

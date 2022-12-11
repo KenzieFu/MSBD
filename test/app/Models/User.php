@@ -12,6 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    
   
 
     /**
@@ -31,6 +32,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
+
     /**
      * The attributes that should be cast.
      *
@@ -41,4 +44,11 @@ class User extends Authenticatable
     ];
 
     protected $table="students";
+
+    public function class()
+    {
+       return $this->belongsTo(Kelas::class,'id_kelas');
+    }
+
+    protected $primaryKey='NIS';
 }

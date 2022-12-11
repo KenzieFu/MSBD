@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\TahunAkademikSeeder;
 use Database\Seeders\KelasSeeder;
+use Database\Seeders\StudentSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +22,8 @@ class DatabaseSeeder extends Seeder
             TeacherSeeder::class,
             AdminSeeder::class,
             TahunAkademikSeeder::class,
-            KelasSeeder::class
+            KelasSeeder::class,
+            StudentSeeder::class
         ]);
     }
 }

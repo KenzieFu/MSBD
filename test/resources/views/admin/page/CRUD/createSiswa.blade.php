@@ -10,19 +10,28 @@
             @csrf
         <div class="flex flex-col gap-3 items-center ">
             
-        <input class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="email"    type="email" placeholder="Email">
+        <input required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="email"    type="email" placeholder="Email">
     
-        <input class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="name"    type="text" placeholder="Nama" >
+        <input required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="name"    type="text" placeholder="Nama" >
         
-        <input class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="Kota_Lahir"    type="text" placeholder="Kota Kelahiran" >
+        <input required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="Kota_Lahir"    type="text" placeholder="Kota Kelahiran" >
         
-        <textarea class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="alamat" cols="30" rows="2" placeholder="Alamat"></textarea>
+        <textarea required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="alamat" cols="30" rows="2" placeholder="Alamat"></textarea>
 
         <div class="flex  justify-around gap-5  -ml-[220px] items-end left-0">
             <label class="flex items-center   text-white" for="gender">Gender</label>
-            <select class=" h-10 " name="gender" id="gender">
+            <select required class=" h-10 " name="gender" id="gender">
                 <option value="L">L</option>
                 <option value="P">P</option>
+            </select>
+
+        </div>
+        <div class="flex  justify-around gap-5  -ml-[220px] items-end left-0">
+            <label class="flex items-center   text-white  ml-4" for="gender">Kelas</label>
+            <select required class=" h-10  " name="kelas" id="Kelas">
+                @foreach ($daftarkelas as $kelas)
+                <option value={{ $kelas->id }}>{{ $kelas->nama_kelas }}</option>
+                @endforeach
             </select>
 
         </div>

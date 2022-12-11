@@ -23,5 +23,9 @@ class KelasSeeder extends Seeder
             
             'nama_kelas'=>"Bangka"
           ]);
+        Kelas::create([
+            
+            'nama_kelas'=>"Puas"
+          ]);
     }
 }

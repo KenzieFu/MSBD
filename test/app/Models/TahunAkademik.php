@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class TahunAkademik extends Model
 {
+    protected $guarded = [null];
     use HasFactory;
 }

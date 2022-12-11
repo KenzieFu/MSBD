@@ -22,14 +22,9 @@ class TeacherSeeder extends Seeder
         'email'=>"teacher@gmail.com",
         'password'=>Hash::make("12345678")
       ]);
+      
+      
 
-      User::create([
-        'name'=>"Student",
-        'NIS'=>"0135001",
-        'email'=>"student@gmail.com",
-        'gender'=>"L",
-        'password'=>Hash::make("0135001"),
-        'angkatan'=>1
-      ]);
+     
     }
 }

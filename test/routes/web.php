@@ -20,9 +20,7 @@ use App\Http\Controllers\Teacher\TeacherController;
 
 
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+
 
 Route::get('/',function()
 {
@@ -97,6 +95,9 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         Route::post('/create-siswa',[AdminCRUDController::class,'createSiswa'])->name('cSiswa');            //Input data 
         
         /////////////////////////////////////
+        //Tahn Akademik
+        Route::post('/create-thnak',[AdminCRUDController::class,'createthnak'])->name('cthnak'); //menginsert data ke table tahun_akademiks
+        Route::post('/update-thnak',[AdminCRUDController::class,'updateStatusThnak'])->name('uthnak'); //update status thn akademik
 
     });
 

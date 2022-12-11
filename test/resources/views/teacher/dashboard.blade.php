@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    
+    {{ auth()->guard('teacher')->user()->name }}
 </body>
 </html>

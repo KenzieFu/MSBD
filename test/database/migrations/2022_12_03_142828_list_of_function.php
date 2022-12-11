@@ -22,9 +22,8 @@ return new class extends Migration
             BEGIN
             DECLARE res VARCHAR(7);
             DECLARE kode_sekolah VARCHAR(2);
-            SET angkatan =(SELECT LPAD(angkatan,2,0));
             SET kode_sekolah="35";
-            SET res=(CONCAT(angkatan,kode_sekolah,no_urut));
+            SET res=(SELECT LPAD((CONCAT(angkatan,kode_sekolah,no_urut)),7,0));
             return res;
             END;
         ');
