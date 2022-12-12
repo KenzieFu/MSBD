@@ -25,6 +25,7 @@ class AdminViewController extends Controller
     //Fungsi page menampilkan daftar siswa
     public function userTable(){
         $users=User::get();
+        
         return view('admin.page.siswa',compact('users'));
     }
 

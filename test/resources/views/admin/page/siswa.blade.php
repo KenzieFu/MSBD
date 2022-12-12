@@ -11,7 +11,7 @@
    <div class="container">
        <table  class="table table-stripped mydatatable text-[15px]">
         <thead class="bg-green-500">
-            <tr class="text-white text-xl font-bold">
+            <tr class="text-white text-sm font-bold">
                 <td>NIS</td>
                 <td>Name</td>
                 <td>Kelas</td>
@@ -25,7 +25,8 @@
         <tbody>
             @foreach ($users as $user)
             <tr>
-                <td>{{ $user->NIS }}</td>
+            
+                <td>{{ sprintf('%07s',$user->NIS ) }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->class->nama_kelas }}</td>
               
