@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Rombel;
 
 use Illuminate\Support\Facades\DB;
 
@@ -70,6 +71,7 @@ class AdminCRUDController extends Controller
 
      public function updateStatusThnak(Request $request)
      {
+
         $thn=TahunAkademik::find($request->id);
         if($thn->status =="Aktif")
         {
@@ -80,5 +82,25 @@ class AdminCRUDController extends Controller
        
         $thn->save();
             return redirect('/admin/thnak') ->with('success',"Status Berhasil Di update");
+     }
+
+     public function TambahRombel(Request $request)
+     {
+        $thn=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+        
+        $check=DB::table('rombels')->where('id_thnakademik','=',$thn->id)->where('SMP','=',$request->SMP)->where('id_kelas','=',$request->kelas)->first();
+
+        if($check)
+        {
+            return redirect('/admin/create-rombel') ->with('success',"Rombel Sudah Terdaftar");
+        }
+      
+        Rombel::create([
+            'id_thnakademik'=>$thn->id,
+            'id_wali'=>$request->wali??null,
+            'id_kelas'=>$request->kelas,
+            'SMP'=>$request->SMP
+        ]);
+        return redirect('/admin/create-rombel') ->with('success',"Rombel Berhasil Dibuat");
      }
 }

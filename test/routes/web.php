@@ -100,6 +100,10 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         Route::post('/create-thnak',[AdminCRUDController::class,'createthnak'])->name('cthnak'); //menginsert data ke table tahun_akademiks
         Route::post('/update-thnak',[AdminCRUDController::class,'updateStatusThnak'])->name('uthnak'); //update status thn akademik
 
+        //Create Rombel
+        Route::get('/create-rombel',[AdminViewController::class,'pageAddRombel'])->name('cvRombel');  
+        Route::post('/create-rombel',[AdminCRUDController::class,'TambahRombel'])->name('cRombel');  
+
     });
 
     

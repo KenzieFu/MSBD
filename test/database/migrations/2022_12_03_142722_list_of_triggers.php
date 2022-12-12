@@ -38,6 +38,16 @@ return new class extends Migration
             SET NEW.angkatan=(SELECT COUNT(*) as row FROM tahun_akademiks)+1;
             END;
         ');
+
+        //Trigger Menginsert siswa ke kelas masing2
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER atur_kelas AFTER INSERT ON rombels FOR EACH ROW
+            BEGIN
+            
+             INSERT INTO rombel_siswas (id_rombel,id_siswa,created_at,updated_at)
+              SELECT NEW.id, NIS,now(),now() FROM students s WHERE s.SMP=NEW.SMP AND s.id_kelas=NEW.id_kelas AND s.status="Aktif";
+            END;
+        ');
       
     }
 

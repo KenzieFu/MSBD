@@ -4,7 +4,7 @@
 <div class="m-3 flex justify-between">
     <h2 class="font-bold text-3xl">Daftar Siswa </h2>
     <div class="bg-green-400 flex  justify-center align-center p-2 rounded-lg ">
-        <a href="{{ route('admin.cSiswa') }}" class="text-white text-lg  hover:no-underline hover:text-[18px] hover:opacity-50">Tambah Rombel</a>
+        <a href="{{ route('admin.cvRombel') }}" class="text-white text-lg  hover:no-underline hover:text-[18px] hover:opacity-50">Tambah Rombel</a>
     </div>
 </div>
 
@@ -26,13 +26,15 @@
                     <td>{{ $r->id }}</td>
                     <td>{{ $r->kelas->nama_kelas }}</td>
                     <td>{{ $r->SMP}}</td>
-                    <td>{{ $r->wali->name}}</td>
+                    <td>{{ $r->wali->NIG??"Pending"}}</td>
                     <td>{{ $r->tahun->TahunAjaran}}</td>
                 </tr>
             @endforeach
         </tbody>
        </table>
     </div>
+
+    
   
 
 @endsection

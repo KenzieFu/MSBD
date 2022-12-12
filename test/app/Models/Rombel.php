@@ -8,6 +8,7 @@ use App\Models\Teacher;
 
 class Rombel extends Model
 {
+    protected $guarded = [null];
     use HasFactory;
 
     public function wali()
@@ -24,5 +25,6 @@ class Rombel extends Model
         return $this->belongsTo(TahunAkademik::class,'id_thnakademik');
     }
 
+    
 
 }

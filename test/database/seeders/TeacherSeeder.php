@@ -23,6 +23,12 @@ class TeacherSeeder extends Seeder
         'email'=>"teacher@gmail.com",
         'password'=>Hash::make("12345678")
       ]);
+      Teacher::create([
+        "NIG"=>"TBS",
+        'name'=>"Tobias",
+        'email'=>"tob@gmail.com",
+        'password'=>Hash::make("12345678")
+      ]);
       
       
 

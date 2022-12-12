@@ -11,7 +11,7 @@
         <tbody>
             @foreach ($teachers as $t)
             <tr>
-                <td>{{ $t->id }}</td>
+                <td>{{ $t->NIG}}</td>
                 <td>{{ $t->name }}</td>
             </tr>
             @endforeach

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 class AdminViewController extends Controller
 {
+   
     public function index()
     {
         return view('admin.page.dashboard');
@@ -51,6 +52,31 @@ class AdminViewController extends Controller
         return view('admin.page.CRUD.createSiswa',compact('daftarkelas'));
     }
 
+
+
+
+
+    //fungsi untuk menampilkan page form menambahkan Rombel baru
+    public function pageAddRombel(){
+        $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+        $daftarkelas=Kelas::get();
+        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.id)'));
+     
+        
+        $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+        if(!$active)
+        {
+            return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
+        }
+        return view('admin.page.CRUD.createRombel',compact('daftarkelas','wali'));
+    }
+
+
+
+
+
+
+
     //fungsi utk menampilkan page thn akademik
     public function thnak()
     {
@@ -75,7 +101,7 @@ class AdminViewController extends Controller
         }
         else
         {
-            $rombel=Rombel::where('id_thnakademik','=',$active->id);
+            $rombel=Rombel::where("id_thnakademik",$active->id)->get();
         }
        
         return view ('admin.page.rombel',compact('rombel'));
