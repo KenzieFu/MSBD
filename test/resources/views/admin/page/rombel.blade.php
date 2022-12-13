@@ -17,6 +17,8 @@
                 <td>SMP</td>
                 <td>Wali Kelas</td>
                 <td>Tahun Ajaran</td>
+                <td>Jumlah Murid</td>
+                <td>Details</td>
             </tr>
         </thead>
         <tbody>
@@ -24,10 +26,16 @@
             @foreach ($rombel as $r)
                 <tr>
                     <td>{{ $r->id }}</td>
-                    <td>{{ $r->kelas->nama_kelas }}</td>
+                    <td>{{ $r->nama_kelas }}</td>
                     <td>{{ $r->SMP}}</td>
-                    <td>{{ $r->wali->NIG??"Pending"}}</td>
-                    <td>{{ $r->tahun->TahunAjaran}}</td>
+                    <td>{{ $r->NIG??"Pending"}}</td>
+                    <td>{{ $r->TahunAjaran}}</td>
+                    <td>{{ $r->jumlah}}</td> 
+                    <td class="flex">
+                        <button class="rounded-lg bg-green-500 text-white p-1" type="submit">Details</button>
+                        <button class="rounded-lg bg-green-500 text-white p-1" type="submit">Details</button>
+                        <button class="rounded-lg bg-green-500 text-white p-1" type="submit">Details</button>
+                    </td> 
                 </tr>
             @endforeach
         </tbody>

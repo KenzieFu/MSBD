@@ -15,14 +15,20 @@ return new class extends Migration
      */
     public function up()
     {
-       /* 
+        //Trigger setelah daftar siswa ,masukkan siswa ke kelas yang tersedia jika ada
         DB::unprepared('
-        CREATE OR REPLACE Trigger add_students  BEFORE INSERT ON students FOR EACH ROW 
+        CREATE OR REPLACE TRIGGER masuk_kelas AFTER INSERT ON students FOR EACH ROW
             BEGIN
-            SET NEW.NIM = (SELECT generate_nim(NEW.angkatan,no_urut(NEW.angkatan)));
-            SET NEW.password=SHA("NEW.NIM");
+            DECLARE res INT;
+            SET res=(SELECT COUNT(*) FROM rombels r WHERE  (r.id_kelas=NEW.id_kelas) AND (r.SMP=NEW.SMP) AND (r.id_thnakademik=(SELECT th.id FROM tahun_akademiks th WHERE th.status="Aktif" LIMIT 1 )));
+                IF res =1 THEN
+                INSERT INTO rombel_siswas (id_rombel,id_siswa,created_at,updated_at)
+                SELECT r.id ,NEW.NIS,now(),now() FROM rombels r WHERE  (r.id_kelas=NEW.id_kelas) AND (r.SMP=NEW.SMP) AND (r.id_thnakademik=(SELECT th.id FROM tahun_akademiks th WHERE th.status="Aktif" LIMIT 1 ));
+                
+                END IF;
             END;
-        '); */
+        ');
+      
 
         //Trigger validasi pengaktifan tahun ajaran
         DB::unprepared('

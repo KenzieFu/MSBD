@@ -20,8 +20,8 @@ return new class extends Migration
             $table->enum("SMP",[1,2,3]);
             $table->bigInteger('id_thnakademik')->unsigned();
             $table->foreign('id_thnakademik')->references('id')->on('tahun_akademiks');
-            $table->bigInteger('id_wali')->unsigned()->nullable();
-            $table->foreign('id_wali')->references('id')->on('teachers');
+            $table->string('id_wali')->nullable();
+            $table->foreign('id_wali')->references('NIG')->on('teachers');
             $table->timestamps();
         });
     }

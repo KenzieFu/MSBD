@@ -15,7 +15,7 @@
                 <td>NIS</td>
                 <td>Name</td>
                 <td>Kelas</td>
-            
+                <td>Tahun Masuk</td>
                 <td>Status</td>
                 <td>Gender</td>
                 <td>SMP</td>
@@ -26,9 +26,11 @@
             @foreach ($users as $user)
             <tr>
             
-                <td>{{ sprintf('%07s',$user->NIS ) }}</td>
+               
+                <td>{{ $user->NIS  }}</td>
                 <td>{{ $user->name }}</td>
-                <td>{{ $user->class->nama_kelas }}</td>
+                <td>{{ $user->nama_kelas }}</td>
+                <td>{{ $user->TahunAjaran }}</td>
               
                 <td>{{ $user->status }}</td>
                 <td>{{ $user->gender}}</td>

@@ -24,27 +24,27 @@ class AdminViewController extends Controller
 
     //Fungsi page menampilkan daftar siswa
     public function userTable(){
-        $users=User::get();
+        $users=DB::select('SELECT * FROM data_siswa');
         
         return view('admin.page.siswa',compact('users'));
     }
 
     //fungsi untuk menampilkan page daftar guru
     public function teacherTable(){
-        $teachers=Teacher::get();
+        $teachers=DB::select('SELECT * FROM teachers');
         return view('admin.page.guru',compact('teachers'));
     }
 
     //funsgi untuk menampilkan page daftar admin
     public function adminTable(){
-        $admins=admin::get();
+        $admins=DB::select('SELECT * FROM admins');
         return view('admin.page.admin',compact('admins'));
     }
 
     //fungsi untuk menampilkan page form menambahkan siswa baru
     public function pageAddUser(){
         $daftarkelas=Kelas::get();
-      
+  
         $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
         if(!$active)
         {
@@ -60,15 +60,16 @@ class AdminViewController extends Controller
     //fungsi untuk menampilkan page form menambahkan Rombel baru
     public function pageAddRombel(){
         $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
-        $daftarkelas=Kelas::get();
-        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.id)'));
-     
-        
-        $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
         if(!$active)
         {
             return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
         }
+        $daftarkelas=Kelas::get();
+        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.NIG)'));
+     
+        
+     
+        
         return view('admin.page.CRUD.createRombel',compact('daftarkelas','wali'));
     }
 
@@ -96,13 +97,14 @@ class AdminViewController extends Controller
     {  
         $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
         $rombel=null;
+      
         if(!$active)
         {
-            $rombel=Rombel::get();
+            $rombel=DB::select('SELECT * FROM data_rombel');
         }
         else
         {
-            $rombel=Rombel::where("id_thnakademik",$active->id)->get();
+            $rombel=DB::select('SELECT * FROM data_rombel_thn');
         }
        
         return view ('admin.page.rombel',compact('rombel'));

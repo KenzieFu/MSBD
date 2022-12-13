@@ -23,7 +23,7 @@
                 
                 
                 @foreach($wali as $w)
-                <option value={{ $w->id }}>{{ $w->name }}</option>
+                <option value={{ $w->NIG }}>{{ $w->name }}</option>
                 @endforeach
             </select>
             @endif
