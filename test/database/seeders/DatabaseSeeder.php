@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,
             StudentSeeder::class,
             RombelSeeder::class,
+            MapelSeeder::class
         ]);
     }
 }

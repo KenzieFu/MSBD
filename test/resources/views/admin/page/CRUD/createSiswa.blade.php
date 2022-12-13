@@ -11,6 +11,8 @@
         <div class="flex flex-col gap-3 items-center ">
             
         <input required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="email"    type="email" placeholder="Email">
+
+        
     
         <input required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="name"    type="text" placeholder="Nama" >
         

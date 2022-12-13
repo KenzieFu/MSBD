@@ -111,4 +111,25 @@ class AdminViewController extends Controller
     }
 
 
+    public function detailsrombel(Request $request)
+    {
+       
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+        $daftar_siswa=DB::select('SELECT * FROM data_rombel_siswa WHERE id_rombel= ?',array($request->id_rombel));
+       
+        return view('admin.page.detailrombel',compact('rombel','daftar_siswa'));
+    }
+
+    public function mapel()
+    {
+        $mapel=DB::select('SELECT * FROM mapels ');
+        return view('admin.page.mapel',compact('mapel'));   
+    }
+
+
 }

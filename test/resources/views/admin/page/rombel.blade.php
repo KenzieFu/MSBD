@@ -31,10 +31,13 @@
                     <td>{{ $r->NIG??"Pending"}}</td>
                     <td>{{ $r->TahunAjaran}}</td>
                     <td>{{ $r->jumlah}}</td> 
-                    <td class="flex">
+                    <td class="flex gap-x-3">
+                        <form action={{ route('admin.detailsrombel') }}>
+                            <input type="hidden" value="{{ $r->id }} " name="id_rombel">
                         <button class="rounded-lg bg-green-500 text-white p-1" type="submit">Details</button>
-                        <button class="rounded-lg bg-green-500 text-white p-1" type="submit">Details</button>
-                        <button class="rounded-lg bg-green-500 text-white p-1" type="submit">Details</button>
+                         </form>
+                        <button class="rounded-lg bg-red-500 text-white p-1" type="submit">Delete</button>
+                        
                     </td> 
                 </tr>
             @endforeach

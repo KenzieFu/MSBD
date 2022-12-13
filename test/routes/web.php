@@ -82,7 +82,11 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
     Route::get('/thnak',[AdminViewController::class,'thnak'])->name('thnak'); //Page Tahun Akademik
     Route::get('/kelas',[AdminViewController::class,'kelas'])->name('kelas'); //Page daftar kelas
-    Route::get('/rombel',[AdminViewController::class,'rombel'])->name('rombel'); //Page daftar kelas
+    Route::get('/rombel',[AdminViewController::class,'rombel'])->name('rombel'); //Page daftar rombel
+    Route::get('/mapel',[AdminViewController::class,'mapel'])->name('mapel'); //Page daftar mapel
+
+    Route::get('/details-rombel',[AdminViewController::class,'detailsrombel'])->name('detailsrombel'); //Page details rombel
+   
 
     
 
@@ -106,6 +110,7 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
     });
 
+    
     
     
 });
