@@ -86,7 +86,7 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::get('/mapel',[AdminViewController::class,'mapel'])->name('mapel'); //Page daftar mapel
     Route::get('/roster',[AdminViewController::class,'daftarRoster'])->name('vroster'); //Page daftar mapel
 
-    Route::get('/details-rombel',[AdminViewController::class,'detailsrombel'])->name('detailsrombel'); //Page details rombel
+    Route::post('/details-rombel',[AdminViewController::class,'detailsrombel'])->name('detailsrombel'); //Page details rombel
    
 
     

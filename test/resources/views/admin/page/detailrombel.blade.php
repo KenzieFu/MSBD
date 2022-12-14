@@ -11,15 +11,18 @@
     </div>
    
     <div class="flex gap-x-3 ">
+        <form method="POST" action={{ route('admin.detailsrombel') }}>
+            @csrf
+            <input type="hidden" name="id_rombel" value="{{ $rombel->id }}">
+    <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Daftar Siswa  
+    </button>
+        </form>
         <form action="">
     <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Jadwal Mapel  
     </button>
-        <form method="POST" action={{ route('detailsrombel') }}>
-            <input type="hidden" name="id_rombel" value="{{ $rombel }}">
-    <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Daftar Siswa  
-    </button>
+        
         </form>
     <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Rekap Nilai  
