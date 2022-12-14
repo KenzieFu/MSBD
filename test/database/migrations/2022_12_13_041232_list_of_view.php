@@ -27,7 +27,7 @@ return new class extends Migration
         DB::unprepared('CREATE OR REPLACE VIEW data_rombel_siswa AS SELECT rs.id_rombel ,s.name ,rs.id_siswa as NIS FROM rombel_siswas rs INNER JOIN students s ON s.NIS=rs.id_siswa ');
 
         //Menampilkan Roster kelas
-        DB::unprepared('CREATE OR REPLACE VIEW roster_kelas AS SELECT rr.sesi1 ,rr.id_rombel, rr.sesi2 ,m.mapel, rr.Hari, t.name  FROM roster_rombels rr INNER JOIN teachers t ON t.NIG=rr.id_guru INNER JOIN mapels m ON m.id=rr.id_mapel');
+        /* DB::unprepared('CREATE OR REPLACE VIEW roster_kelas AS SELECT rr.sesi1 ,rr.id_rombel, rr.sesi2 ,m.mapel, rr.Hari, t.name  FROM roster_rombels rr INNER JOIN teachers t ON t.NIG=rr.id_guru INNER JOIN mapels m ON m.id=rr.id_mapel'); */
         
     }
 
