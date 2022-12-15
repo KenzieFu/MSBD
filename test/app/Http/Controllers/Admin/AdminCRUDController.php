@@ -7,7 +7,7 @@ use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Rombel;
-
+use App\Models\roster_rombel;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +20,7 @@ class AdminCRUDController extends Controller
        
     
         $nis=collect(DB::select('SELECT generate_nim('.$angkatan->angkatan.',no_urut('.$angkatan->angkatan.')) as res'))->first();
+       
             $request->validate([
                 'name' => 'required|string|max:255',
                
@@ -102,5 +103,29 @@ class AdminCRUDController extends Controller
             'SMP'=>$request->SMP
         ]);
         return redirect('/admin/create-rombel') ->with('success',"Rombel Berhasil Dibuat");
+     }
+
+     public function TambahJadwal(Request $request)
+     {
+       
+        
+        $check=collect(DB::select('SELECT validasi_roster('.$request->id_rombel.',"'.$request->sesi1.'","'.$request->sesi2.'","'.$request->hari.'") as res'))->first();
+        
+        if($check->res  >0)
+        {
+            return redirect()->route('admin.cvJadwal',$request->id_rombel)->with('success','Jadwal Kelas Tidak Bisa Dibuat Akibat Waktu Bentrok dengan Jadwal Lain Pada Hari tersebut');
+        }
+
+        roster_rombel::create([
+            "id_rombel"=>$request->id_rombel,
+            "id_mapel"=>$request->id_mapel,
+            "Hari"=>$request->hari,
+            'id_guru'=>$request->id_guru,
+            'sesi1'=>$request->sesi1,
+            'sesi2'=>$request->sesi2,
+        ]);
+        
+        return redirect()->route('admin.vroster',$request->id_rombel)->with('success','Jadwal Kelas Berhasil Ditambahkan');
+        
      }
 }

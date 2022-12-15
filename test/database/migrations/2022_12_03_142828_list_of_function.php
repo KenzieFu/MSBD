@@ -62,6 +62,25 @@ return new class extends Migration
             END;
         ');
 
+        //Procedure utk menemukan jadwal apakah jadwal bentrok/tidak
+        DB::unprepared('
+            CREATE OR REPLACE FUNCTION validasi_roster(id_rombel INT,new_sesi1 time,new_sesi2 time, hari VARCHAR(10)) RETURNS INT
+                BEGIN
+                 
+              RETURN (SELECT COUNT(*) FROM roster_rombels rr 
+        WHERE 
+        (
+            CASE WHEN rr.sesi1 > new_sesi1 THEN TIMEDIFF(rr.sesi1,new_sesi1) ELSE TIMEDIFF(new_sesi1,rr.sesi1) END <"00:40:00" OR 
+            CASE WHEN rr.sesi2 > new_sesi2 THEN TIMEDIFF(rr.sesi2,new_sesi2)ELSE TIMEDIFF(new_sesi2,rr.sesi2) END <"00:40:00" OR
+            CASE WHEN rr.sesi1 > new_sesi2 THEN TIMEDIFF(rr.sesi1,new_sesi2)ELSE TIMEDIFF(new_sesi2,rr.sesi1) END <"00:40:00" OR
+            CASE WHEN rr.sesi2 > new_sesi1 THEN TIMEDIFF(rr.sesi2,new_sesi1)ELSE TIMEDIFF(new_sesi1,rr.sesi2) END <"00:40:00" OR
+            CASE WHEN new_sesi1 > new_sesi2 THEN TIMEDIFF(new_sesi1,new_sesi2)ELSE TIMEDIFF(new_sesi2,new_sesi1) END <"00:40:00"
+        )
+        AND
+        (rr.id_rombel=id_rombel) AND (rr.Hari=hari));
+                END;
+        ');
+
         
 
        

@@ -23,11 +23,11 @@ return new class extends Migration
         //Menampilkan semua data rombel  VIEW #3
         DB::unprepared('CREATE OR REPLACE VIEW data_rombel AS SELECT r.id ,r.SMP ,k.nama_kelas, t.NIG, th.TahunAjaran, jumlah_siswa_kelas(r.id,r.id_thnakademik) as jumlah FROM rombels r INNER JOIN kelas k ON k.id=r.id_kelas INNER JOIN teachers t ON t.NIG=r.id_wali INNER JOIN tahun_akademiks th ON th.id=r.id_thnakademik');
 
-        //menampilkan daftar siswa di kelas/rombel 
+        //menampilkan daftar siswa di kelas/rombel  VIEW #4
         DB::unprepared('CREATE OR REPLACE VIEW data_rombel_siswa AS SELECT rs.id_rombel ,s.name ,rs.id_siswa as NIS FROM rombel_siswas rs INNER JOIN students s ON s.NIS=rs.id_siswa ');
 
-        //Menampilkan Roster kelas
-        /* DB::unprepared('CREATE OR REPLACE VIEW roster_kelas AS SELECT rr.sesi1 ,rr.id_rombel, rr.sesi2 ,m.mapel, rr.Hari, t.name  FROM roster_rombels rr INNER JOIN teachers t ON t.NIG=rr.id_guru INNER JOIN mapels m ON m.id=rr.id_mapel'); */
+        //Menampilkan Roster kelas View #5
+        DB::unprepared('CREATE OR REPLACE VIEW roster_kelas AS SELECT rr.sesi1 ,rr.id_rombel, rr.sesi2 ,m.mapel, rr.id ,rr.Hari, t.name as nama_wali   FROM roster_rombels rr INNER JOIN teachers t ON t.NIG=rr.id_guru INNER JOIN mapels m ON m.id=rr.id_mapel');
         
     }
 

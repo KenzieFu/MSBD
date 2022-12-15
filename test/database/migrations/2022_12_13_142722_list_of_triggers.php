@@ -54,6 +54,20 @@ return new class extends Migration
               SELECT NEW.id, NIS,now(),now() FROM students s WHERE s.SMP=NEW.SMP AND s.id_kelas=NEW.id_kelas AND s.status="Aktif";
             END;
         ');
+
+        //Trigger validasi roster kelas jika terjadi bentrok jam pada hari yang bersamaan Pake fungsi timediff
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER  validasi_roster BEFORE INSERT ON roster_rombels FOR EACH ROW
+        BEGIN
+        DECLARE vcheck INT;
+        SET vcheck =( validasi_roster(NEW.id_rombel,NEW.sesi1,NEW.sesi2,NEW.Hari));
+        IF vcheck > 0 THEN
+            SIGNAL SQLSTATE "45000"
+            SET MESSAGE_TEXT="Jadwal Bentrok";
+        END IF;
+
+        END;
+        ');
       
     }
 

@@ -128,8 +128,34 @@ class AdminViewController extends Controller
 
     public function mapel()
     {
-        $mapel=DB::select('SELECT * FROM mapels ');
+       
+                $mapel=DB::select('SELECT * FROM mapels ');
         return view('admin.page.mapel',compact('mapel'));   
+    }
+    public function jadwal_kelas(Request $request)
+    {
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+        $roster=DB::select('SELECT * FROM roster_kelas WHERE id_rombel=? ',array($request->id_rombel));
+        return view('admin.page.mapelkelas',compact('roster','rombel'));
+    }
+
+    public function pageAddJadwal(Request $request)
+    { 
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+        $mapel=DB::select('SELECT * FROM mapels ');
+        $teacher=DB::select('SELECT * FROM teachers ');
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+        
+        return view('admin.page.CRUD.createJadwal',compact('rombel','mapel','teacher'));
     }
 
 

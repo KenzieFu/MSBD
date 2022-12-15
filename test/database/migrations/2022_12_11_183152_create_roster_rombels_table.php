@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('id_rombel')->unsigned();
             $table->foreign('id_rombel')->references('id')->on('rombels');
             $table->time('sesi1')->nullable();
+            
             $table->time('sesi2')->nullable();
             $table->bigInteger('id_mapel')->unsigned();
             $table->foreign('id_mapel')->references('id')->on('mapels');

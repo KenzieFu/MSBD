@@ -84,9 +84,9 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::get('/kelas',[AdminViewController::class,'kelas'])->name('kelas'); //Page daftar kelas
     Route::get('/rombel',[AdminViewController::class,'rombel'])->name('rombel'); //Page daftar rombel
     Route::get('/mapel',[AdminViewController::class,'mapel'])->name('mapel'); //Page daftar mapel
-    Route::get('/roster',[AdminViewController::class,'daftarRoster'])->name('vroster'); //Page daftar mapel
+    Route::get('/roster/{id_rombel}',[AdminViewController::class,'jadwal_kelas'])->name('vroster'); //Page jadwal_mapel
 
-    Route::post('/details-rombel',[AdminViewController::class,'detailsrombel'])->name('detailsrombel'); //Page details rombel
+    Route::get('/details-rombel/{id_rombel}',[AdminViewController::class,'detailsrombel'])->name('detailsrombel'); //Page details rombel
    
 
     
@@ -108,6 +108,9 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         //Create Rombel
         Route::get('/create-rombel',[AdminViewController::class,'pageAddRombel'])->name('cvRombel');  
         Route::post('/create-rombel',[AdminCRUDController::class,'TambahRombel'])->name('cRombel');  
+        //Create Jadwal
+        Route::get('/create-page-jadwal/{id_rombel}',[AdminViewController::class,'pageAddJadwal'])->name('cvJadwal');
+        Route::post('/create-jadwal',[AdminCRUDController::class,'TambahJadwal'])->name('cJadwal');
 
     });
 
