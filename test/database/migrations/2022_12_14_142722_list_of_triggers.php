@@ -68,6 +68,15 @@ return new class extends Migration
 
         END;
         ');
+
+        //trigger untuk membuat nilai tiap mapel seorang siswa di kelas tersebut 
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER nilaimapelsiswa AFTER INSERT ON rombel_siswas FOR EACH ROW
+        BEGIN
+            INSERT INTO nilai_siswas (id_rsiswa,id_mapel,created_at,updated_at)
+            SELECT NEW.id, id,now(),now() FROM mapels ;
+        END;
+        ');
       
     }
 

@@ -20,12 +20,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             TeacherSeeder::class,
+            MapelSeeder::class,
             AdminSeeder::class,
             TahunAkademikSeeder::class,
             KelasSeeder::class,
             StudentSeeder::class,
             RombelSeeder::class,
-            MapelSeeder::class
+            
         ]);
     }
 }

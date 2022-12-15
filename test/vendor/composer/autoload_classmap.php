@@ -40,6 +40,7 @@ return array(
     'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
     'App\\Models\\Kelas' => $baseDir . '/app/Models/Kelas.php',
     'App\\Models\\Mapel' => $baseDir . '/app/Models/Mapel.php',
+    'App\\Models\\NilaiSiswa' => $baseDir . '/app/Models/NilaiSiswa.php',
     'App\\Models\\Rombel' => $baseDir . '/app/Models/Rombel.php',
     'App\\Models\\RombelSiswa' => $baseDir . '/app/Models/RombelSiswa.php',
     'App\\Models\\TahunAkademik' => $baseDir . '/app/Models/TahunAkademik.php',
