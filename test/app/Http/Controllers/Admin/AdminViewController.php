@@ -158,5 +158,35 @@ class AdminViewController extends Controller
         return view('admin.page.CRUD.createJadwal',compact('rombel','mapel','teacher'));
     }
 
+    public function nilaisiswa(Request $request)
+    {
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+        $daftar_siswa=DB::select('SELECT * FROM data_rombel_siswa WHERE id_rombel= ?',array($request->id_rombel));
+        return view('admin.page.nilai_siswa',compact('rombel','daftar_siswa'));
+        
+    }
+
+    public function updateNilai(Request $request)
+    {
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+        $data_siswa=collect(DB::select('SELECT * FROM students WHERE NIS='.$request->NIS.''))->first();
+        $nilai_siswa=DB::select('SELECT * FROM nilai_mapel_siswa WHERE id_rsiswa='.$request->id_rsiswa.'');
+        
+        
+      
+
+        return view('admin.page.CRUD.updateNilaiSiswa',compact('rombel','nilai_siswa','data_siswa'));
+    }
+
 
 }

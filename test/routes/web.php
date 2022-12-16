@@ -86,7 +86,18 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::get('/mapel',[AdminViewController::class,'mapel'])->name('mapel'); //Page daftar mapel
     Route::get('/roster/{id_rombel}',[AdminViewController::class,'jadwal_kelas'])->name('vroster'); //Page jadwal_mapel
 
-    Route::get('/details-rombel/{id_rombel}',[AdminViewController::class,'detailsrombel'])->name('detailsrombel'); //Page details rombel
+    Route::get('/details-rombel/{id_rombel}',[AdminViewController::class,'detailsrombel'])->name('detailsrombel'); //Page details siswa di rombel tsb
+
+    Route::get('/nilai-siswa-per-rombel',[AdminViewController::class,'nilaisiswa'])->name('nilaisiswa');//Page  siswa di rombel tsb dengan button cek nilai/input nilai
+
+    Route::get('/updateNilai',[AdminViewController::class,'updateNilai'])->name('updateNilai');//Page details nilai siswa di rombel tsb
+
+    Route::post('/update-nilai',[AdminCRUDController::class,'updateNilai'])->name('updtNilai');//Page Update Nilai siswa
+    
+
+
+
+
    
 
     

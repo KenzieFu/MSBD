@@ -15,6 +15,7 @@ class Rombel extends Model
     {
         return $this->belongsTo(Teacher::class,'id_wali');
     }
+    
 
     public function kelas()
     {

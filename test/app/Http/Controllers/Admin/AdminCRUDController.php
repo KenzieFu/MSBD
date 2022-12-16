@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\NilaiSiswa;
 use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Rombel;
 use App\Models\roster_rombel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -127,5 +129,37 @@ class AdminCRUDController extends Controller
         
         return redirect()->route('admin.vroster',$request->id_rombel)->with('success','Jadwal Kelas Berhasil Ditambahkan');
         
+     }
+
+     public function updateNilai(Request $request)
+     {
+       /*  $data=[]; */
+
+        for($x=0;$x<count($request->get('id'));$x++)
+        {
+            $nilai_siswa=NilaiSiswa::find($request->get('id')[$x]);
+            $nilai_siswa->nilai=$request->get('nilai')[$x];
+            $nilai_siswa->save();
+           /*  $data[]=[
+                'id'=>$request->get('id')[$x],
+                'nilai'=>$request->get('nilai')[$x]
+            ]; */
+        }
+
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+        $data_siswa=collect(DB::select('SELECT * FROM students WHERE NIS='.$request->NIS.''))->first();
+        $nilai_siswa=DB::select('SELECT * FROM nilai_mapel_siswa WHERE id_rsiswa='.$request->id_rsiswa.'');
+        Session::flash('success', 'Nilai Siswa dengan NIS ('.$request->NIS.') Berhasil di update'); 
+        
+         return view('admin.page.CRUD.updateNilaiSiswa',compact('rombel','nilai_siswa','data_siswa'));
+
+        
+
+       
      }
 }
