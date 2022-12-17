@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\absensi_siswa;
 use App\Models\NilaiSiswa;
 use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
@@ -74,6 +75,9 @@ class AdminCRUDController extends Controller
 
      public function updateStatusThnak(Request $request)
      {
+        $check=collect(DB::select('SELECT COUNT(*) as res FROM tahun_akademiks WHERE status="Aktif"'))->first();
+
+       
 
         $thn=TahunAkademik::find($request->id);
         if($thn->status =="Aktif")
@@ -82,6 +86,11 @@ class AdminCRUDController extends Controller
         }
         else
             $thn->status="Aktif";
+
+        if($thn->status =="Aktif" && $check->res ==1 )
+        {
+            return redirect('/admin/thnak') ->with('success',"Tidak Boleh Mengaktifkan Dua Tahun Akademik");
+        }
        
         $thn->save();
             return redirect('/admin/thnak') ->with('success',"Status Berhasil Di update");
@@ -156,5 +165,35 @@ class AdminCRUDController extends Controller
         $nilai_siswa=DB::select('SELECT * FROM nilai_mapel_siswa WHERE id_rsiswa='.$request->id_rsiswa.'');
         Session::flash('success', 'Nilai Siswa dengan NIS ('.$request->NIS.') Berhasil di update'); 
          return view('admin.page.CRUD.updateNilaiSiswa',compact('rombel','nilai_siswa','data_siswa'));
+     }
+
+     public function absensiSiswa(Request $request)
+     {
+        for($x=0;$x<count($request->get('id'));$x++)
+        {
+            $absensi_siswa=absensi_siswa::find($request->get('id')[$x]);
+            
+            $absensi_siswa->absen=$request->get('absen')[$x];
+            $absensi_siswa->sakit=$request->get('sakit')[$x];
+            $absensi_siswa->izin=$request->get('izin')[$x];
+            $absensi_siswa->save();
+          
+           /*  $data[]=[
+                'id'=>$request->get('id')[$x],
+                'nilai'=>$request->get('nilai')[$x]
+            ]; */
+        }
+        
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+        
+        $absensi_siswa=DB::select('SELECT * FROM absensisiswa WHERE  id_rombel='.$request->id_rombel.'');
+        Session::flash('success', 'Absensi Berhasil Di update'); 
+        return view('admin.page.absensi_siswa',compact('rombel','absensi_siswa'));
+
      }
 }

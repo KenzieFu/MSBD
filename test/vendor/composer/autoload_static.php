@@ -589,6 +589,7 @@ class ComposerStaticInit065127bc4d38f22b65ef118c42b97070
         'App\\Models\\TahunAkademik' => __DIR__ . '/../..' . '/app/Models/TahunAkademik.php',
         'App\\Models\\Teacher' => __DIR__ . '/../..' . '/app/Models/Teacher.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\absensi_siswa' => __DIR__ . '/../..' . '/app/Models/absensi_siswa.php',
         'App\\Models\\roster_rombel' => __DIR__ . '/../..' . '/app/Models/roster_rombel.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

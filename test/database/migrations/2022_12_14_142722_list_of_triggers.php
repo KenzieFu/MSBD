@@ -77,6 +77,15 @@ return new class extends Migration
             SELECT NEW.id, id,now(),now() FROM mapels ;
         END;
         ');
+
+        //Triggwe untuk menyediakan absensi siswa di kelas tersebut
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER absensisiswa AFTER INSERT ON rombel_siswas FOR EACH ROW
+        BEGIN
+            INSERT INTO absensi_siswas (id_rsiswa,created_at,updated_at)
+            SELECT NEW.id, now(),now()  ;
+        END;
+        ');
       
     }
 

@@ -31,6 +31,9 @@ return new class extends Migration
 
         //Menampilkan nilai mapel  VIEW #6
         DB::unprepared('CREATE OR REPLACE VIEW nilai_mapel_siswa AS SELECT ns.id_rsiswa,ns.id, m.mapel, ns.nilai FROM nilai_siswas ns INNER JOIN mapels m ON m.id=ns.id_mapel');
+
+        //Menampilkan absensi siswa VIEW #7
+        DB::unprepared('CREATE OR REPLACE VIEW absensisiswa AS SELECT abs.id,abs.id_rsiswa,rs.id_rombel, s.NIS, s.name ,abs.absen,abs.sakit,abs.izin FROM absensi_siswas abs INNER JOIN rombel_siswas rs ON rs.id=abs.id_rsiswa INNER JOIN students s ON s.NIS=rs.id_siswa ');
         
     }
 

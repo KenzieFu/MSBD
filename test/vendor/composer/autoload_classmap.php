@@ -46,6 +46,7 @@ return array(
     'App\\Models\\TahunAkademik' => $baseDir . '/app/Models/TahunAkademik.php',
     'App\\Models\\Teacher' => $baseDir . '/app/Models/Teacher.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+    'App\\Models\\absensi_siswa' => $baseDir . '/app/Models/absensi_siswa.php',
     'App\\Models\\roster_rombel' => $baseDir . '/app/Models/roster_rombel.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

@@ -188,5 +188,19 @@ class AdminViewController extends Controller
         return view('admin.page.CRUD.updateNilaiSiswa',compact('rombel','nilai_siswa','data_siswa'));
     }
 
+    public function absensiSiswa(Request $request)
+    {
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+      
+        $absensi_siswa=DB::select('SELECT * FROM absensisiswa WHERE  id_rombel='.$request->id_rombel.'');
+
+        return view('admin.page.absensi_siswa',compact('rombel','absensi_siswa'));
+    }
+
 
 }
