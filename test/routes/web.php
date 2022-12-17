@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Teacher\Auth\AuthenticatedSessionController as TeacherAuth;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController as AdminAuth;
 use App\Http\Controllers\Admin\AdminViewController;
+use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\Teacher\TeacherController;
 
 /*
@@ -27,11 +28,18 @@ Route::get('/',function()
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/dashboard',[SiswaController::class,'index'])->name('dashboard');
+    Route::get('/profile',[SiswaController::class,'profile'])->name('profile');
+    Route::post('/updtprofile',[SiswaController::class,'updtprofile'])->name('updtprofile');
+});
 
 require __DIR__.'/auth.php';
+
+
+
 
 
 
