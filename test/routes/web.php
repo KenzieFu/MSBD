@@ -34,6 +34,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard',[SiswaController::class,'index'])->name('dashboard');
     Route::get('/profile',[SiswaController::class,'profile'])->name('profile');
     Route::post('/updtprofile',[SiswaController::class,'updtprofile'])->name('updtprofile');
+    Route::get('/daftar-siswa-kelass',[SiswaController::class,'daftarsiswa'])->name('daftarsiswa');
+    Route::get('/jadwal-kelas',[SiswaController::class,'jadwal_kelas'])->name('jadwal_kelas');
+    Route::get('/nilai-siswa',[SiswaController::class,'nilaisiswa'])->name('nilaisiswa');
+    Route::get('/absen-siswa',[SiswaController::class,'absensiswa'])->name('absensiswa');
+    
 });
 
 require __DIR__.'/auth.php';

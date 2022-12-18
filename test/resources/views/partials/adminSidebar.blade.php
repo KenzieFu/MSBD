@@ -1,5 +1,16 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    @php
+    $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+    $id_r=null;
+    if($active)
+    {
+        $id_r=collect(DB::select('SELECT *   FROM data_rombel_siswa WHERE id_siswa="0'.auth()->user()->NIS.'" AND id_thnakademik=?',array($active->id)))->first();
+    }
+    
+    
 
+
+ @endphp
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" >
         <div class="sidebar-brand-icon rotate-n-15">
@@ -76,9 +87,13 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <form class="nav-link" action="{{ route('daftarsiswa') }} ">
+            @csrf
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Kelas</span></a>
+        
+            <input type="hidden" name="id_thnakademik" value={{ $active->id??null }}>
+            <input type="hidden" name="id_rombel" value={{ $id_r->id_rombel??null }}>
+            <button type="submit">Kelas Anda</button></form>
             
     </li>
 

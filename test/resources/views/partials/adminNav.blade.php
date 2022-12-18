@@ -1,5 +1,6 @@
 @php
    $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+   
 @endphp
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">

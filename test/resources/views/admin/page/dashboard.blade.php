@@ -1,6 +1,6 @@
 @extends('admin.layout.template')
 @section('adminContent')
-<div class="m-3">{{ auth()->guard('auth')->user()->name }}</div>
+<div class="m-3">{{ auth()->guard('admin')->user()->name }}</div>
 
 @endsection
     
