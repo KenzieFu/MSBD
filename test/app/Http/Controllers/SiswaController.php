@@ -112,5 +112,15 @@ class SiswaController extends Controller
  
         return view('absensisiswa',compact('rombel','absensi_siswa','data_siswa'));
     }
+
+    public function rombel()
+    {  
+   
+            $rombel=DB::select('SELECT * FROM data_rombel');
+        
+  
+       
+        return view ('admin.page.rombel',compact('rombel'));
+    }
     
 }
