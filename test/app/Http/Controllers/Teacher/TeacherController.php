@@ -42,4 +42,34 @@ class TeacherController extends Controller
 
         return view('teacher.walikelas',compact('rombel','daftar_siswa'));
     }
+
+    public function rombelsiswa(Request $request){
+     
+       
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id=? ',array($request->id_rombel));
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+
+        $daftar_siswa=DB::select('SELECT * FROM data_rombel_siswa WHERE id_rombel= ?',array($request->id_rombel));
+        
+
+        return view('teacher.walikelas',compact('rombel','daftar_siswa'));
+        
+    }
+
+    public function jadwal_kelas(Request $request)
+    {
+        $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+        foreach($rombel as $r)
+        {
+            $rombel=$r;
+            break;
+        }
+        $roster=DB::select('SELECT * FROM roster_kelas WHERE id_rombel=? ',array($request->id_rombel));
+        return view('teacher.jadwalKelas',compact('roster','rombel'));
+    }
+
 }

@@ -63,6 +63,8 @@ Route::prefix('/teacher')->name('teacher.')->group(function(){
     Route::post('/logout',[TeacherAuth::class,'destroy'])->name('logout');
     Route::get('/dashboard',[TeacherController::class,'index'])->name('dashboard');
     Route::get('/wali-kelas',[TeacherController::class,'walikelas'])->name('walikelas');
+    Route::get('/daftar-siswa-rombel',[TeacherController::class,'rombelsiswa'])->name('rombelsiswa');
+    Route::get('/jadwal-kelas',[TeacherController::class,'jadwal_kelas'])->name('jadwal_kelas');
     });
 });
 
