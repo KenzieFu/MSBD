@@ -41,7 +41,7 @@
             <label class="flex items-center   text-white" for="guru">Wali</label>
             <select required class=" h-10 " name="id_guru" id="guru">
                 @foreach($teacher as $t)
-                <option value="{{ $t->NIG }}">{{ $t->NIG }}</option>
+                <option value="{{ $t->NIG }}">{{ $t->alias }}</option>
                 @endforeach
             </select>
 

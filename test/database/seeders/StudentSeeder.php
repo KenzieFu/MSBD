@@ -22,6 +22,7 @@ class StudentSeeder extends Seeder
             'email'=>"student@gmail.com",
             'gender'=>"L",
             'id_kelas'=>1,
+            
             'password'=>Hash::make("0135001"),
             'angkatan'=>1
           ]);

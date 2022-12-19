@@ -1,14 +1,10 @@
 @extends('layouts.template')
 @section('siswaContent')
 
-@extends('admin.layout.template')
-@section('adminContent')
 
 <div class="m-3 flex justify-between">
-    <h2 class="font-bold text-3xl">Daftar Siswa </h2>
-    <div class="bg-green-400 flex  justify-center align-center p-2 rounded-lg ">
-        <a href="{{ route('admin.cvRombel') }}" class="text-white text-lg  hover:no-underline hover:text-[18px] hover:opacity-50">Tambah Rombel</a>
-    </div>
+    <h2 lass="font-bold text-3xl">Daftar Rombel </h2>
+ 
 </div>
 
    <div class="container">
@@ -26,21 +22,22 @@
         </thead>
         <tbody>
 
-            @foreach ($rombel as $r)
+            @foreach ($rombelsiswa as $r)
                 <tr>
-                    <td>{{ $r->id }}</td>
+                    <td>{{ $r->id_rombel }}</td>
                     <td>{{ $r->nama_kelas }}</td>
                     <td>{{ $r->SMP}}</td>
                     <td>{{ $r->NIG??"Pending"}}</td>
                     <td>{{ $r->TahunAjaran}}</td>
                     <td>{{ $r->jumlah}}</td> 
                     <td class="flex gap-x-3">
-                        <form action={{ route('admin.detailsrombel',$r->id) }}>
-                         
-                            {{-- <input type="hidden" value="{{ $r->id }} " name="id_rombel"> --}}
+                        
+                        <form action={{ route('rombelsiswa') }}>
+                            
+                            <input type="hidden" value="{{ $r->id_rombel }} " name="id_rombel">
                         <button class="rounded-lg bg-green-500 text-white p-1" href="">Details</button>
                          </form>
-                        <button class="rounded-lg bg-red-500 text-white p-1" type="submit">Delete</button>
+                       
                         
                     </td> 
                 </tr>
@@ -48,11 +45,6 @@
         </tbody>
        </table>
     </div>
-
-    
-  
-
-@endsection
 
 
 @endsection

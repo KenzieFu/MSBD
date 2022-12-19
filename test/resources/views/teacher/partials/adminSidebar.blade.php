@@ -1,22 +1,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-    @php
-    $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
-    $id_r=null;
-    if($active)
-    {
-        $id_r=collect(DB::select('SELECT *   FROM data_rombel_siswa WHERE id_siswa="0'.auth()->user()->NIS.'" AND id_thnakademik=?',array($active->id)))->first();
-    }
-    
-    
 
-
- @endphp
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" >
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SIA Admin </div>
+        <div class="sidebar-brand-text mx-3">SIA  </div>
     </a>
 
     <!-- Divider -->
@@ -24,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="/dashboard">
+        <a class="nav-link" href="/admin/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -38,30 +27,12 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-   
+    
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
-            </div>
-        </div>
-    </li> --}}
+    
 
     <!-- Divider -->
-
-
     <!-- Heading -->
    
     <!-- Nav Item - Pages Collapse Menu -->
@@ -87,24 +58,43 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <form class="nav-link" action="{{ route('daftarsiswa') }} ">
-            @csrf
+        <a class="nav-link" href="{{ route('teacher.walikelas') }}">
             <i class="fas fa-fw fa-chart-area"></i>
-        
-            <input type="hidden" name="id_thnakademik" value={{ $active->id??null }}>
-            <input type="hidden" name="id_rombel" value={{ $id_r->id_rombel??null }}>
-            <button type="submit">Kelas Anda</button></form>
+            <span>Wali Kelas</span></a>
             
     </li>
-
-    <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <form class="nav-link" action="{{ route('rekapkelas') }} ">
-            @csrf
+        <a class="nav-link" href="">
             <i class="fas fa-fw fa-chart-area"></i>
-          
-            <button type="submit">Rekap Anda</button></form>
+            <span>Roster Guru</span></a>
+            
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Guru Mapel</span></a>
+            
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Rekap</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              
+                <a class="collapse-item" href="utilities-color.html">Wali Kelas</a>
+                <a class="collapse-item" href="utilities-border.html">Jadwal Guru</a>
+                <a class="collapse-item" href="utilities-animation.html">Rekap Guru Mapel</a>
+           
+            </div>
+        </div>
+    </li>
+
+   
+   
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

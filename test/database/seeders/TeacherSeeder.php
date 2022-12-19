@@ -18,16 +18,24 @@ class TeacherSeeder extends Seeder
     public function run()
     {
       Teacher::create([
-        "NIG"=>"GZL",
+        "NIG"=>"0102001",
+        "angkatan"=>1,
+        "alias"=>"GZL",
         'name'=>"Gozali",
+        "gender"=>"L",
+        "Kota_Lahir"=>"Medan",
         'email'=>"teacher@gmail.com",
-        'password'=>Hash::make("12345678")
+        'password'=>Hash::make("0102001")
       ]);
       Teacher::create([
-        "NIG"=>"TBS",
+        "NIG"=>"0102002",
+        "alias"=>"TBS",
         'name'=>"Tobias",
+        "gender"=>"L",
         'email'=>"tob@gmail.com",
-        'password'=>Hash::make("12345678")
+        
+        "angkatan"=>1,
+        'password'=>Hash::make("0102002")
       ]);
       
       

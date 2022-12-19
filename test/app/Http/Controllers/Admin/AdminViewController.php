@@ -32,7 +32,7 @@ class AdminViewController extends Controller
 
     //fungsi untuk menampilkan page daftar guru
     public function teacherTable(){
-        $teachers=DB::select('SELECT * FROM teachers');
+        $teachers=DB::select('SELECT * FROM data_guru ');
         return view('admin.page.guru',compact('teachers'));
     }
 
@@ -66,7 +66,7 @@ class AdminViewController extends Controller
             return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
         }
         $daftarkelas=Kelas::get();
-        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.NIG)'));
+        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.alias)'));
      
         
      

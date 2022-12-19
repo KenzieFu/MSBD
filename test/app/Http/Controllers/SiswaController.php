@@ -47,7 +47,7 @@ class SiswaController extends Controller
        {
         
      
-        return redirect()->route('dashboard')->with('success','Kelas Anda Belum Dibagi');
+        return redirect()->route('dashboard')->with('success','Anda Bukan Merupakan Wali Kelas Saat Ini');
        }
     
       
@@ -113,14 +113,33 @@ class SiswaController extends Controller
         return view('absensisiswa',compact('rombel','absensi_siswa','data_siswa'));
     }
 
-    public function rombel()
+    public function rekapkelas(Request $request)
     {  
-   
-            $rombel=DB::select('SELECT * FROM data_rombel');
+        $nis=str_pad(auth()->user()->NIS,7,"0",STR_PAD_LEFT);
         
-  
-       
-        return view ('admin.page.rombel',compact('rombel'));
+            $rombelsiswa=DB::select('SELECT * FROM data_rombel_siswa WHERE id_siswa='.$nis.'');
+           
+        return view ('rekapkelas',compact('rombelsiswa'));
     }
+
+
+    public function rombelsiswa(Request $request){
+     
+       
+         $rombel=DB::select('SELECT * FROM data_rombel WHERE id=? ',array($request->id_rombel));
+         foreach($rombel as $r)
+         {
+             $rombel=$r;
+             break;
+         }
+ 
+         $daftar_siswa=DB::select('SELECT * FROM data_rombel_siswa WHERE id_rombel= ?',array($request->id_rombel));
+         
+ 
+         return view('kelasSiswa',compact('rombel','daftar_siswa'));
+         
+     }
+    
+
     
 }

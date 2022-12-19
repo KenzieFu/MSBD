@@ -21,9 +21,9 @@ return new class extends Migration
         CREATE OR REPLACE FUNCTION generate_nim (angkatan VARCHAR(2),no_urut VARCHAR(3)) RETURNS VARCHAR(7)
             BEGIN
             DECLARE res VARCHAR(7);
-            DECLARE kode_sekolah VARCHAR(2);
-            SET kode_sekolah="35";
-            SET res=(SELECT LPAD((CONCAT(angkatan,kode_sekolah,no_urut)),7,0));
+            DECLARE kode_siswa VARCHAR(2);
+            SET kode_siswa="01";
+            SET res=(SELECT LPAD((CONCAT(angkatan,kode_siswa,no_urut)),7,0));
             return res;
             END;
         ');
@@ -79,6 +79,28 @@ return new class extends Migration
         AND
         (rr.id_rombel=id_rombel) AND (rr.Hari=hari));
                 END;
+        ');
+
+        //function mengenerate nig guru
+        DB::unprepared('
+        CREATE OR REPLACE FUNCTION generate_nig (angkatan VARCHAR(2),no_urut VARCHAR(3)) RETURNS VARCHAR(7)
+            BEGIN
+            DECLARE res VARCHAR(7);
+            DECLARE kode_guru VARCHAR(2);
+            SET kode_guru="02";
+            SET res=(SELECT LPAD((CONCAT(angkatan,kode_siswa,no_urut)),7,0));
+            return res;
+            END;
+        ');
+            //function menentukan no urut guru di angkatan tersebut
+        DB::unprepared('
+        CREATE OR REPLACE FUNCTION no_urut (thn_aktif VARCHAR(2)) RETURNS VARCHAR(3)
+            BEGIN
+            DECLARE res VARCHAR(3);
+            SET res=(SELECT COUNT(*) FROM teachers WHERE angkatan=thn_aktif) +1;
+            SET res=(SELECT LPAD(res,3,0));
+            RETURN res;
+            END;    
         ');
 
         

@@ -1,5 +1,6 @@
-@extends('layouts.template')
-@section('siswaContent')
+@extends('teacher.layout.template')
+@section('teacherContent')
+
 
 <div class="max-w m-3 p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
     <a href="#">
@@ -82,7 +83,5 @@
         </ul>
    </div>
 </div>
-
-
 
 @endsection

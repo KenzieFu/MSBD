@@ -3,7 +3,7 @@
 
 <div class="max-w m-3 p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
     <a href="#">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Kelas&nbsp;{{ $rombel->nama_kelas }}</h5>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Kelas&nbsp;sdd{{-- {{ $rombel->nama_kelas }} --}}</h5>
     </a>
     <div class="mb-3 flex-col flex font-normal text-gray-700 dark:text-gray-400">
         <span>SMP          :{{ $rombel->SMP }}</span>
@@ -62,11 +62,15 @@
                 <div class="flex items-center space-x-4">
                    
                     <div class="flex-1 min-w-0">
-                      
+                        @if(auth()->user()->NIS == $ds->NIS)
+                        <p class="text-lg font-medium text-gray-900 truncate dark:text-white">
+                            {{ $ds->name }} (You)
+                        </p>
+                        @else
                         <p class="text-lg font-medium text-gray-900 truncate dark:text-white">
                             {{ $ds->name }} 
                         </p>
-                     
+                        @endif
 
                         <p class="text-lg text-gray-500 truncate dark:text-gray-400">
                             {{ $ds->NIS }}

@@ -38,6 +38,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/jadwal-kelas',[SiswaController::class,'jadwal_kelas'])->name('jadwal_kelas');
     Route::get('/nilai-siswa',[SiswaController::class,'nilaisiswa'])->name('nilaisiswa');
     Route::get('/absen-siswa',[SiswaController::class,'absensiswa'])->name('absensiswa');
+    Route::get('/rekap-siswa',[SiswaController::class,'rekapkelas'])->name('rekapkelas');
+    Route::get('/rekap-rombel',[SiswaController::class,'rombelsiswa'])->name('rombelsiswa');
     
 });
 
@@ -56,8 +58,12 @@ require __DIR__.'/auth.php';
 Route::prefix('/teacher')->name('teacher.')->group(function(){
     Route::get('/login',[TeacherAuth::class,'create'])->middleware('guest:teacher')->name('login');
     Route::post('/login',[TeacherAuth::class,'store'])->middleware('guest:teacher');
+
+    Route::middleware('teacher')->group(function(){
     Route::post('/logout',[TeacherAuth::class,'destroy'])->name('logout');
-    Route::get('/dashboard',[TeacherController::class,'index'])->middleware('teacher');
+    Route::get('/dashboard',[TeacherController::class,'index'])->name('dashboard');
+    Route::get('/wali-kelas',[TeacherController::class,'walikelas'])->name('walikelas');
+    });
 });
 
 

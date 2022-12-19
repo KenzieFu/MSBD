@@ -30,7 +30,7 @@
                 <td>{{ $user->NIS  }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->nama_kelas }}</td>
-                <td>{{ $user->TahunAjaran }}</td>
+                <td>{{ $user->Tahun_Masuk }}</td>
               
                 <td>{{ $user->status }}</td>
                 <td>{{ $user->gender}}</td>

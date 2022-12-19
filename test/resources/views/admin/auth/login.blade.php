@@ -3,7 +3,7 @@
         <x-slot name="logo">
             <h2 class="text-center">Admin Login</h2>
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+              
             </a>
         </x-slot>
 
