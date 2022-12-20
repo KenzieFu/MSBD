@@ -28,6 +28,8 @@ Route::get('/',function()
     return view('welcome');
 });
 
+Route::get('/tes',[AdminViewController::class,'reportsiswa']);  //unfinish report siswa
+Route::get('/tes1',[AdminViewController::class,'reportkelas']);  //unfinish report kelas
 
 
 Route::middleware(['auth'])->group(function(){
@@ -167,7 +169,5 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
     });
 
-    
-    
     
 });

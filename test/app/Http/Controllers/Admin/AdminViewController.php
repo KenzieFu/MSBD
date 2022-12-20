@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Rombel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use PDF;
 
 
 class AdminViewController extends Controller
@@ -202,5 +203,22 @@ class AdminViewController extends Controller
         return view('admin.page.absensi_siswa',compact('rombel','absensi_siswa'));
     }
 
+    public function reportsiswa(){
+
+        $tes = DB::select('SELECT a.NIS, a.name, a.gender, a.SMP, a.nama_kelas, a.Tahun_Masuk, b.updated_at FROM data_siswa a LEFT JOIN students b ON a.NIS=b.NIS');
+        $pdf = PDF::loadview('report.admin.tes',compact('tes'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('laporan_admin.pdf');
+
+    }
+
+    public function reportkelas(){
+
+        $data= DB::select('SELECT a.id, a.name, a.nama_kelas, a.SMP, a.TahunAjaran, a.status, a.jumlah, b.updated_at FROM data_rombel a LEFT JOIN rombels b ON a.id=b.id');
+        $pdf = PDF::loadview('report.admin.tes1',compact('data'));
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('laporan_admin.pdf');
+
+    }
 
 }
