@@ -127,7 +127,12 @@ class AdminCRUDController extends Controller
         $thn=TahunAkademik::find($request->id);
         if($thn->status =="Aktif")
         {
-            $thn->status="Tidak Aktif";
+            if($thn->Pembelajaran =="Selesai")
+            {
+                $thn->status="Tidak Aktif";
+            }
+            else if($thn)
+            
         }
         else
             $thn->status="Aktif";

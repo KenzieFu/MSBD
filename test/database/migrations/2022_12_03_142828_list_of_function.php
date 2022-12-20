@@ -94,7 +94,7 @@ return new class extends Migration
         ');
             //function menentukan no urut guru di angkatan tersebut
         DB::unprepared('
-        CREATE OR REPLACE FUNCTION no_urut (thn_aktif VARCHAR(2)) RETURNS VARCHAR(3)
+        CREATE OR REPLACE FUNCTION no_urut_guru (thn_aktif VARCHAR(2)) RETURNS VARCHAR(3)
             BEGIN
             DECLARE res VARCHAR(3);
             SET res=(SELECT COUNT(*) FROM teachers WHERE angkatan=thn_aktif) +1;
