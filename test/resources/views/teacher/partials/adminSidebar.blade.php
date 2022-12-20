@@ -86,7 +86,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
               
                 <a href="{{ route('teacher.rekapwali') }}" class="collapse-item" href="utilities-color.html">Wali Kelas</a>
-                <a class="collapse-item" href="utilities-border.html">Mapel Guru</a>
+                <a href="{{ route('teacher.rekapmapel') }}" class="collapse-item" href="utilities-border.html">Mapel Guru</a>
    
            
             </div>

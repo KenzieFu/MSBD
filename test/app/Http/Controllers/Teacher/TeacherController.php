@@ -226,6 +226,17 @@ class TeacherController extends Controller
 
     }
 
+    public function rekapmapel(Request $request)
+    {
+        $nig=str_pad(auth()->guard('teacher')->user()->NIG,7,"0",STR_PAD_LEFT);
+        $jadwal=DB::select('SELECT DISTINCT alias,nama_kelas,SMP,mapel,TahunAjaran,id_rombel,id_mapel FROM semua_jadwal WHERE NIG="'.$nig.'"');
+
+       
+        
+
+        return view('teacher.rekapmapel',compact('jadwal'));
+    }
+
    
 
   
