@@ -20,6 +20,7 @@
             <td>Kurikulum</td>
             <td>Angkatan</td>
             <td>Status</td>
+            <td>Pembelajaran</td>
         
         </tr>
     </thead>
@@ -39,6 +40,17 @@
             <button class="rounded-lg bg-green-500 text-white p-1" type="submit">{{ $row->status }}</button>     
                 @else
              <button class="rounded-lg bg-red-500 text-white p-1" type="submit">{{ $row->status }}</button>
+                 @endif
+            </td>   
+            </form>
+            <form method="POST" action="{{ route('admin.uthnak') }}">
+                @csrf
+                <input type="hidden" name="id" value="{{ $row->id }}">
+                <td>
+                @if($row->status =="Selesai")
+            <button class="rounded-lg bg-green-500 text-white p-1" type="submit">{{ $row->Pembelajaran }}</button>     
+                @else
+             <button class="rounded-lg bg-red-500 text-white p-1" type="submit">{{ $row->Pembelajaran }}</button>
                  @endif
             </td>   
             </form>
