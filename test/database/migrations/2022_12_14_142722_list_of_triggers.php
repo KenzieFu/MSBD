@@ -86,6 +86,50 @@ return new class extends Migration
             SELECT NEW.id, now(),now()  ;
         END;
         ');
+
+        //trigger tahun akademiks jika kita mengupdate pembelejaran jadi selesai maka update tingkat Smp menjadi diatasny
+        //jika siswa berada di kelas 3 dan naek kelas maka akan mengupdate status siswa tsb menjadi tamat
+
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER selesai_thnajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+        BEGIN 
+
+            IF (OLD.Pembelajaran !=NEW.Pembelajaran) THEN
+            UPDATE students
+                SET 
+                status=(CASE WHEN SMP=3 THEN "Tamat" ELSE status END),
+                SMP=( CASE WHEN SMP  <3 THEN SMP+1 ELSE SMP END)
+             
+                WHERE status ="Aktif";
+            END IF;
+        END;
+        ');
+
+        //Trigger tahun akademik tidak bs dinonaktifkan jika Pembelajaran belum selesai
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER cek_pembelajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+        BEGIN
+            IF( NEW.status = "Tidak Aktif" AND OLD.status ="Aktif") THEN
+                IF OLD.Pembelajaran ="Belum Selesai" THEN
+                    SIGNAL SQLSTATE "45000"
+                    SET MESSAGE_TEXT="Selesaikan Pembelajaran Terlebih Dahulu";
+                END IF;
+            END IF;
+        END;
+        
+        ');
+
+        //TRigger  tahun akademik jika pembelajaran selesai tidak bs mengedit pembelajaran menjadi belum selesai
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER jangan_update_pembelajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+            BEGIN
+                IF(NEW.Pembelajaran ="Belum Selesai" AND OLD.Pembelajaran="Selesai") THEN
+                SIGNAL SQLSTATE "45000"
+                SET MESSAGE_TEXT="Pembelajaran Telah Selesai, Tidak bs di update Pembelajaran";
+                END IF;
+
+            END;
+        ');
       
     }
 
