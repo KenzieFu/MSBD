@@ -56,9 +56,9 @@ return new class extends Migration
 
         //function  menghitung jumlah siswa
         DB::unprepared('
-            CREATE OR REPLACE PROCEDURE  jumlah_siswa_kelas(id_rombel INT,thak INT)
+            CREATE OR REPLACE FUNCTION  jumlah_siswa(id_rombel INT) RETURNS INT
             BEGIN
-                SELECT COUNT(*) as t FROM rombel_siswas rs INNER JOIN rombels r ON r.id=rs.id_rombel WHERE rs.id_rombel=id_rombel AND r.id_thnakademik=thak;
+                RETURN (SELECT COUNT(*) as t FROM rombel_siswas rs  WHERE rs.id_rombel=id_rombel);
             END;
         ');
 

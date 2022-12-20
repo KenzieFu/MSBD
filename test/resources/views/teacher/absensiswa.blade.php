@@ -17,7 +17,7 @@
         <form  action={{ route('teacher.rombelsiswa') }}>
             @csrf
             <input type="hidden" name="id_rombel" value={{ $rombel->id }}>
-           
+      
     <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Daftar Siswa  
     </button>
@@ -30,52 +30,71 @@
     </button>
         
         </form>
-
         <form  action={{ route('teacher.nilaisiswa') }}>
             @csrf
-            <input type="hidden" value={{ $rombel->id }} name="id_rombel">
-           
+            <input type="hidden" name="id_rombel" value="{{ $rombel->id }}">
     <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-         Nilai Siswa 
+        Rekap Nilai  
     </button>
         </form>
         <form  action={{ route('teacher.absensiswa') }}>
             @csrf
             <input type="hidden" value="{{ $rombel->id }}" name="id_rombel">
-    <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Absensi Siswa 
-    </button>
+            <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Rekap Absensi  
+            </button>
         </form>
 </div>
 </div>
 
 <div class=" max-w p-4 m-5 bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <form method="POST"  action={{ route('teacher.updtAbsensi') }}>
+        <input type="hidden" name="id_rombel" value={{ $rombel->id }}>
+        @csrf
     <div class="flex items-center justify-between mb-4">
-        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Daftar Siswa</h5>
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Absensi Siswa</h5>
+        @if($rombel->status == "Aktif")
+        <button type="submit" class="bg-green-400 flex  justify-center align-center p-2 rounded-lg text-white">Update Absensi</button>
+        @endif
        
    </div>
    <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
             
           
-            @foreach($daftar_siswa as $ds)
+            @foreach($absensi_siswa as $as)
             <li class="py-3 sm:py-4">
                 <div class="flex items-center space-x-4">
                    
                     <div class="flex-1 min-w-0">
-                      
                         <p class="text-lg font-medium text-gray-900 truncate dark:text-white">
-                            {{ $ds->name }} 
+                            {{ $as->name }}
                         </p>
-                     
-
                         <p class="text-lg text-gray-500 truncate dark:text-gray-400">
-                            {{ $ds->NIS }}
+                            {{ $as->NIS }}
                         </p>
                     </div>
-                    {{-- <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        Action
-                    </div> --}}
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        @if($rombel->status =="Aktif")
+                            <input type="hidden" name="id[]" value={{ $as->id }} >
+                            
+                           <label for="absen">Absen :</label>
+                           <input value="{{ $as->absen }}" type="number" min="0" max="100" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';} else if(this.value==0){this.value='0';}"
+                        name="absen[]">
+                           <label for="absen">Sakit :</label>
+                           <input value="{{ $as->sakit }}" type="number" min="0" max="100" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';} else if(this.value==0){this.value='0';}"
+                        name="sakit[]">
+                           <label for="absen">Izin :</label>
+                           <input value="{{ $as->izin }}" type="number" min="0" max="100" onKeyUp="if(this.value>100){this.value='10';}else if(this.value<0){this.value='0';} else if(this.value==0){this.value='0';}"
+                        name="izin[]">
+                        @else
+                        <div>Absen : {{ $as->absen }} &nbsp; &nbsp;</div>
+                        <div>Sakit : {{ $as->sakit }} &nbsp; &nbsp;</div>
+                        <div>Izin : {{ $as->izin }} &nbsp; &nbsp;</div>
+                       @endif
+                      
+                        
+                    </div>
                 </div>
                 @endforeach
             

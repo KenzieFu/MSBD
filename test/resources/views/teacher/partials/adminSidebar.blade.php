@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="/admin/dashboard">
+        <a class="nav-link" href="/teacher/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -64,13 +64,13 @@
             
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('teacher.jadwalGuru') }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Roster Guru</span></a>
             
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href={{ route('teacher.mapelguru') }}>
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Guru Mapel</span></a>
             
@@ -85,9 +85,9 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               
-                <a class="collapse-item" href="utilities-color.html">Wali Kelas</a>
-                <a class="collapse-item" href="utilities-border.html">Jadwal Guru</a>
-                <a class="collapse-item" href="utilities-animation.html">Rekap Guru Mapel</a>
+                <a href="{{ route('teacher.rekapwali') }}" class="collapse-item" href="utilities-color.html">Wali Kelas</a>
+                <a class="collapse-item" href="utilities-border.html">Mapel Guru</a>
+   
            
             </div>
         </div>

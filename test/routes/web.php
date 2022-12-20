@@ -65,8 +65,25 @@ Route::prefix('/teacher')->name('teacher.')->group(function(){
     Route::get('/wali-kelas',[TeacherController::class,'walikelas'])->name('walikelas');
     Route::get('/daftar-siswa-rombel',[TeacherController::class,'rombelsiswa'])->name('rombelsiswa');
     Route::get('/jadwal-kelas',[TeacherController::class,'jadwal_kelas'])->name('jadwal_kelas');
+    Route::get('/absen-siswa',[TeacherController::class,'absensiswa'])->name('absensiswa');
+    Route::post('/update-absensi-siswa',[TeacherController::class,'updtAbsensi'])->name('updtAbsensi');//Page  siswa di rombel tsb dengan button cek absensi
+    Route::get('/nilai-siswa-per-rombel',[TeacherController::class,'nilaisiswa'])->name('nilaisiswa');//Page  siswa di rombel tsb dengan button cek nilai/input nilai
+    Route::get('/nilai-siswa',[TeacherController::class,'lihatNilai'])->name('lihatNilai');//Page  siswa di rombel tsb nilai2 siswa
+
+    Route::get('/jadwal-guru',[TeacherController::class,'jadwalGuru'])->name('jadwalGuru');//Page lihat jadwal guru pada tahun itu
+        Route::get('/input-nilai',[TeacherController::class,'inputnilai'])->name('inputnilai');
+
+    Route::get('/mapel-guru',[TeacherController::class,'mapelguru'])->name('mapelguru');
+    Route::get('/updtnilai',[TeacherController::class,'updtnilai'])->name('updtnilai');
+
+    Route::get('/rekap-wali-kelas',[TeacherController::class,'rekapwali'])->name('rekapwali');
+    Route::get('/rekap-mapel-guru',[TeacherController::class,'rekapmapel'])->name('rekapmapel');
+
+    
     });
 });
+
+
 
 
 
