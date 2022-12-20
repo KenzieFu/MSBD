@@ -94,7 +94,7 @@
                     <h5 style=" margin:1; ">Gender</h5>
                 </center>
             </td>
-            <td>
+            {{-- <td>
                 <center>
                     <h5 style=" margin:1; ">Tgl Lahir</h5>
                 </center>
@@ -108,7 +108,7 @@
                 <center>
                     <h5 style=" margin:1; ">NISN</h5>
                 </center>
-            </td>
+            </td> --}}
             <td>
                 <center>
                     <h5 style=" margin:1; ">SMP(Tingkat)</h5>
@@ -130,12 +130,13 @@
                 </center>
             </td>
         </tr>
+        @php $i=1 @endphp
         @foreach ($tes as $item)
         {{-- @foreach ($data as $item) --}}
         
         <tr bgcolor="#ffffff">
             <td>
-                    <center><h5 style=" margin:1; ">-</h5></center>
+                    <center><h5 style=" margin:1; ">{{ $i }}</h5></center>
             </td>
             <td>
                     <h5 style=" margin:1; ">{{ $item->NIS }}</h5>
@@ -146,7 +147,7 @@
             <td>
                     <h5 style=" margin:1; ">{{ $item->gender }}</h5>
             </td>
-            <td>
+            {{-- <td>
                     <h5 style=" margin:1; ">-</h5>
             </td>
             <td>
@@ -154,7 +155,7 @@
             </td>
             <td>
                     <h5 style=" margin:1; ">-</h5>
-            </td>
+            </td> --}}
             <td>
                     <h5 style=" margin:1; ">{{ $item->SMP }}</h5>
             </td>
@@ -171,6 +172,7 @@
             {{-- @endforeach --}}
             
         </tr>
+        @php $i+=1; @endphp
         @endforeach
     </table>
 </body>

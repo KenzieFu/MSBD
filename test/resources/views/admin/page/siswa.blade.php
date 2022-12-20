@@ -3,8 +3,9 @@
 
     <div class="m-3 flex justify-between">
         <h2 class="font-bold text-3xl">Daftar Siswa </h2>
-        <div class="bg-green-400 flex  justify-center align-center p-2 rounded-lg ">
-            <a href="{{ route('admin.cSiswa') }}" class="text-white text-lg  hover:no-underline hover:text-[18px] hover:opacity-50">Tambah Siswa</a>
+        <div class=" flex gap-x-2  justify-center align-center">
+            <a href="{{ route('admin.tes') }}" class="text-white p-2 text-lg bg-green-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Report</a>
+            <a href="{{ route('admin.cSiswa') }}" class="text-white p-2 text-lg bg-green-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Tambah Siswa</a>
         </div>
     </div>
     
