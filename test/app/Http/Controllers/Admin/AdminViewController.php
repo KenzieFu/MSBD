@@ -221,4 +221,13 @@ class AdminViewController extends Controller
 
     }
 
+    public function reportmapel(){
+
+        $data= DB::select('SELECT * FROM mapels');
+        $pdf = PDF::loadview('report.admin.tes2',compact('data'));
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('laporan_admin.pdf');
+
+    }
+
 }

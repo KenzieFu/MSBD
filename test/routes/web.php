@@ -28,8 +28,7 @@ Route::get('/',function()
     return view('welcome');
 });
 
-Route::get('/tes',[AdminViewController::class,'reportsiswa']);  //unfinish report siswa
-Route::get('/tes1',[AdminViewController::class,'reportkelas']);  //unfinish report kelas
+
 
 
 Route::middleware(['auth'])->group(function(){
@@ -166,7 +165,13 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         //Create Jadwal
         Route::get('/create-page-jadwal/{id_rombel}',[AdminViewController::class,'pageAddJadwal'])->name('cvJadwal');
         Route::post('/create-jadwal',[AdminCRUDController::class,'TambahJadwal'])->name('cJadwal');
+    
 
+
+    //page report table
+        Route::get('/laporan_siswa',[AdminViewController::class,'reportsiswa'])->name('tes');  //unfinish report siswa
+        Route::get('/laporan kelas',[AdminViewController::class,'reportkelas'])->name('tes1');  //unfinish report kelas
+        Route::get('/laporan_mata_pelajaran',[AdminViewController::class,'reportmapel'])->name('tes2');  //unfinish report matpel
     });
 
     
