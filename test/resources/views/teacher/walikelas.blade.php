@@ -46,6 +46,10 @@
         Absensi Siswa 
     </button>
         </form>
+
+        <div class=" flex gap-x-2  justify-center align-center">
+            <a href="{{ route('admin.tes') }}" class="text-white p-1 text-lg bg-green-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Report</a>
+        </div>
 </div>
 </div>
 

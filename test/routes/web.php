@@ -190,7 +190,7 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
     //page report table
         Route::get('/laporan_siswa',[AdminViewController::class,'reportsiswa'])->name('tes');  //unfinish report siswa
-        Route::get('/laporan kelas',[AdminViewController::class,'reportkelas'])->name('tes1');  //unfinish report kelas
+        Route::get('/laporan_kelas',[AdminViewController::class,'reportkelas'])->name('tes1');  //unfinish report kelas
         Route::get('/laporan_mata_pelajaran',[AdminViewController::class,'reportmapel'])->name('tes2');  //unfinish report matpel
         Route::get('/laporan_guru',[AdminViewController::class,'reportteacher'])->name('tes3');  //unfinish report teacher
     });
