@@ -230,4 +230,13 @@ class AdminViewController extends Controller
 
     }
 
+    public function reportteacher(){
+
+        $data= DB::select('SELECT a.NIG, a.name, a.alias, a.gender, a.alamat, a.Tahun_Masuk, b.updated_at FROM data_guru a LEFT JOIN teachers b ON a.NIG=b.NIG');
+        $pdf = PDF::loadview('report.admin.tes3',compact('data'));
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('laporan_admin.pdf');
+
+    }
+
 }
