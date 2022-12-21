@@ -255,9 +255,27 @@ class AdminCRUDController extends Controller
 
      public function selesai_tahun_ajaran(Request $request)
      {
-        $check=collect(DB::select('SELECT COUNT(*) as res FROM tahun_akademiks WHERE status="Aktif"'))->first();
+       
 
         $thn=TahunAkademik::find($request->id);
+        if($thn->status =="Tidak Aktif")
+        {
+            return redirect()->back()->with('success','Tahun Ajaran '.$thn->TahunAjaran.' Belum Aktif');
+        }
+        else if($thn->status=="Aktif"){
+            if($thn->Pembelajaran=="Belum Selesai")
+            {
+                $thn->Pembelajaran="Selesai";
+                $thn->save();
+                return redirect()->back()->with('success','Tahun Ajaran '.$thn->TahunAjaran.' Telah Diselesaikan');
+            }
+            else if($thn->Pembelajaran == "Selesai")
+            {
+                return redirect()->back()->with('success','Tidak Mengubah Pembelajaran Setelah Selesai');
+            }
+
+        }
+       
        
      }
 }

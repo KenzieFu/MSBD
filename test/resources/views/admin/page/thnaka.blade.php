@@ -43,18 +43,18 @@
                  @endif
             </td>   
             </form>
-            <form method="POST" action="{{ route('admin.uthnak') }}">
+            <form method="POST" action="{{ route('admin.updatePembelajaran') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{ $row->id }}">
                 <td>
-                @if($row->status =="Selesai")
+                @if($row->Pembelajaran =="Selesai")
             <button class="rounded-lg bg-green-500 text-white p-1" type="submit">{{ $row->Pembelajaran }}</button>     
                 @else
-             <button class="rounded-lg bg-red-500 text-white p-1" type="submit">{{ $row->Pembelajaran }}</button>
+             <button class="rounded-lg bg-red-500 text-white  p-1" type="submit">{{ $row->Pembelajaran }}</button>
                  @endif
             </td>   
             </form>
-            
+               
         </tr>
    
         @endforeach

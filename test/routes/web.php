@@ -134,6 +134,8 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
     Route::post('/update-nilai',[AdminCRUDController::class,'updateNilai'])->name('updtNilai');//Page Update Nilai siswa
 
+    Route::post('/update-pembelajaran',[AdminCRUDController::class,'selesai_tahun_ajaran'])->name('updatePembelajaran');
+
    
     
 
