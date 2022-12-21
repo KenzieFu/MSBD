@@ -131,11 +131,17 @@ class AdminCRUDController extends Controller
             {
                 $thn->status="Tidak Aktif";
             }
-            else if($thn)
+            else if($thn->Pembelajaran =="Belum Selesai")
+            {
+                return redirect()->back()->with('success','Harus Menyelesaikan Tahun Ajaran Terlebih Dahulu');
+            }
             
         }
         else
+        {
             $thn->status="Aktif";
+        }
+            
 
         if($thn->status =="Aktif" && $check->res ==1 )
         {
@@ -245,5 +251,13 @@ class AdminCRUDController extends Controller
         Session::flash('success', 'Absensi Berhasil Di update'); 
         return view('admin.page.absensi_siswa',compact('rombel','absensi_siswa'));
 
+     }
+
+     public function selesai_tahun_ajaran(Request $request)
+     {
+        $check=collect(DB::select('SELECT COUNT(*) as res FROM tahun_akademiks WHERE status="Aktif"'))->first();
+
+        $thn=TahunAkademik::find($request->id);
+       
      }
 }

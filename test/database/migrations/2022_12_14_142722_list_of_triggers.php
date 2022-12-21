@@ -130,6 +130,18 @@ return new class extends Migration
 
             END;
         ');
+
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER validasi_update_pembelajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+            BEGIN
+                IF(OLD.status="Tidak Aktif") THEN
+                    IF(NEW.Pembelajaran="Selesai" AND OLD.Pembelajaran="Belum Selesai")THEN
+                    SIGNAL SQLSTATE "45000"
+                    SET MESSAGE_TEXT="Tahun Ajaran harus Aktif terlebih Dahulu";
+                    END IF;
+                END IF;
+            END;
+        ');
       
     }
 
