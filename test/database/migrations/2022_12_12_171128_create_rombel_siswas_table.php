@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_rombel');
             $table->foreign("id_rombel")->references('id')->on('rombels');
             $table->string('id_siswa');
-            $table->foreign("id_siswa")->references('NIS')->on('students');
+            $table->foreign("id_siswa")->references('NIS')->on('students')->onDelete('cascade');
             $table->timestamps();
         });
     }

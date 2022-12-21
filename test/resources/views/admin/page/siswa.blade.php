@@ -20,6 +20,7 @@
                 <td>Status</td>
                 <td>Gender</td>
                 <td>SMP</td>
+                <td>Aksi</td>
                 
             </tr>
         </thead>
@@ -33,9 +34,40 @@
                 <td>{{ $user->nama_kelas }}</td>
                 <td>{{ $user->Tahun_Masuk }}</td>
               
-                <td>{{ $user->status }}</td>
+               
+                    <form method="POST" action="{{ route('admin.usiswa') }}">
+                    @csrf
+                    <input type="hidden" name="NIS" value="{{ $user->NIS }}">
+                    <td>
+                    @if($user->status =="Aktif")
+                <button class="rounded-lg bg-green-500 text-white p-1" type="submit">{{ $user->status }}</button>     
+                    @elseif($user->status =="Tidak Aktif")
+                 <button class="rounded-lg bg-red-500 text-white p-1" type="submit">{{ $user->status }}</button>
+                 @else
+                        <span class="rounded-lg bg-blue-300 text-white p-1" type="submit">{{ $user->status }}</span>
+                     @endif
+                 
+                </form></td>
                 <td>{{ $user->gender}}</td>
                 <td>{{ $user->SMP}}</td>
+                <td class="flex flex-col gap-y-3">
+                    <form action="{{ route('admin.info_siswa') }}">
+                        @csrf
+                        <input type="hidden" name="id_siswa" value="{{ $user->NIS }}">
+                    <button class="text-white p-2 text-lg bg-blue-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Details</button>
+                    </form>
+                    <form action="{{ route('admin.update_siswa') }}">
+                        @csrf
+                        <input type="hidden" name="id_siswa" value="{{ $user->NIS }}">
+                    <button class="text-white p-2 text-lg bg-green-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Update</button>
+                    </form>
+                    <form method="POST" action={{ route('admin.delete_siswa') }}>
+                        @csrf
+                        <input type="hidden" name="id_siswa" value="{{ $user->NIS }}">
+                    <button class="text-white p-2 text-lg bg-red-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Delete</button>
+                    </form>
+                
+                </td>
             </tr>
        
             @endforeach

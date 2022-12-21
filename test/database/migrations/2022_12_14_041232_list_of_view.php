@@ -36,7 +36,7 @@ return new class extends Migration
         DB::unprepared('CREATE OR REPLACE VIEW absensisiswa AS SELECT abs.id,abs.id_rsiswa,rs.id_rombel, s.NIS, s.name ,abs.absen,abs.sakit,abs.izin FROM absensi_siswas abs INNER JOIN rombel_siswas rs ON rs.id=abs.id_rsiswa INNER JOIN students s ON s.NIS=rs.id_siswa ');
 
         //Menampilkan view guru
-        DB::unprepared('CREATE OR REPLACE VIEW data_guru AS SELECT t.NIG,t.alias,t.name,t.gender,th.TahunAjaran as Tahun_Masuk,t.Kota_Lahir ,t.alamat  FROM teachers t INNER JOIN tahun_akademiks th ON th.angkatan=t.angkatan');
+        DB::unprepared('CREATE OR REPLACE VIEW data_guru AS SELECT t.NIG,t.alias,t.name,t.gender,th.TahunAjaran as Tahun_Masuk,t.Kota_Lahir ,t.alamat,t.status  FROM teachers t INNER JOIN tahun_akademiks th ON th.angkatan=t.angkatan');
 
         //Menampilkan view semua roster
         DB::unprepared('CREATE OR REPLACE VIEW semua_jadwal AS SELECT rr.id,rr.id_rombel,rr.id_mapel,t.NIG,t.alias,k.nama_kelas ,r.SMP, m.mapel,rr.Hari,rr.sesi1,rr.sesi2,r.id_thnakademik,th.TahunAjaran,th.status as status_tahun,jumlah_siswa(rr.id_rombel) as jumlah FROM roster_rombels rr INNER JOIN rombels r ON r.id=rr.id_rombel INNER JOIN tahun_akademiks th ON th.id=r.id_thnakademik INNER JOIN kelas k ON k.id=r.id_kelas INNER JOIN mapels m ON m.id=rr.id_mapel INNER JOIN teachers t ON t.NIG=rr.id_guru');

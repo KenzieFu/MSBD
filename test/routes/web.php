@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController as AdminAuth;
 use App\Http\Controllers\Admin\AdminViewController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\Teacher\TeacherController;
+use App\Models\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,6 +136,24 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::post('/update-nilai',[AdminCRUDController::class,'updateNilai'])->name('updtNilai');//Page Update Nilai siswa
 
     Route::post('/update-pembelajaran',[AdminCRUDController::class,'selesai_tahun_ajaran'])->name('updatePembelajaran');
+
+
+
+    //VIEW CRUD ADMIN
+    //1.Students
+    Route::get('/info-siswa',[AdminCRUDController::class,'info_siswa'])->name('info_siswa');
+    Route::get('/update-siswa',[AdminCRUDController::class,'update_siswa'])->name('update_siswa');
+    Route::post('/updt-siswa',[AdminCRUDController::class,'updt_siswa'])->name('updt_siswa');
+    Route::post('/delete-siswa',[AdminCRUDController::class,'delete_siswa'])->name('delete_siswa');
+    Route::post('/update-status-siswa',[AdminCRUDController::class,'update_status_siswa'])->name('usiswa');
+    //2.Teachers
+    Route::get('/info-guru',[AdminCRUDController::class,'info_guru'])->name('info_guru');
+    Route::get('/update-guru',[AdminCRUDController::class,'update_guru'])->name('update_guru');
+    Route::post('/updt-guru',[AdminCRUDController::class,'updt_guru'])->name('updt_guru');
+    Route::post('/delete-guru',[AdminCRUDController::class,'delete_guru'])->name('delete_guru');
+    Route::post('/update-status-guru',[AdminCRUDController::class,'update_status_guru'])->name('uguru');
+
+
 
    
     

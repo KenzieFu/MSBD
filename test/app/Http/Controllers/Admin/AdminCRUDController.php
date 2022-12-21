@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\absensi_siswa;
+use App\Models\Kelas;
 use App\Models\NilaiSiswa;
 use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Rombel;
 use App\Models\roster_rombel;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -278,4 +280,109 @@ class AdminCRUDController extends Controller
        
        
      }
+
+     ////////////CRUD 
+     ///1. Table Students
+        public function info_siswa(Request $request)
+        {
+            $siswa=collect(DB::select('SELECT s.*,k.nama_kelas,th.TahunAjaran FROM students s INNER JOIN kelas k ON k.id=id_kelas INNER JOIN tahun_akademiks th ON th.angkatan=s.angkatan WHERE NIS='.$request->id_siswa.''))->first();
+           
+            return view('admin.page.CRUD.info-siswa',compact('siswa'));
+        }
+        public function update_siswa(Request $request)
+        {
+            $siswa=collect(DB::select('SELECT s.*,k.nama_kelas FROM students s INNER JOIN kelas k ON k.id=id_kelas WHERE NIS='.$request->id_siswa.''))->first();
+            $kelas=Kelas::get();
+            return view('admin.page.CRUD.updatesiswa',compact('siswa','kelas'));
+        }
+
+        public function updt_siswa(Request $request)
+        {
+            $siswa=User::find($request->NIS);
+          
+            $siswa->name=$request->name;
+            $siswa->gender=$request->gender;
+            $siswa->SMP=$request->SMP;
+            $siswa->id_kelas=$request->id_kelas;
+            $siswa->Kota_Lahir=$request->Kota_Lahir;
+            $siswa->alamat=$request->alamat;
+            $siswa->save();
+
+            return redirect()->back()->with('success','Siswa dengan NIS '.$siswa->NIS.' Berhasil Di Update');
+        }
+
+        public function delete_siswa(Request $request)
+        {
+            $siswa=User::find($request->id_siswa);
+            $siswa->delete();
+            return redirect()->back()->with('success','Siswa Berhasil di delete');
+        }
+
+        //2 Table Teachers
+
+        public function info_guru(Request $request)
+        {
+            $guru=collect(DB::select('SELECT t.*, th.TahunAjaran FROM teachers t INNER JOIN tahun_akademiks th ON th.angkatan=t.angkatan WHERE NIG='.$request->id_guru.''))->first();
+           
+            return view('admin.page.CRUD.info-guru',compact('guru'));
+        }
+
+        public function update_guru(Request $request)
+        {
+            $guru=collect(DB::select('SELECT t.*, th.TahunAjaran FROM teachers t INNER JOIN tahun_akademiks th ON th.angkatan=t.angkatan WHERE NIG='.$request->id_guru.''))->first();
+         
+            return view('admin.page.CRUD.updateguru',compact('guru'));
+        }
+
+        public function updt_guru(Request $request)
+        {
+            $guru=Teacher::find($request->NIG);
+            
+            $guru->name=$request->name;
+            $guru->alias=$request->alias;
+            $guru->alamat=$request->alamat;
+            $guru->Kota_Lahir=$request->Kota_Lahir;
+            $guru->gender=$request->gender;
+            $guru->save();
+        
+            return redirect()->back()->with('success','Guru dengan NIG '.$guru->NIG.' Berhasil Di Update');
+            
+        }
+
+        public function delete_guru(Request $request)
+        {
+            $guru=Teacher::find($request->id_guru);
+            $guru->delete();
+            return redirect()->back()->with('success','Guru Berhasil di delete');
+        }
+
+        public function update_status_guru(Request $request)
+        {
+            $guru=Teacher::find($request->id_guru);
+            if($guru->status == "Aktif")
+                $guru->status="Tidak Aktif";
+            else
+                $guru->status="Aktif";
+            
+            $guru->save();
+             return redirect()->back()->with('success','Status Guru Berhasil di update');
+        }
+
+        public function update_status_siswa(Request $request)
+        {
+            $siswa=User::find($request->NIS);
+            if($siswa->status =="Aktif")
+                $siswa->status="Tidak Aktif";
+            else   
+                $siswa->status="Aktif";
+            
+                $siswa->save();
+             return redirect()->back()->with('success','Status Siswa Berhasil di Update');
+        }
+
+
+
+
+
+
 }

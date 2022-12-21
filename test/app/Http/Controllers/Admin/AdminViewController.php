@@ -17,6 +17,19 @@ use PDF;
 
 class AdminViewController extends Controller
 {
+    /////CRUD PAgenya
+    //1.students Table
+    //  a.
+
+
+
+
+
+
+
+
+
+
    
     public function index()
     {
@@ -67,7 +80,7 @@ class AdminViewController extends Controller
             return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
         }
         $daftarkelas=Kelas::get();
-        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.alias)'));
+        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE status="Aktif" AND NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.alias)'));
      
         
      
@@ -149,7 +162,7 @@ class AdminViewController extends Controller
     { 
         $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
         $mapel=DB::select('SELECT * FROM mapels ');
-        $teacher=DB::select('SELECT * FROM teachers ');
+        $teacher=DB::select('SELECT * FROM teachers WHERE status="Aktif"');
         foreach($rombel as $r)
         {
             $rombel=$r;

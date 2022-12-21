@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('absensi_siswas', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_rsiswa')->unsigned();
-            $table->foreign('id_rsiswa')->references('id')->on('rombel_siswas');
+            $table->foreign('id_rsiswa')->references('id')->on('rombel_siswas')->onDelete('cascade');
             $table->bigInteger('absen')->unsigned()->default(0);
             $table->bigInteger('sakit')->unsigned()->default(0);
             $table->bigInteger('izin')->unsigned()->default(0);

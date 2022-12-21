@@ -21,7 +21,7 @@ return new class extends Migration
             $table->bigInteger('id_thnakademik')->unsigned();
             $table->foreign('id_thnakademik')->references('id')->on('tahun_akademiks');
             $table->string('id_wali')->nullable();
-            $table->foreign('id_wali')->references('NIG')->on('teachers');
+            $table->foreign('id_wali')->references('NIG')->on('teachers')->onDelete('set null');
             $table->timestamps();
         });
     }

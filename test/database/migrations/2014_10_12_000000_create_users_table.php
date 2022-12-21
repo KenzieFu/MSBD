@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->string("NIS",7)->primary();
             $table->enum("gender",["L","P"])->nullable();
-            $table->enum("status",["Aktif","Tidak_Aktif","Tamat"])->default("Aktif");
+            $table->enum("status",["Aktif","Tidak Aktif","Tamat"])->default("Aktif");
             $table->enum("SMP",[1,2,3])->default(1);
             $table->string("alamat")->nullable();
             $table->string("Kota_Lahir")->nullable();
