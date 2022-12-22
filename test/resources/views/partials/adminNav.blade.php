@@ -7,7 +7,7 @@
     @if($active)
     <div class="text-xl text-green-500">Tahun Aktif : {{ $active->TahunAjaran }}</div>
     @else
-    <div class=" text-xl text-red-500">Tahun Ajaran Belum Diaktifkan</div>
+    <div class=" text-xl text-red-500">Tahun Ajaran Belum Dimulai</div>
     @endif
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">

@@ -12,7 +12,7 @@
         <span>SMP          :{{ $rombel->SMP }}</span>
         <span>Jumlah Siswa :{{ $rombel->jumlah }}</span>
         <span>Tahun Ajaran  :{{ $rombel->TahunAjaran }}</span>
-        <span>Wali Kelas  :{{ $rombel->name }}</span>
+        <span>Wali Kelas  :{{ $rombel->name??"Pending" }}</span>
     </div>
    
     <div class="flex gap-x-3 ">
@@ -72,6 +72,7 @@
                         <p class="text-lg font-medium text-gray-900 truncate dark:text-white">
                             {{ $ns->mapel }}
                         </p>
+                        <p>KKM :{{ $ns->KKM }}</p>
                         
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">

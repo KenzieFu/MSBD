@@ -74,7 +74,7 @@ return new class extends Migration
         CREATE OR REPLACE TRIGGER nilaimapelsiswa AFTER INSERT ON rombel_siswas FOR EACH ROW
         BEGIN
             INSERT INTO nilai_siswas (id_rsiswa,id_mapel,created_at,updated_at)
-            SELECT NEW.id, id,now(),now() FROM mapels ;
+            SELECT NEW.id, id,now(),now() FROM mapels WHERE status ="Aktif" ;
         END;
         ');
 
@@ -86,6 +86,74 @@ return new class extends Migration
             SELECT NEW.id, now(),now()  ;
         END;
         ');
+
+        //trigger tahun akademiks jika kita mengupdate pembelejaran jadi selesai maka update tingkat Smp menjadi diatasny
+        //jika siswa berada di kelas 3 dan naek kelas maka akan mengupdate status siswa tsb menjadi tamat
+
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER selesai_thnajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+        BEGIN 
+
+            IF (OLD.Pembelajaran !=NEW.Pembelajaran) THEN
+            UPDATE students
+                SET 
+                status=(CASE WHEN SMP=3 THEN "Tamat" ELSE status END),
+                SMP=( CASE WHEN SMP  <3 THEN SMP+1 ELSE SMP END)
+             
+                WHERE status ="Aktif";
+            END IF;
+        END;
+        ');
+
+        //Trigger tahun akademik tidak bs dinonaktifkan jika Pembelajaran belum selesai
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER cek_pembelajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+        BEGIN
+            IF( NEW.status = "Tidak Aktif" AND OLD.status ="Aktif") THEN
+                IF OLD.Pembelajaran ="Belum Selesai" THEN
+                    SIGNAL SQLSTATE "45000"
+                    SET MESSAGE_TEXT="Selesaikan Pembelajaran Terlebih Dahulu";
+                END IF;
+            END IF;
+        END;
+        
+        ');
+
+        //TRigger  tahun akademik jika pembelajaran selesai tidak bs mengedit pembelajaran menjadi belum selesai
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER jangan_update_pembelajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+            BEGIN
+                IF(NEW.Pembelajaran ="Belum Selesai" AND OLD.Pembelajaran="Selesai") THEN
+                SIGNAL SQLSTATE "45000"
+                SET MESSAGE_TEXT="Pembelajaran Telah Selesai, Tidak bs di update Pembelajaran";
+                END IF;
+
+            END;
+        ');
+        //Triggwe utk memeriksa jika kita tidak bs membuat pembelajaran di tahun tersebut jika tahun tersebut blm aktif
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER validasi_update_pembelajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
+            BEGIN
+                IF(OLD.status="Tidak Aktif") THEN
+                    IF(NEW.Pembelajaran="Selesai" AND OLD.Pembelajaran="Belum Selesai")THEN
+                    SIGNAL SQLSTATE "45000"
+                    SET MESSAGE_TEXT="Tahun Ajaran harus Aktif terlebih Dahulu";
+                    END IF;
+                END IF;
+            END;
+        ');
+
+        //Trigger validasi siswa jika sudah tamat kita tidak boleh mengganti statusny menjadi aktif/tidak aktif
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER siswa_tamat BEFORE UPDATE ON students FOR EACH ROW
+            BEGIN
+                IF(NEW.status !="Tamat" AND OLD.status="Tamat") THEN
+                SIGNAL SQLSTATE "45000"
+                SET MESSAGE_TEXT="Tidak Bisa Merubah Status Siswa Jika Siswa Sudah Tamat";
+                END IF;
+            END;
+        ');
+
       
     }
 

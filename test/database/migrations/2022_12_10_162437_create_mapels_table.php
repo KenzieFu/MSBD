@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('mapels', function (Blueprint $table) {
             $table->id();
             $table->string('mapel');
+            $table->enum("status",["Aktif","Tidak Aktif"])->default("Aktif");
+            $table->integer("KKM")->nullable()->default(65);
             $table->timestamps();
         });
     }

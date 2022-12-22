@@ -9,11 +9,11 @@
         <span>SMP          :{{ $rombel->SMP }}</span>
         <span>Jumlah Siswa :{{ $rombel->jumlah }}</span>
         <span>Tahun Ajaran  :{{ $rombel->TahunAjaran }}</span>
-        <span>Wali Kelas  :{{ $rombel->name }}</span>
+        <span>Wali Kelas  :{{ $rombel->name??"Pending" }}</span>
     </div>
    
     <div class="flex gap-x-3 ">
-        <form  action={{ route('rombelsiswa') }}>
+        <form  action={{ route('teacher.rombelsiswa') }}>
             @csrf
             <input type="hidden" name="id_rombel" value={{ $rombel->id }}>
        
@@ -29,20 +29,24 @@
     </button>
         </form>
 
-        <form  action={{ route('nilaisiswa') }}>
+        <form  action={{ route('teacher.nilaisiswa') }}>
             @csrf
             <input type="hidden" value={{ $rombel->id }} name="id_rombel">
     <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Nilai Anda 
+        Nilai Siswa 
     </button>
         </form>
-        <form  action={{ route('absensiswa') }}>
+        <form  action={{ route('teacher.absensiswa') }}>
             @csrf
             <input type="hidden" value="{{ $rombel->id }}" name="id_rombel">
     <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Absensi Anda  
+        Absensi Siswa 
     </button>
         </form>
+
+        <div class=" flex gap-x-2  justify-center align-center">
+            <a href="{{ route('admin.tes') }}" class="text-white p-1 text-lg bg-green-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Report</a>
+        </div>
 </div>
 </div>
 

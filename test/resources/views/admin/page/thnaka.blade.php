@@ -20,6 +20,7 @@
             <td>Kurikulum</td>
             <td>Angkatan</td>
             <td>Status</td>
+            <td>Pembelajaran</td>
         
         </tr>
     </thead>
@@ -42,7 +43,18 @@
                  @endif
             </td>   
             </form>
-            
+            <form method="POST" action="{{ route('admin.updatePembelajaran') }}">
+                @csrf
+                <input type="hidden" name="id" value="{{ $row->id }}">
+                <td>
+                @if($row->Pembelajaran =="Selesai")
+            <button class="rounded-lg bg-green-500 text-white p-1" type="submit">{{ $row->Pembelajaran }}</button>     
+                @else
+             <button class="rounded-lg bg-red-500 text-white  p-1" type="submit">{{ $row->Pembelajaran }}</button>
+                 @endif
+            </td>   
+            </form>
+               
         </tr>
    
         @endforeach
@@ -67,11 +79,11 @@
          <div class="modal-body flex flex-col gap-3">
             <div >
                 <label class="mr-[40px]" for="kuri">Kurikulum</label>
-                <input class="rounded-lg "name="kurikulum" type="text" id="kuri">
+                <input required class="rounded-lg "name="kurikulum" type="text" id="kuri">
             </div>
             <div >
                 <label for="thn_ajaran">Tahun Ajaran</label>
-                <input class="rounded-lg mx-3" type="text" name="thn_ajaran" id="thn_ajaran">
+                <input required class="rounded-lg mx-3" type="text" name="thn_ajaran" id="thn_ajaran">
             </div>
          </div>
              <div class="modal-footer">

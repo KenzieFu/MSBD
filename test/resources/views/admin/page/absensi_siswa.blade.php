@@ -8,15 +8,17 @@
         <span>SMP          :{{ $rombel->SMP }}</span>
         <span>Jumlah Siswa :{{ $rombel->jumlah }}</span>
         <span>Tahun Ajaran  :{{ $rombel->TahunAjaran }}</span>
+        <span>Wali Kelas  :{{ $rombel->name??"Pending" }}</span>
     </div>
    
     <div class="flex gap-x-3 ">
         <form  action={{ route('admin.detailsrombel',$rombel->id) }}>
             @csrf
-      
+    
     <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Daftar Siswa  
     </button>
+  
         </form >
         <form  action={{ route('admin.vroster',$rombel->id) }}>
             @csrf
@@ -49,8 +51,9 @@
         @csrf
     <div class="flex items-center justify-between mb-4">
         <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Absensi Siswa</h5>
+        @if(($rombel->jumlah) >0) 
         <button type="submit" class="bg-green-400 flex  justify-center align-center p-2 rounded-lg text-white">Update Absensi</button>
-       
+        @endif
    </div>
    <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">

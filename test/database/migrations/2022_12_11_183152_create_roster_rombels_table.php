@@ -16,15 +16,15 @@ return new class extends Migration
         Schema::create('roster_rombels', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_rombel')->unsigned();
-            $table->foreign('id_rombel')->references('id')->on('rombels');
+            $table->foreign('id_rombel')->references('id')->on('rombels')->onDelete('cascade');
             $table->time('sesi1')->nullable();
             
             $table->time('sesi2')->nullable();
             $table->bigInteger('id_mapel')->unsigned();
-            $table->foreign('id_mapel')->references('id')->on('mapels');
+            $table->foreign('id_mapel')->references('id')->on('mapels')->onDelete('cascade');
             $table->enum("Hari",["Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"]);
-            $table->string('id_guru');
-            $table->foreign('id_guru')->references('NIG')->on('teachers');
+            $table->string('id_guru')->nullable();
+            $table->foreign('id_guru')->references('NIG')->on('teachers')->onDelete('set null');
             $table->timestamps();
         });
     }

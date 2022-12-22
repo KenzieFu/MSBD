@@ -34,13 +34,55 @@
                     <td class="flex gap-x-3">
                         <form action={{ route('admin.detailsrombel',$r->id) }}>
                          
-                            {{-- <input type="hidden" value="{{ $r->id }} " name="id_rombel"> --}}
-                        <button class="rounded-lg bg-green-500 text-white p-1" href="">Details</button>
+                           
+                        <button class="rounded-lg bg-green-500 text-white p-1" >Details</button>
                          </form>
+       
+                         
+                           
+                        <button class="rounded-lg bg-green-500 text-white p-1" >Update</button>
+                       
+                         <form method="POST" action="{{ route('admin.deleteRombel') }}">
+                            @csrf
+                            <input type="hidden" name="id_rombel" value="{{ $r->id }}">
                         <button class="rounded-lg bg-red-500 text-white p-1" type="submit">Delete</button>
+                        </form>
                         
                     </td> 
                 </tr>
+
+                         <!--Update Rombel Modal-->
+ <div class="modal fade" id="TahunModal{{ $t->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+    <div class="modal-dialog" role="document">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">Update Wali-Kelas </h5>
+             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">×</span>
+             </button>
+         </div>
+         <form method="POST" action="{{ route('admin.updtRombel') }}">
+            @csrf
+            <input type="hidden" name="id_kelas" value="{{ $t->id }}">
+         <div class="modal-body flex flex-col gap-3">
+
+            <div >
+                <label class="mr-[40px]" for="kuri">Wali Kelas</label>
+                <input type="text" name="nama_kelas" value="{{ $t->nama_kelas }}">
+               
+            </div>
+            
+         </div>
+             <div class="modal-footer">
+             <button class="btn btn-secondary bg-red-500 text-white " type="button" data-dismiss="modal">Cancel</button>
+             
+                
+                 <button class="btn btn-primary bg-green-500 text-white" type="submit">Update</button>
+             
+         </div>
+     </form>
+     </div>
+ </div>
             @endforeach
         </tbody>
        </table>

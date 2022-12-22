@@ -17,6 +17,19 @@ use PDF;
 
 class AdminViewController extends Controller
 {
+    /////CRUD PAgenya
+    //1.students Table
+    //  a.
+
+
+
+
+
+
+
+
+
+
    
     public function index()
     {
@@ -27,7 +40,7 @@ class AdminViewController extends Controller
     //Fungsi page menampilkan daftar siswa
     public function userTable(){
         $users=DB::select('SELECT * FROM data_siswa');
-        
+    
         return view('admin.page.siswa',compact('users'));
     }
 
@@ -55,6 +68,16 @@ class AdminViewController extends Controller
         return view('admin.page.CRUD.createSiswa',compact('daftarkelas'));
     }
 
+    public function pageAddGuru()
+    {
+        $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+        if(!$active)
+        {
+            return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
+        }
+        return view('admin.page.CRUD.createGuru');
+    }
+
 
 
 
@@ -67,7 +90,7 @@ class AdminViewController extends Controller
             return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
         }
         $daftarkelas=Kelas::get();
-        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.alias)'));
+        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE status="Aktif" AND NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.alias)'));
      
         
      
@@ -108,6 +131,7 @@ class AdminViewController extends Controller
         {
             $rombel=DB::select('SELECT * FROM data_rombel_thn');
         }
+        
        
         return view ('admin.page.rombel',compact('rombel'));
     }
@@ -117,6 +141,7 @@ class AdminViewController extends Controller
     {
        
         $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+       
         foreach($rombel as $r)
         {
             $rombel=$r;
@@ -148,8 +173,8 @@ class AdminViewController extends Controller
     public function pageAddJadwal(Request $request)
     { 
         $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
-        $mapel=DB::select('SELECT * FROM mapels ');
-        $teacher=DB::select('SELECT * FROM teachers ');
+        $mapel=DB::select('SELECT * FROM mapels WHERE status="Aktif" ');
+        $teacher=DB::select('SELECT * FROM teachers WHERE status="Aktif"');
         foreach($rombel as $r)
         {
             $rombel=$r;
@@ -216,6 +241,24 @@ class AdminViewController extends Controller
 
         $data= DB::select('SELECT a.id, a.name, a.nama_kelas, a.SMP, a.TahunAjaran, a.status, a.jumlah, b.updated_at FROM data_rombel a LEFT JOIN rombels b ON a.id=b.id');
         $pdf = PDF::loadview('report.admin.tes1',compact('data'));
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('laporan_admin.pdf');
+
+    }
+
+    public function reportmapel(){
+
+        $data= DB::select('SELECT * FROM mapels');
+        $pdf = PDF::loadview('report.admin.tes2',compact('data'));
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('laporan_admin.pdf');
+
+    }
+
+    public function reportteacher(){
+
+        $data= DB::select('SELECT a.NIG, a.name, a.alias, a.gender, a.alamat, a.Tahun_Masuk, b.updated_at FROM data_guru a LEFT JOIN teachers b ON a.NIG=b.NIG');
+        $pdf = PDF::loadview('report.admin.tes3',compact('data'));
         $pdf->setPaper('A4', 'potrait');
         return $pdf->stream('laporan_admin.pdf');
 

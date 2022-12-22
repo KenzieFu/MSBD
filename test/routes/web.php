@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController as AdminAuth;
 use App\Http\Controllers\Admin\AdminViewController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\Teacher\TeacherController;
+use App\Models\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,7 @@ Route::get('/',function()
     return view('welcome');
 });
 
-Route::get('/tes',[AdminViewController::class,'reportsiswa']);  //unfinish report siswa
-Route::get('/tes1',[AdminViewController::class,'reportkelas']);  //unfinish report kelas
+
 
 
 Route::middleware(['auth'])->group(function(){
@@ -54,7 +54,6 @@ require __DIR__.'/auth.php';
 
 
 
-
 # Teacher panel routes (Route khusus untuk guru)
 
 Route::prefix('/teacher')->name('teacher.')->group(function(){
@@ -67,8 +66,25 @@ Route::prefix('/teacher')->name('teacher.')->group(function(){
     Route::get('/wali-kelas',[TeacherController::class,'walikelas'])->name('walikelas');
     Route::get('/daftar-siswa-rombel',[TeacherController::class,'rombelsiswa'])->name('rombelsiswa');
     Route::get('/jadwal-kelas',[TeacherController::class,'jadwal_kelas'])->name('jadwal_kelas');
+    Route::get('/absen-siswa',[TeacherController::class,'absensiswa'])->name('absensiswa');
+    Route::post('/update-absensi-siswa',[TeacherController::class,'updtAbsensi'])->name('updtAbsensi');//Page  siswa di rombel tsb dengan button cek absensi
+    Route::get('/nilai-siswa-per-rombel',[TeacherController::class,'nilaisiswa'])->name('nilaisiswa');//Page  siswa di rombel tsb dengan button cek nilai/input nilai
+    Route::get('/nilai-siswa',[TeacherController::class,'lihatNilai'])->name('lihatNilai');//Page  siswa di rombel tsb nilai2 siswa
+
+    Route::get('/jadwal-guru',[TeacherController::class,'jadwalGuru'])->name('jadwalGuru');//Page lihat jadwal guru pada tahun itu
+        Route::get('/input-nilai',[TeacherController::class,'inputnilai'])->name('inputnilai');
+
+    Route::get('/mapel-guru',[TeacherController::class,'mapelguru'])->name('mapelguru');
+    Route::get('/updtnilai',[TeacherController::class,'updtnilai'])->name('updtnilai');
+
+    Route::get('/rekap-wali-kelas',[TeacherController::class,'rekapwali'])->name('rekapwali');
+    Route::get('/rekap-mapel-guru',[TeacherController::class,'rekapmapel'])->name('rekapmapel');
+
+    
     });
 });
+
+
 
 
 
@@ -119,6 +135,43 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
     Route::post('/update-nilai',[AdminCRUDController::class,'updateNilai'])->name('updtNilai');//Page Update Nilai siswa
 
+    Route::post('/update-pembelajaran',[AdminCRUDController::class,'selesai_tahun_ajaran'])->name('updatePembelajaran');
+
+
+
+    //VIEW CRUD ADMIN
+    //1.Students
+    Route::get('/info-siswa',[AdminCRUDController::class,'info_siswa'])->name('info_siswa');
+    Route::get('/update-siswa',[AdminCRUDController::class,'update_siswa'])->name('update_siswa');
+    Route::post('/updt-siswa',[AdminCRUDController::class,'updt_siswa'])->name('updt_siswa');
+    Route::post('/delete-siswa',[AdminCRUDController::class,'delete_siswa'])->name('delete_siswa');
+    Route::post('/update-status-siswa',[AdminCRUDController::class,'update_status_siswa'])->name('usiswa');
+    //2.Teachers
+    Route::get('/create-guru',[AdminViewController::class,'pageAddGuru'])->name('cvGuru');
+    Route::post('/create-guru',[AdminCRUDController::class,'createGuru'])->name('cGuru');
+    Route::get('/info-guru',[AdminCRUDController::class,'info_guru'])->name('info_guru');
+    Route::get('/update-guru',[AdminCRUDController::class,'update_guru'])->name('update_guru');
+    Route::post('/updt-guru',[AdminCRUDController::class,'updt_guru'])->name('updt_guru');
+    Route::post('/delete-guru',[AdminCRUDController::class,'delete_guru'])->name('delete_guru');
+    Route::post('/update-status-guru',[AdminCRUDController::class,'update_status_guru'])->name('uguru');
+    //3 Kelas
+    Route::post('/create-kelas',[AdminCRUDController::class,'createKelas'])->name('createKelas');
+    Route::post('/updt-kelas',[AdminCRUDController::class,'updt_kelas'])->name('updt_kelas');
+    Route::post('/delete-kelas',[AdminCRUDController::class,'delete_kelas'])->name('delete_kelas');
+
+    //4.Mapel
+    Route::post('/create-mapel',[AdminCRUDController::class,'createMapel'])->name('createMapel');
+    Route::post('/updt-mapel',[AdminCRUDController::class,'updtMapel'])->name('updtMapel');
+    Route::post('/delete-mapel',[AdminCRUDController::class,'deleteMapel'])->name('deleteMapel');
+    Route::post('aktivasi-mapel',[AdminCRUDController::class,'aktivasiMapel'])->name('aktivasiMapel');
+
+    //5.Rombel
+    Route::post('/delete-rombel',[AdminCRUDController::class,'deleteRombel'])->name('deleteRombel');
+   
+    
+
+
+
    
     
 
@@ -149,7 +202,14 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         //Create Jadwal
         Route::get('/create-page-jadwal/{id_rombel}',[AdminViewController::class,'pageAddJadwal'])->name('cvJadwal');
         Route::post('/create-jadwal',[AdminCRUDController::class,'TambahJadwal'])->name('cJadwal');
+    
 
+
+    //page report table
+        Route::get('/laporan_siswa',[AdminViewController::class,'reportsiswa'])->name('tes');  //unfinish report siswa
+        Route::get('/laporan_kelas',[AdminViewController::class,'reportkelas'])->name('tes1');  //unfinish report kelas
+        Route::get('/laporan_mata_pelajaran',[AdminViewController::class,'reportmapel'])->name('tes2');  //unfinish report matpel
+        Route::get('/laporan_guru',[AdminViewController::class,'reportteacher'])->name('tes3');  //unfinish report teacher
     });
 
     

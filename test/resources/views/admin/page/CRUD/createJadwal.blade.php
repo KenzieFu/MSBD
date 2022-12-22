@@ -34,6 +34,7 @@
             </select>
 
         </div>
+   
 
         
         
@@ -48,11 +49,11 @@
         </div>
         <div class="flex  justify-around gap-5  -ml-[220px] items-end left-0">
             <label class="flex items-center   text-white" for="sesi1">Sesi 1</label>
-        <input type="time" id="sesi1" name="sesi1">
+        <input required type="time" id="sesi1" name="sesi1">
         </div>
-        <div class="flex  justify-around gap-5  -ml-[220px] items-end left-0">
+        <div  class="flex  justify-around gap-5  -ml-[220px] items-end left-0">
             <label class="flex items-center   text-white" for="sesi1">Sesi 2</label>
-        <input type="time" id="sesi2" name="sesi2">
+        <input required type="time" id="sesi2" name="sesi2">
         </div>
      
      

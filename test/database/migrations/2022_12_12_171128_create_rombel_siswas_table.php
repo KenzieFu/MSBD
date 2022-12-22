@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('rombel_siswas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_rombel');
-            $table->foreign("id_rombel")->references('id')->on('rombels');
+            $table->foreign("id_rombel")->references('id')->on('rombels')->onDelete('cascade');
             $table->string('id_siswa');
-            $table->foreign("id_siswa")->references('NIS')->on('students');
+            $table->foreign("id_siswa")->references('NIS')->on('students')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@
         <span>SMP          :{{ $rombel->SMP }}</span>
         <span>Jumlah Siswa :{{ $rombel->jumlah }}</span>
         <span>Tahun Ajaran  :{{ $rombel->TahunAjaran }}</span>
+        <span>Wali Kelas  :{{ $rombel->name??"Pending" }}</span>
     </div>
    
     <div class="flex gap-x-3 ">
@@ -59,15 +60,13 @@
                    
                     <div class="flex-1 min-w-0">
                         <p class="text-lg font-medium text-gray-900 truncate dark:text-white">
-                            {{ $ds->name }}
+                            {{ $ds->name }},&nbsp;&nbsp;&nbsp; {{ $ds->gender  }}
                         </p>
                         <p class="text-lg text-gray-500 truncate dark:text-gray-400">
                             {{ $ds->NIS }}
                         </p>
                     </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        Action
-                    </div>
+                    
                 </div>
                 @endforeach
             
