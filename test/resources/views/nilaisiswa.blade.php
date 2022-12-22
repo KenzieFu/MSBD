@@ -72,6 +72,7 @@
                         <p class="text-lg font-medium text-gray-900 truncate dark:text-white">
                             {{ $ns->mapel }}
                         </p>
+                        <p>{{ $ns->KKM }}</p>
                         
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">

@@ -66,6 +66,7 @@
                         <p class="text-lg text-gray-500 truncate dark:text-gray-400">
                             {{ $ds->NIS }}
                         </p>
+                   
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                         <form action={{ route('teacher.lihatNilai') }}>
