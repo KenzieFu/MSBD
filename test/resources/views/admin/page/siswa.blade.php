@@ -44,7 +44,7 @@
                     @elseif($user->status =="Tidak Aktif")
                  <button class="rounded-lg bg-red-500 text-white p-1" type="submit">{{ $user->status }}</button>
                  @else
-                        <span class="rounded-lg bg-blue-300 text-white p-1" type="submit">{{ $user->status }}</span>
+                        <span class="rounded-lg bg-blue-300 text-white p-1" >{{ $user->status }}</span>
                      @endif
                  
                 </form></td>

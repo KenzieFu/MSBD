@@ -5,6 +5,7 @@
         <h2 class="font-bold text-3xl">Daftar Guru</h2>
         <div class=" flex gap-x-2  justify-center align-center">
             <a href="{{ route('admin.tes3') }}" class="text-white p-2 text-lg bg-green-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Report</a>
+            <a href="{{ route('admin.cGuru') }}" class="text-white p-2 text-lg bg-green-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Tambah Guru</a>
             
         </div>
     </div>

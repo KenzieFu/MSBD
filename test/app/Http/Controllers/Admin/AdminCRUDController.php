@@ -19,11 +19,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminCRUDController extends Controller
 {
+
+   
     
     public function createSiswa(Request $request){
        $angkatan=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
        
-    
         $nis=collect(DB::select('SELECT generate_nim('.$angkatan->angkatan.',no_urut('.$angkatan->angkatan.')) as res'))->first();
        
             $request->validate([
@@ -35,8 +36,8 @@ class AdminCRUDController extends Controller
                 'gender'=>'required',
                 
             ]);
-          
-    
+            
+     
              $user = User::create([
                 'name' => $request->name,
                 'NIS'=>$nis->res,
@@ -48,20 +49,10 @@ class AdminCRUDController extends Controller
                 'id_kelas'=>$request->kelas,
                 'password' => Hash::make($nis->res)
             ]); 
-             /* $user = new User();
-            $user->name=$request->name;
-            $user->NIM=$nim;
-            $user->email= $request->email;
-            $user->angkatan=$angkatan->angkatan;
-            $user->Kota_Lahir=$request->KotaLahir;
-            $user->alamat=$request->alamat;
-            $user->gender=$request->gender;
-            $user->password="123";
-            $user->save(); */
+        
       
             return redirect('/admin/tabel-siswa') ->with('success',$nis->res);
-    
-           
+
     }
 
 
@@ -69,7 +60,7 @@ class AdminCRUDController extends Controller
         $angkatan=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
         
      
-         $nis=collect(DB::select('SELECT generate_nim('.$angkatan->angkatan.',no_urut('.$angkatan->angkatan.')) as res'))->first();
+         $nig=collect(DB::select('SELECT generate_nig('.$angkatan->angkatan.',no_urut_guru('.$angkatan->angkatan.')) as res'))->first();
         
              $request->validate([
                  'name' => 'required|string|max:255',
@@ -81,29 +72,22 @@ class AdminCRUDController extends Controller
              ]);
            
      
-              $user = User::create([
+              $teacher = Teacher::create([
                  'name' => $request->name,
-                 'NIS'=>$nis->res,
+                 'NIG'=>$nig->res,
+                 'alias'=>$request->alias,
                  'email' => $request->email,
                  'angkatan'=>$angkatan->angkatan,
                  'Kota_Lahir'=>$request->Kota_Lahir,
                  'alamat'=>$request->alamat,
                  'gender'=>$request->gender,
-                 'id_kelas'=>$request->kelas,
-                 'password' => Hash::make($nis->res)
+             
+                 'password' => Hash::make($nig->res)
              ]); 
-              /* $user = new User();
-             $user->name=$request->name;
-             $user->NIM=$nim;
-             $user->email= $request->email;
-             $user->angkatan=$angkatan->angkatan;
-             $user->Kota_Lahir=$request->KotaLahir;
-             $user->alamat=$request->alamat;
-             $user->gender=$request->gender;
-             $user->password="123";
-             $user->save(); */
+             
+          
        
-             return redirect('/admin/tabel-siswa') ->with('success',$nis->res);
+             return redirect()->back()->with('success',$nig->res);
      
             
      }
@@ -315,7 +299,7 @@ class AdminCRUDController extends Controller
         {
             $siswa=User::find($request->id_siswa);
             $siswa->delete();
-            return redirect()->back()->with('success','Siswa Berhasil di delete');
+            return redirect()->back()->with('success','Siswa 0'.$siswa->NIS.' Berhasil di delete');
         }
 
         //2 Table Teachers
@@ -378,6 +362,25 @@ class AdminCRUDController extends Controller
             
                 $siswa->save();
              return redirect()->back()->with('success','Status Siswa Berhasil di Update');
+        }
+
+
+        //Table Kelas
+        public function updt_kelas(Request $request)
+        {
+            $kelas=Kelas::find($request->id_kelas);
+            $kelas->nama_kelas=$request->nama_kelas;
+            $kelas->save();
+            return redirect()->back()->with('success','Kelas berhasil diupdate');
+
+        }
+
+        public function delete_kelas(Request $request)
+        {
+
+            $kelas=Kelas::find($request->id_kelas);
+            $kelas->delete();
+            return redirect()->back()->with('success','Kelas Berhasil Dihapus');
         }
 
 

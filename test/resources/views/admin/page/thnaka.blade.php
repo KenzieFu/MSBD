@@ -79,11 +79,11 @@
          <div class="modal-body flex flex-col gap-3">
             <div >
                 <label class="mr-[40px]" for="kuri">Kurikulum</label>
-                <input class="rounded-lg "name="kurikulum" type="text" id="kuri">
+                <input required class="rounded-lg "name="kurikulum" type="text" id="kuri">
             </div>
             <div >
                 <label for="thn_ajaran">Tahun Ajaran</label>
-                <input class="rounded-lg mx-3" type="text" name="thn_ajaran" id="thn_ajaran">
+                <input required class="rounded-lg mx-3" type="text" name="thn_ajaran" id="thn_ajaran">
             </div>
          </div>
              <div class="modal-footer">

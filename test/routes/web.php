@@ -147,11 +147,18 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::post('/delete-siswa',[AdminCRUDController::class,'delete_siswa'])->name('delete_siswa');
     Route::post('/update-status-siswa',[AdminCRUDController::class,'update_status_siswa'])->name('usiswa');
     //2.Teachers
+    Route::get('/create-guru',[AdminViewController::class,'pageAddGuru'])->name('cvGuru');
+    Route::post('/create-guru',[AdminCRUDController::class,'createGuru'])->name('cGuru');
     Route::get('/info-guru',[AdminCRUDController::class,'info_guru'])->name('info_guru');
     Route::get('/update-guru',[AdminCRUDController::class,'update_guru'])->name('update_guru');
     Route::post('/updt-guru',[AdminCRUDController::class,'updt_guru'])->name('updt_guru');
     Route::post('/delete-guru',[AdminCRUDController::class,'delete_guru'])->name('delete_guru');
     Route::post('/update-status-guru',[AdminCRUDController::class,'update_status_guru'])->name('uguru');
+    //3 Kelas
+    Route::post('/updt-kelas',[AdminCRUDController::class,'updt_kelas'])->name('updt_kelas');
+    Route::post('/delete-kelas',[AdminCRUDController::class,'delete_kelas'])->name('delete_kelas');
+   
+    
 
 
 

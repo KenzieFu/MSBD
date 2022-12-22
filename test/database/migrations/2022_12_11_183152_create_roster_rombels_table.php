@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('roster_rombels', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_rombel')->unsigned();
-            $table->foreign('id_rombel')->references('id')->on('rombels');
+            $table->foreign('id_rombel')->references('id')->on('rombels')->onDelete('cascade');
             $table->time('sesi1')->nullable();
             
             $table->time('sesi2')->nullable();

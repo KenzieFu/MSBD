@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('rombels', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_kelas')->unsigned()->nullable();
-            $table->foreign('id_kelas')->references('id')->on('kelas');
+            $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('cascade');
             $table->enum("SMP",[1,2,3]);
             $table->bigInteger('id_thnakademik')->unsigned();
             $table->foreign('id_thnakademik')->references('id')->on('tahun_akademiks');

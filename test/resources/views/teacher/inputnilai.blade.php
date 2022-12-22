@@ -12,7 +12,7 @@
         <span>SMP          :{{ $jadwal->SMP }}</span>
         <span>Jumlah Siswa :{{ $jadwal->jumlah }}</span>
         <span>Tahun Ajaran  :{{ $jadwal->TahunAjaran }}</span>
-        <span>Wali Kelas  :{{ $jadwal->alias }}</span>
+        <span>Wali Kelas  :{{ $rombel->name??"Pending" }}</span>
     </div>
    
     <div class="flex gap-x-3 ">

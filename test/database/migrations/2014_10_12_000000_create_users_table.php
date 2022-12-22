@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string("angkatan");
             $table->string('email')->unique();
             $table->bigInteger('id_kelas')->unsigned()->nullable();
-            $table->foreign('id_kelas')->references('id')->on('kelas');
+            $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('set null');
             $table->string('password');
             $table->timestamps();
             

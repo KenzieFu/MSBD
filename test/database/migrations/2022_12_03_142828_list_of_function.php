@@ -32,7 +32,14 @@ return new class extends Migration
         CREATE OR REPLACE FUNCTION no_urut (thn_aktif VARCHAR(2)) RETURNS VARCHAR(3)
             BEGIN
             DECLARE res VARCHAR(3);
-            SET res=(SELECT COUNT(*) FROM students WHERE angkatan=thn_aktif) +1;
+            DECLARE checks INT;
+            SET checks=(SELECT COUNT(*)  FROM students WHERE angkatan=thn_aktif);
+            IF(checks = 0)THEN
+                SET res=1;
+            ELSE
+            SET res=(SELECT RIGHT(NIS,3) FROM students WHERE angkatan=thn_aktif ORDER BY NIS DESC LIMIT 1)+1;
+            END IF;
+         
             SET res=(SELECT LPAD(res,3,0));
             RETURN res;
             END;    
@@ -88,7 +95,7 @@ return new class extends Migration
             DECLARE res VARCHAR(7);
             DECLARE kode_guru VARCHAR(2);
             SET kode_guru="02";
-            SET res=(SELECT LPAD((CONCAT(angkatan,kode_siswa,no_urut)),7,0));
+            SET res=(SELECT LPAD((CONCAT(angkatan,kode_guru,no_urut)),7,0));
             return res;
             END;
         ');

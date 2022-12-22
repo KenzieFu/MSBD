@@ -40,7 +40,7 @@ class AdminViewController extends Controller
     //Fungsi page menampilkan daftar siswa
     public function userTable(){
         $users=DB::select('SELECT * FROM data_siswa');
-        
+    
         return view('admin.page.siswa',compact('users'));
     }
 
@@ -66,6 +66,16 @@ class AdminViewController extends Controller
             return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
         }
         return view('admin.page.CRUD.createSiswa',compact('daftarkelas'));
+    }
+
+    public function pageAddGuru()
+    {
+        $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+        if(!$active)
+        {
+            return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
+        }
+        return view('admin.page.CRUD.createGuru');
     }
 
 
@@ -121,6 +131,7 @@ class AdminViewController extends Controller
         {
             $rombel=DB::select('SELECT * FROM data_rombel_thn');
         }
+        
        
         return view ('admin.page.rombel',compact('rombel'));
     }
@@ -130,6 +141,7 @@ class AdminViewController extends Controller
     {
        
         $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
+       
         foreach($rombel as $r)
         {
             $rombel=$r;

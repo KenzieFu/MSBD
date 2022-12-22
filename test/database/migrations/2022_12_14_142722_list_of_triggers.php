@@ -130,7 +130,7 @@ return new class extends Migration
 
             END;
         ');
-
+        //Triggwe utk memeriksa jika kita tidak bs membuat pembelajaran di tahun tersebut jika tahun tersebut blm aktif
         DB::unprepared('
             CREATE OR REPLACE TRIGGER validasi_update_pembelajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
             BEGIN
@@ -142,6 +142,18 @@ return new class extends Migration
                 END IF;
             END;
         ');
+
+        //Trigger validasi siswa jika sudah tamat kita tidak boleh mengganti statusny menjadi aktif/tidak aktif
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER siswa_tamat BEFORE UPDATE ON students FOR EACH ROW
+            BEGIN
+                IF(NEW.status !="Tamat" AND OLD.status="Tamat") THEN
+                SIGNAL SQLSTATE "45000"
+                SET MESSAGE_TEXT="Tidak Bisa Merubah Status Siswa Jika Siswa Sudah Tamat";
+                END IF;
+            END;
+        ');
+
       
     }
 
