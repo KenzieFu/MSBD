@@ -21,7 +21,7 @@ return new class extends Migration
             
             $table->time('sesi2')->nullable();
             $table->bigInteger('id_mapel')->unsigned();
-            $table->foreign('id_mapel')->references('id')->on('mapels');
+            $table->foreign('id_mapel')->references('id')->on('mapels')->onDelete('cascade');
             $table->enum("Hari",["Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"]);
             $table->string('id_guru')->nullable();
             $table->foreign('id_guru')->references('NIG')->on('teachers')->onDelete('set null');
