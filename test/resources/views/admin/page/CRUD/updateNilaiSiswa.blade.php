@@ -35,9 +35,13 @@
         Rekap Nilai  
     </button>
         </form>
-    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <form  action={{ route('admin.absensisiswa') }}>
+            @csrf
+            <input type="hidden" value="{{ $rombel->id }}" name="id_rombel">
+    <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Rekap Absensi  
-    </a>
+    </button>
+        </form>
 </div>
 </div>
 
@@ -53,9 +57,6 @@
         
             
         <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Nilai Siswa {{ $data_siswa->name }}--{{ $data_siswa->NIS }}</h5>
-        
-       
-
         
         <input type="hidden" name="id_rombel" value="{{ $rombel->id }}">
         <input type="hidden" name="NIS" value="{{ $data_siswa->NIS }}">
@@ -77,6 +78,7 @@
                         <p class="text-lg font-medium text-gray-900 truncate dark:text-white">
                             {{ $ns->mapel }}
                         </p>
+                        <p>KKM :{{ $ns->KKM }}</p>
                         
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">

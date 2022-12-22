@@ -155,8 +155,18 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::post('/delete-guru',[AdminCRUDController::class,'delete_guru'])->name('delete_guru');
     Route::post('/update-status-guru',[AdminCRUDController::class,'update_status_guru'])->name('uguru');
     //3 Kelas
+    Route::post('/create-kelas',[AdminCRUDController::class,'createKelas'])->name('createKelas');
     Route::post('/updt-kelas',[AdminCRUDController::class,'updt_kelas'])->name('updt_kelas');
     Route::post('/delete-kelas',[AdminCRUDController::class,'delete_kelas'])->name('delete_kelas');
+
+    //4.Mapel
+    Route::post('/create-mapel',[AdminCRUDController::class,'createMapel'])->name('createMapel');
+    Route::post('/updt-mapel',[AdminCRUDController::class,'updtMapel'])->name('updtMapel');
+    Route::post('/delete-mapel',[AdminCRUDController::class,'deleteMapel'])->name('deleteMapel');
+    Route::post('aktivasi-mapel',[AdminCRUDController::class,'aktivasiMapel'])->name('aktivasiMapel');
+
+    //5.Rombel
+    Route::post('/delete-rombel',[AdminCRUDController::class,'deleteRombel'])->name('deleteRombel');
    
     
 

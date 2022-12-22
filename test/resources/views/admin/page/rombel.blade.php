@@ -34,10 +34,14 @@
                     <td class="flex gap-x-3">
                         <form action={{ route('admin.detailsrombel',$r->id) }}>
                          
-                            {{-- <input type="hidden" value="{{ $r->id }} " name="id_rombel"> --}}
+                           
                         <button class="rounded-lg bg-green-500 text-white p-1" href="">Details</button>
                          </form>
+                         <form method="POST" action="{{ route('admin.deleteRombel') }}">
+                            @csrf
+                            <input type="hidden" name="id_rombel" value="{{ $r->id }}">
                         <button class="rounded-lg bg-red-500 text-white p-1" type="submit">Delete</button>
+                        </form>
                         
                     </td> 
                 </tr>

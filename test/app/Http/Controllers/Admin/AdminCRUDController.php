@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Rombel;
 use App\Models\roster_rombel;
 use App\Models\Teacher;
+use App\Models\Mapel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -382,6 +383,74 @@ class AdminCRUDController extends Controller
             $kelas->delete();
             return redirect()->back()->with('success','Kelas Berhasil Dihapus');
         }
+        public function createKelas(Request $request)
+        {
+            Kelas::create([
+                'nama_kelas'=>$request->nama_kelas
+            ]);
+            return redirect()->back()->with('success','Kelas Berhasil Ditambah'); 
+        }
+        //4.Mapel
+
+        public function createMapel(Request $request)
+        {
+            Mapel::create([
+                'mapel'=>$request->mapel,
+                'KKM'=>$request->KKM,
+            ]);
+
+            return redirect()->back()->with('success','Mapel Berhasil Ditambah'); 
+        }
+
+        public function updtMapel(Request $request)
+        {
+            $mapel=Mapel::find($request->id_mapel);
+            $mapel->mapel=$request->mapel;
+            $mapel->KKM=$request->KKM;
+            $mapel->save();
+            return redirect()->back()->with('success','Mapel Berhasil Diubah');
+        }
+
+        public function deleteMapel(Request $request)
+        {
+            $mapel=Mapel::find($request->id_mapel);
+            $mapel->delete();
+
+            return redirect()->back()->with('success','Mapel Berhasil Dihapus');
+        }
+
+        public function aktivasiMapel(Request $request)
+        {
+            $text="";
+            $mapel=Mapel::find($request->id_mapel);
+            if($mapel->status =="Aktif")
+            {
+                $mapel->status="Tidak Aktif";
+                $text="Mapel Berhasil Di Nonaktifkan";
+                
+            }   
+            else
+            {
+                $mapel->status="Aktif";
+                $text="Mapel Berhasil Di Aktifkan";
+  
+            }
+
+            $mapel->save();
+            return redirect()->back()->with('success',$text);
+            
+                
+        }
+
+        //5.Rombel
+        public function deleteRombel(Request $request)
+        {
+            $rombel=Rombel::find($request->id_rombel);
+            $rombel->delete();
+
+            return redirect()->back()->with('success','Rombel Berhasil di Delete');
+        }
+
 
 
 
