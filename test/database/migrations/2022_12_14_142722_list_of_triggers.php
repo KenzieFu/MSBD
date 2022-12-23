@@ -93,7 +93,7 @@ return new class extends Migration
         DB::unprepared('
         CREATE OR REPLACE TRIGGER selesai_thnajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
         BEGIN 
-
+            
             IF (OLD.Pembelajaran !=NEW.Pembelajaran) THEN
             UPDATE students
                 SET 
@@ -101,7 +101,11 @@ return new class extends Migration
                 SMP=( CASE WHEN SMP  <3 THEN SMP+1 ELSE SMP END)
              
                 WHERE status ="Aktif";
+         
+
             END IF;
+     
+
         END;
         ');
 
@@ -115,6 +119,7 @@ return new class extends Migration
                     SET MESSAGE_TEXT="Selesaikan Pembelajaran Terlebih Dahulu";
                 END IF;
             END IF;
+            
         END;
         
         ');
@@ -154,6 +159,38 @@ return new class extends Migration
             END;
         ');
 
+        //Trigger insert intinya agar tidak wali kelas yang mempunyai 2 kelas dimana dia sebagai wakel di tahun ajaran tersebut
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER validasi_insert_penentuan_wali BEFORE INSERT  ON rombels FOR EACH ROW
+            BEGIN
+            DECLARE vcheck int;
+       
+
+            SET vcheck:=(SELECT COUNT(*) FROM teachers t WHERE status="Aktif" AND EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik =NEW.id_thnakademik && r.id_wali=NEW.id_wali));
+            IF(vcheck>0) THEN 
+            SIGNAL SQLSTATE "45000"
+            SET MESSAGE_TEXT="Guru ini  telah menjadi wali kelas di kelas lain";
+            END IF;
+
+            END;
+        ');
+        //Trigger iupdate intinya agar tidak wali kelas yang mempunyai 2 kelas dimana dia sebagai wakel di tahun ajaran tersebut
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER validasi_update_penentuan_wali BEFORE UPDATE  ON rombels FOR EACH ROW
+            BEGIN
+
+            DECLARE vcheck int;
+          
+
+            SET vcheck:=(SELECT COUNT(*) FROM teachers t WHERE status="Aktif" AND  EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik =NEW.id_thnakademik && r.id_wali=NEW.id_wali));
+            IF(vcheck>0) THEN 
+            SIGNAL SQLSTATE "45000"
+            SET MESSAGE_TEXT="Guru ini  telah menjadi wali kelas di kelas lain";
+            END IF;
+
+            END;
+        ');
+
       
     }
 
@@ -166,4 +203,15 @@ return new class extends Migration
     {
         //
     }
+
+
+
 };
+
+
+/* DECLARE checkthn int;
+SET checkthn :=(SELECT COUNT(*) FROM tahun_akademiks WHERE status="Aktif" AND id=NEW.id);
+IF(checkthn = 0) THEN
+SIGNAL SQLSTATE "45000"
+SET MESSAGE_TEXT="Tahun Akademik Belum Aktif";
+END IF; */

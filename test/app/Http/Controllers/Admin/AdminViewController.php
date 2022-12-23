@@ -90,7 +90,7 @@ class AdminViewController extends Controller
             return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
         }
         $daftarkelas=Kelas::get();
-        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE status="Aktif" AND NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.alias)'));
+        $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE status="Aktif" AND NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.NIG)'));
      
         
      
@@ -122,6 +122,7 @@ class AdminViewController extends Controller
     {  
         $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
         $rombel=null;
+        $guru=DB::select('SELECT * FROM teachers WHERE status="Aktif"');
       
         if(!$active)
         {
@@ -133,7 +134,7 @@ class AdminViewController extends Controller
         }
         
        
-        return view ('admin.page.rombel',compact('rombel'));
+        return view ('admin.page.rombel',compact('rombel','guru'));
     }
 
 

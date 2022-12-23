@@ -40,7 +40,7 @@
        
                          
                            
-                        <button class="rounded-lg bg-green-500 text-white p-1" >Update</button>
+                        <button data-toggle="modal" data-target="#UpdateWaliModal{{ $r->id }}"  class="rounded-lg bg-green-500 text-white p-1" >Update</button>
                        
                          <form method="POST" action="{{ route('admin.deleteRombel') }}">
                             @csrf
@@ -52,7 +52,7 @@
                 </tr>
 
                          <!--Update Rombel Modal-->
- <div class="modal fade" id="TahunModal{{ $t->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+ <div class="modal fade" id="UpdateWaliModal{{ $r->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
     <div class="modal-dialog" role="document">
      <div class="modal-content">
          <div class="modal-header">
@@ -61,14 +61,19 @@
                  <span aria-hidden="true">×</span>
              </button>
          </div>
-         <form method="POST" action="{{ route('admin.updtRombel') }}">
+         <form method="POST" action="#">
             @csrf
-            <input type="hidden" name="id_kelas" value="{{ $t->id }}">
+            <input type="hidden" name="id_kelas" value="{{ $r->id }}">
          <div class="modal-body flex flex-col gap-3">
 
             <div >
                 <label class="mr-[40px]" for="kuri">Wali Kelas</label>
-                <input type="text" name="nama_kelas" value="{{ $t->nama_kelas }}">
+                <select required name="id_wali" id="kuri">
+                    <option></option>
+                    @foreach($guru as $g)
+                    <option  @php if($r->NIG ==$g->NIG) echo "selected" @endphp value="{{ $g->NIG }}">{{ $g->alias }}</option>
+                    @endforeach
+                </select>
                
             </div>
             

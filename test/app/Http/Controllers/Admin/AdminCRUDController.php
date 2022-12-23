@@ -451,6 +451,15 @@ class AdminCRUDController extends Controller
             return redirect()->back()->with('success','Rombel Berhasil di Delete');
         }
 
+        public function updateWaliRombel(Request $request)
+        {
+            $rombel=Rombel::find($request->id_rombel);
+            $rombel->NIG=$request->id_wali;
+            $rombel->save();
+
+            return redirect()->back()->with('success','Rombel Berhasil Di update');
+        }
+
 
 
 
