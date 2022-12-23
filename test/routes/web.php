@@ -168,6 +168,7 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     //5.Rombel
     Route::post('/delete-rombel',[AdminCRUDController::class,'deleteRombel'])->name('deleteRombel');
     Route::post('/update-wali-rombel',[AdminCRUDController::class,'updateWaliRombel'])->name('updateWaliRombel');
+    Route::post('/delete-jadwal-rombel',[AdminCRUDController::class,'deleteJadwal'])->name('deleteJadwal');
    
     
 

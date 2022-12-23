@@ -79,7 +79,14 @@
                          <td>{{ $r->nama_wali}}</td>
                          <td>{{ $r->sesi1}}</td>
                          <td>{{ $r->sesi2}}</td>
-                         <td></td>
+                         <td>
+
+                            <form method="POST" action="{{ route('admin.deleteJadwal') }}">
+                                @csrf
+                                <input type="hidden" name="id_roster" value="{{ $r->id }}">
+                            <button class="rounded-lg bg-red-500 text-white p-1" type="submit">Delete</button>
+                            </form>
+                         </td>
                         
                      </tr>
                      @endforeach

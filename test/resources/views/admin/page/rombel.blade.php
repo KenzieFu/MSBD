@@ -61,15 +61,15 @@
                  <span aria-hidden="true">×</span>
              </button>
          </div>
-         <form method="POST" action="#">
+         <form method="POST" action="{{ route('admin.updateWaliRombel') }}">
             @csrf
-            <input type="hidden" name="id_kelas" value="{{ $r->id }}">
+            <input type="hidden" name="id_rombel" value="{{ $r->id }}">
          <div class="modal-body flex flex-col gap-3">
 
             <div >
                 <label class="mr-[40px]" for="kuri">Wali Kelas</label>
                 <select required name="id_wali" id="kuri">
-                    <option></option>
+                    <option value="{{ null }}"></option>
                     @foreach($guru as $g)
                     <option  @php if($r->NIG ==$g->NIG) echo "selected" @endphp value="{{ $g->NIG }}">{{ $g->alias }}</option>
                     @endforeach

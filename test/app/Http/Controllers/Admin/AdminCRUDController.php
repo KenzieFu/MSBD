@@ -453,11 +453,21 @@ class AdminCRUDController extends Controller
 
         public function updateWaliRombel(Request $request)
         {
+            
             $rombel=Rombel::find($request->id_rombel);
-            $rombel->NIG=$request->id_wali;
+            
+            $rombel->id_wali=$request->id_wali;
+            
             $rombel->save();
 
             return redirect()->back()->with('success','Rombel Berhasil Di update');
+        }
+        public function deleteJadwal(Request $request)
+        {
+            $jadwal=roster_rombel::find($request->id_roster);
+            $jadwal->delete();
+            
+            return redirect()->back()->with('success','Jadwal Berhasil Dihapus');
         }
 
 
