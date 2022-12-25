@@ -232,13 +232,62 @@ return new class extends Migration
             SIGNAL SQLSTATE "45000"
             SET MESSAGE_TEXT="Satu Mapel Hanya Boleh diajari oleh satu guru saja";
         END IF;
+        
         END;
         
         ');
+        //17 trigger validasi
 
 
+        //Table Untuk Log semua aktivitas
+        //1.Siswa
 
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_insert_siswa AFTER INSERT ON students FOR EACH ROW
+        BEGIN
+     
+        DECLARE text TEXT;
+        SET text=CONCAT("Menambahkan Siswa dengan NIS ",NEW.NIS);
+     
         
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"insert",now(),now();
+        END;
+        
+        ');
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_update_siswa AFTER UPDATE ON students FOR EACH ROW
+        BEGIN
+    
+        DECLARE text TEXT;
+        SET text=CONCAT("Mengubah Siswa dengan NIS ",NEW.NIS);
+     
+        
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"update",now(),now();
+        END;
+        
+        ');
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_delete_siswa AFTER UPDATE ON students FOR EACH ROW
+        BEGIN
+    
+        DECLARE text TEXT;
+        SET text=CONCAT("Menghapus Siswa dengan NIS ",NEW.NIS);
+     
+        
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"update",now(),now();
+        END;
+        
+        ');
+        //2.Trigger
+        
+
+
+
+
+
 
       
     }

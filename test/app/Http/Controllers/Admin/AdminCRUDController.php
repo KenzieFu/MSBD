@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Rombel;
 use App\Models\roster_rombel;
+use App\Models\Announcement;
 use App\Models\Teacher;
 use App\Models\Mapel;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,14 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminCRUDController extends Controller
 {
+
+    public function createAnn(Request $request)
+    {
+        Announcement::create([
+            'isi_pengumuman'=>$request->isi_pengumuman
+        ]);
+        return redirect()->back()->with('success','Berhasil Menambahkan Pengumuman');
+    }
 
    
     
@@ -54,6 +63,13 @@ class AdminCRUDController extends Controller
       
             return redirect('/admin/tabel-siswa') ->with('success',$nis->res);
 
+    }
+    public function deletePengumuman(Request $request)
+    {
+        $ann=Announcement::find($request->id_pengumuman);
+        $ann->delete();
+
+        return redirect()->back()->with('success','Pengumuman Berhasil Di Hapus');
     }
 
 

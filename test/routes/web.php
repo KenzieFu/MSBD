@@ -173,6 +173,12 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     //6.Jadwal
     Route::get('/update-jadwal',[AdminViewController::class,'updateJadwal'])->name('updateJadwal');
     Route::post('/update-jadwal',[AdminCRUDController::class,'updateJadwal'])->name('updateJadwal');
+
+
+    //7.Pengumuman
+    Route::get('/view-pengumuman',[AdminViewController::class,'pengumuman'])->name('view-pengumuman');
+    Route::post('/delete-pengumuman',[AdminCRUDController::class,'deletePengumuman'])->name('deletePengumuman');
+    Route::post('/create-pengumuman',[AdminCRUDController::class,'createAnn'])->name('createAnn');
    
     
 

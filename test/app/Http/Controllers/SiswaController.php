@@ -11,7 +11,8 @@ class SiswaController extends Controller
 {
     public function index()
     {
-        return view('dashboard');
+        $ann=collect(DB::select('SELECT * FROM announcements ORDER BY created_at DESC LIMIT 1 '))->first();
+        return view('dashboard',compact('ann'));
     }
 
     public function profile()

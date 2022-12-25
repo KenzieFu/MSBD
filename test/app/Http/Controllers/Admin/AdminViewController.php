@@ -11,6 +11,7 @@ use App\Models\TahunAkademik;
 use Illuminate\Support\Facades\DB;
 use App\Models\Rombel;
 use Illuminate\Http\Request;
+use App\Models\Announcement;
 use Carbon\Carbon;
 use PDF;
 
@@ -32,7 +33,11 @@ class AdminViewController extends Controller
     }
 
 
-
+    public function pengumuman()
+    {
+        $pengumuman=Announcement::get();
+         return view('admin.page.pengumuman',compact('pengumuman'));
+    }
 
 
 
@@ -41,7 +46,8 @@ class AdminViewController extends Controller
    
     public function index()
     {
-        return view('admin.page.dashboard');
+        $ann=collect(DB::select('SELECT * FROM announcements ORDER BY created_at DESC LIMIT 1 '))->first();
+        return view('admin.page.dashboard',compact('ann'));
     }
 
 
@@ -272,5 +278,7 @@ class AdminViewController extends Controller
         return $pdf->stream('laporan_admin.pdf');
 
     }
+
+  
 
 }
