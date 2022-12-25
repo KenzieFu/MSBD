@@ -161,10 +161,19 @@ class AdminCRUDController extends Controller
 
      public function TambahJadwal(Request $request)
      {
+
+        $vcheck=collect(DB::select('SELECT id_guru as NIG from roster_rombels WHERE id_rombel='.$request->id_rombel.' AND id_mapel='.$request->id_mapel.' LIMIT 1'))->first();
+            
+
+        if($vcheck !=null)
+        {
+            if($vcheck->NIG != $request->id_guru )
+            return redirect()->back()->with('success',"Satu Mapel Hanya Boleh diajari oleh satu guru saja");
+        }
        
         
-        $check=collect(DB::select('SELECT validasi_roster('.$request->id_rombel.',"'.$request->sesi1.'","'.$request->sesi2.'","'.$request->hari.'") as res'))->first();
-        
+        $check=collect(DB::select('SELECT validasi_roster(-1,'.$request->id_rombel.',"'.$request->sesi1.'","'.$request->sesi2.'","'.$request->hari.'") as res'))->first();
+ 
         if($check->res  >0)
         {
             return redirect()->route('admin.cvJadwal',$request->id_rombel)->with('success','Jadwal Kelas Tidak Bisa Dibuat Akibat Waktu Bentrok dengan Jadwal Lain Pada Hari tersebut');
@@ -283,6 +292,7 @@ class AdminCRUDController extends Controller
 
         public function updt_siswa(Request $request)
         {
+           
             $siswa=User::find($request->NIS);
           
             $siswa->name=$request->name;
@@ -453,8 +463,20 @@ class AdminCRUDController extends Controller
 
         public function updateWaliRombel(Request $request)
         {
-            
+ 
+          
             $rombel=Rombel::find($request->id_rombel);
+            if($rombel->id_wali !=$request->id_wali)
+            {
+              
+                $check= collect(DB::select('SELECT COUNT(*)as tes   FROM teachers t WHERE status="Aktif" AND  EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$request->id_thnakademik.' && r.id_wali='.$request->id_wali.')'))->first();
+              
+                 if($check->tes > 0)
+                {
+                    return redirect()->back()->with('success','Guru ini  telah menjadi wali kelas di kelas lain');
+                }
+            
+            }
             
             $rombel->id_wali=$request->id_wali;
             
@@ -470,6 +492,38 @@ class AdminCRUDController extends Controller
             return redirect()->back()->with('success','Jadwal Berhasil Dihapus');
         }
 
+        public function updateJadwal(Request $request)
+        {
+            $jadwal=roster_rombel::find($request->id_roster);
+          /* dd($request->id_rombel,$request->id_mapel,$request->id_roster); */
+            $vcheck=collect(DB::select('SELECT id_guru as NIG from roster_rombels WHERE id_rombel='.$request->id_rombel.' AND id_mapel='.$request->id_mapel.' AND id!='.$request->id_roster.' LIMIT 1'))->first();
+            
+
+            if($vcheck !=null)
+            {
+                if($vcheck->NIG != $request->id_guru )
+                return redirect()->back()->with('success',"Satu Mapel Hanya Boleh diajari oleh satu guru saja");
+            }
+          
+          
+            
+
+            $check=collect(DB::select('SELECT validasi_roster('.$request->id_roster.','.$request->id_rombel.',"'.$request->sesi1.'","'.$request->sesi2.'","'.$request->hari.'") as res'))->first();
+        
+            if($check->res  >0)
+            {
+                return redirect()->back()->with('success','Jadwal Kelas Tidak Bisa Dibuat Akibat Waktu Bentrok dengan Jadwal Lain Pada Hari tersebut');
+            }
+    
+            $jadwal->id_guru=$request->id_guru;
+            $jadwal->Hari=$request->hari;
+            $jadwal->id_mapel=$request->id_mapel;
+            $jadwal->sesi1=$request->sesi1;
+            $jadwal->sesi2=$request->sesi2;
+            $jadwal->save();
+
+            return redirect()->back()->with('success','Jadwal Berhasil Di Ubah');
+        }
 
 
 

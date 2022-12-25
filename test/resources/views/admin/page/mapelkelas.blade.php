@@ -79,8 +79,13 @@
                          <td>{{ $r->nama_wali}}</td>
                          <td>{{ $r->sesi1}}</td>
                          <td>{{ $r->sesi2}}</td>
-                         <td>
+                         <td class="flex gap-x-2">
 
+                            <form  action="{{ route('admin.updateJadwal') }}">
+                                @csrf
+                                <input type="hidden" name="id_roster" value="{{ $r->id }}">
+                            <button class="rounded-lg bg-green-500 text-white p-1" type="submit">Update</button>
+                            </form>
                             <form method="POST" action="{{ route('admin.deleteJadwal') }}">
                                 @csrf
                                 <input type="hidden" name="id_roster" value="{{ $r->id }}">

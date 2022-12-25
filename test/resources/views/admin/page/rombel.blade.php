@@ -63,6 +63,7 @@
          </div>
          <form method="POST" action="{{ route('admin.updateWaliRombel') }}">
             @csrf
+            <input type="hidden" name="id_thnakademik" value="{{ $r->id_thnakademik }}">
             <input type="hidden" name="id_rombel" value="{{ $r->id }}">
          <div class="modal-body flex flex-col gap-3">
 

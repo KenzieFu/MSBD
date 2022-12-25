@@ -22,6 +22,14 @@ class AdminViewController extends Controller
     //  a.
 
 
+    public function updateJadwal(Request $request)
+    {
+        $roster=collect(DB::select('SELECT * FROM semua_jadwal WHERE id='.$request->id_roster.''))->first();
+        $mapel=DB::select('SELECT * FROM mapels WHERE status="Aktif" ');
+        $teacher=DB::select('SELECT * FROM teachers WHERE status="Aktif"');
+        
+        return view('admin.page.CRUD.updateJadwal',compact('roster','mapel','teacher'));
+    }
 
 
 

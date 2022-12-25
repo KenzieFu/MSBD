@@ -55,12 +55,25 @@ return new class extends Migration
             END;
         ');
 
-        //Trigger validasi roster kelas jika terjadi bentrok jam pada hari yang bersamaan Pake fungsi timediff
+        //Trigger insert validasi roster kelas jika terjadi bentrok jam pada hari yang bersamaan Pake fungsi timediff
         DB::unprepared('
-        CREATE OR REPLACE TRIGGER  validasi_roster BEFORE INSERT ON roster_rombels FOR EACH ROW
+        CREATE OR REPLACE TRIGGER  insert_validasi_roster BEFORE INSERT ON roster_rombels FOR EACH ROW
         BEGIN
         DECLARE vcheck INT;
-        SET vcheck =( validasi_roster(NEW.id_rombel,NEW.sesi1,NEW.sesi2,NEW.Hari));
+        SET vcheck =( validasi_roster(NEW.id,NEW.id_rombel,NEW.sesi1,NEW.sesi2,NEW.Hari));
+        IF vcheck > 0 THEN
+            SIGNAL SQLSTATE "45000"
+            SET MESSAGE_TEXT="Jadwal Bentrok";
+        END IF;
+
+        END;
+        ');
+        //Trigger update validasi roster kelas jika terjadi bentrok jam pada hari yang bersamaan Pake fungsi timediff
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER  update_validasi_roster BEFORE UPDATE ON roster_rombels FOR EACH ROW
+        BEGIN
+        DECLARE vcheck INT;
+        SET vcheck =( validasi_roster(NEW.id,NEW.id_rombel,NEW.sesi1,NEW.sesi2,NEW.Hari));
         IF vcheck > 0 THEN
             SIGNAL SQLSTATE "45000"
             SET MESSAGE_TEXT="Jadwal Bentrok";
@@ -190,6 +203,42 @@ return new class extends Migration
 
             END;
         ');
+
+        //trigger update validasi guru mapel di satu rombel gk boleh ada dua/lebih guru yang berbeda pada satu mata pelajaran
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER update_jadwal_mapel_guru BEFORE UPDATE ON roster_rombels FOR EACH ROW
+        BEGIN
+        DECLARE vcheck VARCHAR(7);
+          
+
+        SET vcheck:=(SELECT id_guru from roster_rombels WHERE id_rombel=NEW.id_rombel AND id_mapel=NEW.id_mapel AND id!=NEW.id LIMIT 1);
+
+        IF(vcheck != NEW.id_guru AND !ISNULL(vcheck)) THEN
+            SIGNAL SQLSTATE "45000"
+            SET MESSAGE_TEXT="Satu Mapel Hanya Boleh diajari oleh satu guru saja";
+        END IF;
+        END;
+        
+        ');
+        //trigger insert validasi guru mapel di satu rombel gk boleh ada dua/lebih guru yang berbeda pada satu mata pelajaran
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER insert_jadwal_mapel_guru BEFORE INSERT ON roster_rombels FOR EACH ROW
+        BEGIN
+        DECLARE vcheck VARCHAR(7);
+          
+        SET vcheck:=(SELECT id_guru from roster_rombels WHERE id_rombel=NEW.id_rombel AND id_mapel=NEW.id_mapel AND id!=NEW.id LIMIT 1);
+
+        IF(vcheck != NEW.id_guru AND !ISNULL(vcheck)) THEN
+            SIGNAL SQLSTATE "45000"
+            SET MESSAGE_TEXT="Satu Mapel Hanya Boleh diajari oleh satu guru saja";
+        END IF;
+        END;
+        
+        ');
+
+
+
+        
 
       
     }

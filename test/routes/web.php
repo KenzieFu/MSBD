@@ -169,6 +169,10 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::post('/delete-rombel',[AdminCRUDController::class,'deleteRombel'])->name('deleteRombel');
     Route::post('/update-wali-rombel',[AdminCRUDController::class,'updateWaliRombel'])->name('updateWaliRombel');
     Route::post('/delete-jadwal-rombel',[AdminCRUDController::class,'deleteJadwal'])->name('deleteJadwal');
+
+    //6.Jadwal
+    Route::get('/update-jadwal',[AdminViewController::class,'updateJadwal'])->name('updateJadwal');
+    Route::post('/update-jadwal',[AdminCRUDController::class,'updateJadwal'])->name('updateJadwal');
    
     
 

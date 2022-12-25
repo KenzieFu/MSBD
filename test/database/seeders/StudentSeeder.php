@@ -16,11 +16,13 @@ class StudentSeeder extends Seeder
      */
     public function run()
     {
+      //Kelas Anggur
         User::create([
             'name'=>"Student",
             'NIS'=>"0101001",
             'email'=>"student@gmail.com",
             'gender'=>"L",
+
             'id_kelas'=>1,
             
             'password'=>Hash::make("0101001"),
@@ -31,6 +33,7 @@ class StudentSeeder extends Seeder
             'NIS'=>"0101002",
             'email'=>"nomor@gmail.com",
             'gender'=>"L",
+            
             'id_kelas'=>1,
             'password'=>Hash::make("0101002"),
             'angkatan'=>1
@@ -39,7 +42,7 @@ class StudentSeeder extends Seeder
             'name'=>"Bayu",
             'NIS'=>"0101003",
             'email'=>"bayu@gmail.com",
-            'gender'=>"P",
+            'gender'=>"L",
             'id_kelas'=>1,
             'password'=>Hash::make("0101003"),
             'angkatan'=>1
@@ -48,7 +51,7 @@ class StudentSeeder extends Seeder
             'name'=>"Natha",
             'NIS'=>"0101004",
             'email'=>"natha@gmail.com",
-            'gender'=>"L",
+            'gender'=>"P",
             'id_kelas'=>1,
             'password'=>Hash::make("0101004"),
             'angkatan'=>1
@@ -57,13 +60,13 @@ class StudentSeeder extends Seeder
             'name'=>"Andre",
             'NIS'=>"0101005",
             'email'=>"Andre@gmail.com",
-            'gender'=>"P",
-            'id_kelas'=>2,
+            'gender'=>"L",
+            'id_kelas'=>1,
             'password'=>Hash::make("0101005"),
             'angkatan'=>1
           ]);
 
-          
+          //Kelas Bangka
         User::create([
             'name'=>"Dani",
             'NIS'=>"0101006",
@@ -86,7 +89,7 @@ class StudentSeeder extends Seeder
             'name'=>"Peter",
             'NIS'=>"0101008",
             'email'=>"peter@gmail.com",
-            'gender'=>"P",
+            'gender'=>"L",
             'id_kelas'=>2,
             'password'=>Hash::make("0101008"),
             'angkatan'=>1
@@ -107,6 +110,53 @@ class StudentSeeder extends Seeder
             'gender'=>"P",
             'id_kelas'=>2,
             'password'=>Hash::make("0101010"),
+            'angkatan'=>1
+          ]);
+
+          //Kelas Puas
+        User::create([
+            'name'=>"Dom",
+            'NIS'=>"0101011",
+            'email'=>"dom@gmail.com",
+            'gender'=>"L",
+            'id_kelas'=>3,
+            'password'=>Hash::make("0101011"),
+            'angkatan'=>1
+          ]);
+        User::create([
+            'name'=>"Troy",
+            'NIS'=>"0101012",
+            'email'=>"troy@gmail.com",
+            'gender'=>"L",
+            'id_kelas'=>3,
+            'password'=>Hash::make("0101012"),
+            'angkatan'=>1
+          ]);
+        User::create([
+            'name'=>"Dante",
+            'NIS'=>"0101013",
+            'email'=>"dante@gmail.com",
+            'gender'=>"L",
+            'id_kelas'=>3,
+            'password'=>Hash::make("0101013"),
+            'angkatan'=>1
+          ]);
+        User::create([
+            'name'=>"Jessy",
+            'NIS'=>"0101014",
+            'email'=>"jessy@gmail.com",
+            'gender'=>"P",
+            'id_kelas'=>3,
+            'password'=>Hash::make("0101014"),
+            'angkatan'=>1
+          ]);
+        User::create([
+            'name'=>"Tuti",
+            'NIS'=>"0101015",
+            'email'=>"tuti@gmail.com",
+            'gender'=>"P",
+            'id_kelas'=>3,
+            'password'=>Hash::make("0101015"),
             'angkatan'=>1
           ]);
     }
