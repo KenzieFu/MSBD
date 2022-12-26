@@ -18,9 +18,13 @@ use PDF;
 
 class AdminViewController extends Controller
 {
-    /////CRUD PAgenya
-    //1.students Table
-    //  a.
+   
+    public function thnabsensiguru()
+    {
+        $thn=DB::select('SELECT * FROM tahun_akademiks');
+        return view('admin.page.absensiguru',compact('thn'));
+        
+    }
 
 
     public function updateJadwal(Request $request)

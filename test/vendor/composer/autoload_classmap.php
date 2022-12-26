@@ -49,6 +49,7 @@ return array(
     'App\\Models\\Teacher' => $baseDir . '/app/Models/Teacher.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\absensi_siswa' => $baseDir . '/app/Models/absensi_siswa.php',
+    'App\\Models\\daftar_absensi_guru' => $baseDir . '/app/Models/daftar_absensi_guru.php',
     'App\\Models\\log_absensi' => $baseDir . '/app/Models/log_absensi.php',
     'App\\Models\\log_absensi_siswa' => $baseDir . '/app/Models/log_absensi_siswa.php',
     'App\\Models\\log_aktivitas' => $baseDir . '/app/Models/log_aktivitas.php',

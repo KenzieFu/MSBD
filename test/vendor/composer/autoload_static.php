@@ -592,6 +592,7 @@ class ComposerStaticInit065127bc4d38f22b65ef118c42b97070
         'App\\Models\\Teacher' => __DIR__ . '/../..' . '/app/Models/Teacher.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\absensi_siswa' => __DIR__ . '/../..' . '/app/Models/absensi_siswa.php',
+        'App\\Models\\daftar_absensi_guru' => __DIR__ . '/../..' . '/app/Models/daftar_absensi_guru.php',
         'App\\Models\\log_absensi' => __DIR__ . '/../..' . '/app/Models/log_absensi.php',
         'App\\Models\\log_absensi_siswa' => __DIR__ . '/../..' . '/app/Models/log_absensi_siswa.php',
         'App\\Models\\log_aktivitas' => __DIR__ . '/../..' . '/app/Models/log_aktivitas.php',

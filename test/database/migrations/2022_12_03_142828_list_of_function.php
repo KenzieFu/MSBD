@@ -73,7 +73,12 @@ return new class extends Migration
         DB::unprepared('
             CREATE OR REPLACE FUNCTION validasi_roster(id_roster INT,id_rombel INT,new_sesi1 time,new_sesi2 time, hari VARCHAR(10)) RETURNS INT
                 BEGIN
+                IF(CASE WHEN new_sesi1 > new_sesi2 THEN TIMEDIFF(new_sesi1,new_sesi2)ELSE TIMEDIFF(new_sesi2,new_sesi1) END <"00:40:00")
+                THEN
+                RETURN 1;
+                END IF;
                  IF(id_roster = -1)THEN
+                   
               RETURN (SELECT COUNT(*) FROM roster_rombels rr 
         WHERE 
         (

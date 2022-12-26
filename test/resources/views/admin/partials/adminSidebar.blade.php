@@ -104,6 +104,12 @@
         <a class="nav-link" href="{{route('admin.view-pengumuman')  }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Pengumuman</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('admin.view-absensi-guru')  }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Absensi Guru</span></a>
             
     </li>
 

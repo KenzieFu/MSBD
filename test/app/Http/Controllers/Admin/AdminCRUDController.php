@@ -21,6 +21,14 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminCRUDController extends Controller
 {
+    public function listabsensiguru(Request $request)
+    {
+        $tahun=collect(DB::select('SELECT * FROM tahun_akademiks WHERE id='.$request->id_thnakademik.''))->first();
+  
+        $list=DB::select('SELECT * FROM view_daftar_absensi_guru WHERE id_thnakademik='.$request->id_thnakademik.'');
+
+        return view('admin.page.CRUD.absensiguru',compact('list','tahun'));
+    }
 
     public function createAnn(Request $request)
     {
