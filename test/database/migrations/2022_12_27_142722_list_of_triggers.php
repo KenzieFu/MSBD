@@ -269,24 +269,237 @@ return new class extends Migration
         
         ');
         DB::unprepared('
-        CREATE OR REPLACE TRIGGER log_delete_siswa AFTER UPDATE ON students FOR EACH ROW
+        CREATE OR REPLACE TRIGGER log_delete_siswa AFTER DELETE ON students FOR EACH ROW
         BEGIN
     
         DECLARE text TEXT;
-        SET text=CONCAT("Menghapus Siswa dengan NIS ",NEW.NIS);
+        SET text=CONCAT("Menghapus Siswa dengan NIS ",OLD.NIS);
      
         
         INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
-        SELECT text,"update",now(),now();
+        SELECT text,"delete",now(),now();
         END;
         
         ');
-        //2.Trigger
+        //2.Trigger Guru
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER log_insert_guru AFTER INSERT ON teachers FOR EACH ROW
+            BEGIN
+            DECLARE text TEXT;
+            SET text=CONCAT("Menambah Guru dengan NIG ",NEW.NIG);
+     
         
+            INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+            SELECT text,"insert",now(),now();
+        END;
+        ');
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER log_update_guru AFTER update ON teachers FOR EACH ROW
+            BEGIN
+            DECLARE text TEXT;
+            SET text=CONCAT("Mengupdate Guru dengan NIG ",NEW.NIG);
+     
+        
+            INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+            SELECT text,"update",now(),now();
+        END;
+        ');
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER log_delete_guru AFTER DELETE ON teachers FOR EACH ROW
+            BEGIN
+            DECLARE text TEXT;
+            SET text=CONCAT("Menghapus Guru dengan NIG ",OLD.NIG);
+     
+        
+            INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+            SELECT text,"delete",now(),now();
+        END;
+        ');
+
+        //Trigger kelas
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_insert_kelas AFTER INSERT ON kelas FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Menambah Kelas dengan id ",NEW.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"insert",now(),now();
+
+        
+        END;  
+        ');
+
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_update_kelas AFTER UPDATE ON kelas FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Mengubah Kelas dengan id  ",NEW.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"update",now(),now();
+
+        END;  
+        ');
+
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_delete_kelas AFTER DELETE ON kelas FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Mendelete Kelas dengan id  ",OLD.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"delete",now(),now();
+
+        END;  
+        ');
 
 
+        //Mapel
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_insert_mapel AFTER INSERT ON mapels FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Menambah Mapel dengan id  ",NEW.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"insert",now(),now();
+        END;  
+        ');
+        
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_update_mapel AFTER UPDATE ON mapels FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Mengubah Mapel dengan id  ",NEW.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"update",now(),now();
+        END;  
+        ');
+        
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_delete_mapel AFTER DELETE ON mapels FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Menghapus Mapel dengan id  ",OLD.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"delete",now(),now();
+        END;  
+        ');
+        
+        //Rombel
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_insert_rombel AFTER INSERT ON rombels FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Menambah rombel dengan id  ",NEW.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"insert",now(),now();
+        END;  
+        ');
+        
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_update_rombel AFTER UPDATE ON rombels FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Mengubah rombel dengan id  ",NEW.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"update",now(),now();
+        END;  
+        ');
+        
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_delete_rombel AFTER DELETE ON rombels FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Mengdelete rombel dengan id  ",OLD.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"delete",now(),now();
+        END;  
+        ');
 
+        //Pengumuman
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_insert_pengumuman AFTER INSERT ON announcements FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Menambah pengumuman dengan id  ",NEW.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"insert",now(),now();
+        END;  
+        ');
+        
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_delete_pengumuman AFTER DELETE ON announcements FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Menghapus pengumuman dengan id  ",OLD.id);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"delete",now(),now();
+        END;  
+        ');
 
+        //jadwal
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_insert_roster AFTER INSERT ON roster_rombels FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Menambah jadwal dengan id  ",NEW.id," Pada Rombel dengan id ",NEW.id_rombel);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"insert",now(),now();
+        END;  
+        ');
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_update_roster AFTER UPDATE ON roster_rombels FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Mengubah jadwal dengan id  ",NEW.id," Pada Rombel dengan id ",NEW.id_rombel);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"update",now(),now();
+        END;  
+        ');
+        
+        DB::unprepared('
+        CREATE OR REPLACE TRIGGER log_update_roster AFTER DELETE ON roster_rombels FOR EACH ROW
+        BEGIN
+        DECLARE text TEXT;
+        SET text=CONCAT("Menghapus jadwal dengan id  ",OLD.id," Pada Rombel dengan id ",OLD.id_rombel);
+ 
+        INSERT INTO log_aktivitas (aktivitas,status,created_at,updated_at)
+        SELECT text,"delete",now(),now();
+        END;  
+        ');
+
+        //NIlai
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER log_nilai AFTER UPDATE ON nilai_siswas FOR EACH ROW
+            BEGIN
+            
+            INSERT INTO log_nilais (id_rombel,nama_mapel,NIS,nilai_lama,nilai_baru,created_at,updated_at)
+            SELECT rs.id_rombel,m.mapel,rs.id_siswa,OLD.nilai,NEW.nilai,now(),now() FROM nilai_siswas ns INNER JOIN rombel_siswas rs ON rs.id=ns.id_rsiswa INNER JOIN mapels m ON m.id=ns.id_mapel WHERE ns.id=NEW.id;
+            END;
+        ');
+
+        //absensi
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER log_absensi_siswa AFTER UPDATE ON absensi_siswas FOR EACH ROW
+            BEGIN
+
+            INSERT INTO log_absensi_siswas(id_rombel,NIS,absen_lama,izin_lama,sakit_lama,absen_baru,izin_baru,sakit_baru,created_at,updated_at)
+            SELECT rs.id_rombel,rs.id_siswa,OLD.absen,OLD.izin,OLD.sakit,NEW.absen,NEW.izin,NEW.sakit,now(),now() FROM absensi_siswas abs  INNER JOIN rombel_siswas rs ON rs.id=abs.id_rsiswa WHERE abs.id=NEW.id; 
+            END;
+        ');
+        
+      
 
 
       
