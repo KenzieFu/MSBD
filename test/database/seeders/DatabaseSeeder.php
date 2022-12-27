@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             StudentSeeder::class,
             RombelSeeder::class,
             RosterSeeder::class,
+            PengumumanSeeder::class,
             
         ]);
     }

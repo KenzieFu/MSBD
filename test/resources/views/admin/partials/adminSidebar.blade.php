@@ -38,7 +38,7 @@
                 <h6 class="collapse-header">List:</h6>
                 <a class="collapse-item" href="{{ route('admin.tSiswa') }}">Siswa</a>
                 <a class="collapse-item" href={{ route('admin.tGuru') }}>Guru</a>
-                <a class="collapse-item" href={{ route('admin.tAdmin') }}>Admin</a>
+                {{-- <a class="collapse-item" href={{ route('admin.tAdmin') }}>Admin</a> --}}
                 <a class="collapse-item" href={{ route('admin.kelas') }}>Daftar Kelas</a>
                 <a class="collapse-item" href={{ route('admin.mapel') }}>Daftar Mapel</a>
                 
@@ -97,6 +97,19 @@
         <a class="nav-link" href="{{route('admin.rombel')  }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Rombel</span></a>
+            
+    </li>
+    <!-- Nav Item - Charts -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('admin.view-pengumuman')  }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Pengumuman</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('admin.view-absensi-guru')  }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Absensi Guru</span></a>
             
     </li>
 

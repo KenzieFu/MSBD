@@ -71,9 +71,14 @@ return new class extends Migration
 
         //Procedure utk menemukan jadwal apakah jadwal bentrok/tidak
         DB::unprepared('
-            CREATE OR REPLACE FUNCTION validasi_roster(id_rombel INT,new_sesi1 time,new_sesi2 time, hari VARCHAR(10)) RETURNS INT
+            CREATE OR REPLACE FUNCTION validasi_roster(id_roster INT,id_rombel INT,new_sesi1 time,new_sesi2 time, hari VARCHAR(10)) RETURNS INT
                 BEGIN
-                 
+                IF(CASE WHEN new_sesi1 > new_sesi2 THEN TIMEDIFF(new_sesi1,new_sesi2)ELSE TIMEDIFF(new_sesi2,new_sesi1) END <"00:40:00")
+                THEN
+                RETURN 1;
+                END IF;
+                 IF(id_roster = -1)THEN
+                   
               RETURN (SELECT COUNT(*) FROM roster_rombels rr 
         WHERE 
         (
@@ -84,7 +89,20 @@ return new class extends Migration
             CASE WHEN new_sesi1 > new_sesi2 THEN TIMEDIFF(new_sesi1,new_sesi2)ELSE TIMEDIFF(new_sesi2,new_sesi1) END <"00:40:00"
         )
         AND
-        (rr.id_rombel=id_rombel) AND (rr.Hari=hari));
+        (rr.id_rombel=id_rombel) AND (rr.Hari=hari) );
+        ELSE
+        RETURN (SELECT COUNT(*) FROM roster_rombels rr 
+        WHERE 
+        (
+            CASE WHEN rr.sesi1 > new_sesi1 THEN TIMEDIFF(rr.sesi1,new_sesi1) ELSE TIMEDIFF(new_sesi1,rr.sesi1) END <"00:40:00" OR 
+            CASE WHEN rr.sesi2 > new_sesi2 THEN TIMEDIFF(rr.sesi2,new_sesi2)ELSE TIMEDIFF(new_sesi2,rr.sesi2) END <"00:40:00" OR
+            CASE WHEN rr.sesi1 > new_sesi2 THEN TIMEDIFF(rr.sesi1,new_sesi2)ELSE TIMEDIFF(new_sesi2,rr.sesi1) END <"00:40:00" OR
+            CASE WHEN rr.sesi2 > new_sesi1 THEN TIMEDIFF(rr.sesi2,new_sesi1)ELSE TIMEDIFF(new_sesi1,rr.sesi2) END <"00:40:00" OR
+            CASE WHEN new_sesi1 > new_sesi2 THEN TIMEDIFF(new_sesi1,new_sesi2)ELSE TIMEDIFF(new_sesi2,new_sesi1) END <"00:40:00"
+        )
+        AND
+        (rr.id_rombel=id_rombel) AND (rr.Hari=hari) AND(rr.id!=id_roster));
+            END IF;
                 END;
         ');
 
@@ -108,6 +126,15 @@ return new class extends Migration
             SET res=(SELECT LPAD(res,3,0));
             RETURN res;
             END;    
+        ');
+
+        //Procedurre menambah list absensi guru
+        DB::unprepared('
+        CREATE OR REPLACE PROCEDURE procedure_menambah_list_absensi_guru(thn INT) 
+            BEGIN
+                INSERT INTO daftar_absensi_gurus (id_thnakademik,id_guru,created_at,updated_at)
+                SELECT thn,t.NIG,now(),now() FROM teachers t WHERE status ="Aktif" AND NOT EXISTS(SELECT * FROM daftar_absensi_gurus dag WHERE dag.id_guru=t.NIG AND dag.id_thnakademik=thn); 
+            END;
         ');
 
         

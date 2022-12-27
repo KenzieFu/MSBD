@@ -7,7 +7,7 @@
         <h1 class="text-3xl">Update Siswa</h1>
     </div>
     <div class="flex  justify-end ml-5 ">
-    <form method="POST" action="{{ route('admin.updt_guru') }}">
+    <form method="POST" action="{{ route('admin.updt_siswa') }}">
         @csrf
         <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Save</button>
     </div>

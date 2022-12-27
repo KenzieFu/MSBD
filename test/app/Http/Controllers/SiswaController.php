@@ -11,7 +11,8 @@ class SiswaController extends Controller
 {
     public function index()
     {
-        return view('dashboard');
+        $ann=collect(DB::select('SELECT * FROM announcements ORDER BY created_at DESC LIMIT 1 '))->first();
+        return view('dashboard',compact('ann'));
     }
 
     public function profile()
@@ -47,7 +48,7 @@ class SiswaController extends Controller
        {
         
      
-        return redirect()->route('dashboard')->with('success','Anda Bukan Merupakan Wali Kelas Saat Ini');
+        return redirect()->route('dashboard')->with('success','Anda Belum Memiliki Kelas');
        }
     
       

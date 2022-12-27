@@ -2,7 +2,7 @@
 @section('teacherContent')
 
 <div class="m-3 flex justify-between">
-    <h2 class="font-bold text-3xl">Jadwal Guru </h2>
+    <h2 class="font-bold text-3xl">Mapel Yang Diajari</h2>
     <div class="bg-green-400 flex  justify-center align-center p-2 rounded-lg ">
         
     </div>

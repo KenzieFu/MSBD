@@ -21,5 +21,26 @@ class RombelSeeder extends Seeder
             "id_wali"=>"0102001",
             "SMP"=>1
         ]);
+
+        Rombel::create([
+            "id_kelas"=>2,
+            "id_thnakademik"=>1,
+            "id_wali"=>"0102003",
+            "SMP"=>1
+        ]);
+
+        Rombel::create([
+            "id_kelas"=>3,
+            "id_thnakademik"=>1,
+            "id_wali"=>"0102005",
+            "SMP"=>1
+        ]);
+        
+        Rombel::create([
+            "id_kelas"=>1,
+            "id_thnakademik"=>1,
+            "id_wali"=>"0102002",
+            "SMP"=>2
+        ]);
     }
 }

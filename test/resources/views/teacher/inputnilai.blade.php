@@ -52,10 +52,17 @@
                         </p>
                         <p>{{ $ds->KKM }}</p>
                     </div>
+                    @if($jadwal->status =="Aktif")
                     <input type="hidden" name="id[]" value={{ $ds->id }}>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                         <input type="number" name="nilai[]" value={{ $ds->nilai }} min="0" max="100" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';} else if(this.value==0){this.value='0';}">
                     </div>
+                    @else
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        <p>{{ $ns->nilai }}</p>
+                    </div>
+                    <span></span>
+                    @endif
                 </div>
                 @endforeach
             

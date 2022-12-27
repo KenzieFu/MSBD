@@ -167,6 +167,24 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
     //5.Rombel
     Route::post('/delete-rombel',[AdminCRUDController::class,'deleteRombel'])->name('deleteRombel');
+    Route::post('/update-wali-rombel',[AdminCRUDController::class,'updateWaliRombel'])->name('updateWaliRombel');
+    Route::post('/delete-jadwal-rombel',[AdminCRUDController::class,'deleteJadwal'])->name('deleteJadwal');
+
+    //6.Jadwal
+    Route::get('/update-jadwal',[AdminViewController::class,'updateJadwal'])->name('updateJadwal');
+    Route::post('/update-jadwal',[AdminCRUDController::class,'updateJadwal'])->name('updatesJadwal');
+
+
+    //7.Pengumuman
+    Route::get('/view-pengumuman',[AdminViewController::class,'pengumuman'])->name('view-pengumuman');
+    Route::post('/delete-pengumuman',[AdminCRUDController::class,'deletePengumuman'])->name('deletePengumuman');
+    Route::post('/create-pengumuman',[AdminCRUDController::class,'createAnn'])->name('createAnn');
+
+    //8.Absensi-Guru
+    Route::get('/view-absensi-guru',[AdminViewController::class,'thnabsensiguru'])->name('view-absensi-guru');
+    Route::get('/update-absensi-guru',[AdminCRUDController::class,'listabsensiguru'])->name('list-absensi-guru');
+    Route::post('/tambah-list-guru',[AdminCRUDController::class,'addlistguru'])->name('add-absensi-guru');
+    Route::post('/update-absensi-guru',[AdminCRUDController::class,'updateabsensiguru'])->name('update-absensi-guru');
    
     
 

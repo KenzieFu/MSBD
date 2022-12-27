@@ -12,7 +12,8 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        return view('teacher.dashboard');
+        $ann=collect(DB::select('SELECT * FROM announcements ORDER BY created_at DESC LIMIT 1 '))->first();
+        return view('teacher.dashboard',compact('ann'));
     }
 
     public function walikelas()
