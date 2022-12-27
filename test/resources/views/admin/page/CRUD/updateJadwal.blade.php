@@ -13,7 +13,7 @@
         <h1 class="text-2xl text-white">Update Jadwal</h1>
     </div>
     <div class="m-5 text-xl text-black font-bold">
-        <form method="POST" action="{{ route('admin.updateJadwal') }}" >
+        <form method="POST" action="{{ route('admin.updatesJadwal') }}" >
             @csrf
         <div class="flex flex-col gap-3 items-center ">
             <input type="hidden" name="id_rombel" value="{{ $roster->id_rombel }}">

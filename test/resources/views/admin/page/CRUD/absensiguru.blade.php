@@ -3,10 +3,23 @@
 <div class="m-3 flex justify-between">
   
     <h2 class="font-bold text-3xl">List Absensi Guru {{ $tahun->TahunAjaran }}</h2>
-   
+    @if($tahun->Pembelajaran =="Belum Selesai")
+    <form method="POST" action="{{ route('admin.add-absensi-guru') }}">
+        @csrf
+        <input type="hidden" name="id_thnakademik" value={{ $tahun->id }}>
+    <button class="text-white p-2 text-lg bg-green-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Isi List Guru</button></form>
+    @endif
    
 </div>
+
+
 <div class="container">
+    <form method="POST" action="{{ route('admin.update-absensi-guru') }}">
+        @csrf
+    <div class="m-2 flex justify-start">
+
+        <button class="text-white p-2 text-lg bg-green-400 rounded-lg hover:no-underline hover:text-[18px] hover:opacity-50">Update Absensi<button>
+    </div>
    <table  class="table table-stripped mydatatable text-[15px]">
     <thead class="bg-green-500">
         <tr class="text-white text-xl font-bold">
@@ -19,56 +32,47 @@
         </tr>
     </thead>
     <tbody>
+
         @foreach ($list as $row)
+        
         <tr>
-           <td>{{ $row->id }}</td>
+           <td><input type="hidden" name="id[]" value="{{ $row->id }}" >
+            {{ $row->id }}
+        </td>
            <td>{{ $row->NIG }}</td>
            <td>{{ $row->name }}</td>
-           <td>{{ $row->absen }}</td>
-           <td>{{ $row->izin }}</td>
-           <td>{{ $row->sakit }}</td>
+           <td>
+            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                
+                <input value="{{ $row->absen }}" type="number" min="0" max="100" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<0){this.value='0';} else if(this.value==0){this.value='0';}"
+                name="absen[]">
+                
+                
+            </div>
+           </td>
+           <td>
+            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              
+                <input value="{{ $row->izin }}" type="number" min="0" max="100" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<0){this.value='0';} else if(this.value==0){this.value='0';}"
+                name="izin[]">
+                
+                
+            </div>
+            </td>
+           <td> <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+            <input value="{{ $row->sakit }}" type="number" min="0" max="100" onKeyUp="if(this.value>99){this.value='99';}else if(this.value<0){this.value='0';} else if(this.value==0){this.value='0';}"
+            name="sakit[]"></div></td>
         </tr>
    
         @endforeach
+    
     </tbody>
    </table>
+</form>
 </div>
 
 
- <!--Add Tahun akademik Modal-->
- <div class="modal fade" id="TahunModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
- aria-hidden="true">
- <div class="modal-dialog" role="document">
-     <div class="modal-content">
-         <div class="modal-header">
-             <h5 class="modal-title" id="exampleModalLabel">Tambah Tahun Ajaran</h5>
-             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">×</span>
-             </button>
-         </div>
-         <form method="POST" action="{{ route('admin.cthnak') }}">
-            @csrf
-         <div class="modal-body flex flex-col gap-3">
-            <div >
-                <label class="mr-[40px]" for="kuri">Kurikulum</label>
-                <input required class="rounded-lg "name="kurikulum" type="text" id="kuri">
-            </div>
-            <div >
-                <label for="thn_ajaran">Tahun Ajaran</label>
-                <input required class="rounded-lg mx-3" type="text" name="thn_ajaran" id="thn_ajaran">
-            </div>
-         </div>
-             <div class="modal-footer">
-             <button class="btn btn-secondary bg-red-500 text-white " type="button" data-dismiss="modal">Cancel</button>
-             
-                
-                 <button class="btn btn-primary bg-green-500 text-white" type="submit">Submit</button>
-             
-         </div>
-     </form>
-     </div>
- </div>
-</div>
+ 
 
 
 @endsection

@@ -128,6 +128,15 @@ return new class extends Migration
             END;    
         ');
 
+        //Procedurre menambah list absensi guru
+        DB::unprepared('
+        CREATE OR REPLACE PROCEDURE procedure_menambah_list_absensi_guru(thn INT) 
+            BEGIN
+                INSERT INTO daftar_absensi_gurus (id_thnakademik,id_guru,created_at,updated_at)
+                SELECT thn,t.NIG,now(),now() FROM teachers t WHERE status ="Aktif" AND NOT EXISTS(SELECT * FROM daftar_absensi_gurus dag WHERE dag.id_guru=t.NIG AND dag.id_thnakademik=thn); 
+            END;
+        ');
+
         
 
        

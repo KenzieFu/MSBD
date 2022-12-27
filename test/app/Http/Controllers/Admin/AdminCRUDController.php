@@ -13,6 +13,7 @@ use App\Models\Rombel;
 use App\Models\roster_rombel;
 use App\Models\Announcement;
 use App\Models\Teacher;
+use App\Models\daftar_absensi_guru;
 use App\Models\Mapel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -21,6 +22,28 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminCRUDController extends Controller
 {
+    public function updateabsensiguru(Request $request)
+    {
+      
+        for($x=0;$x<count($request->get('id'));$x++)
+        {
+            $absensi_guru=daftar_absensi_guru::find($request->get('id')[$x]);
+            $absensi_guru->absen=$request->get('absen')[$x];
+            $absensi_guru->sakit=$request->get('sakit')[$x];
+            $absensi_guru->izin=$request->get('izin')[$x];
+            $absensi_guru->save();
+       
+
+        }
+        
+        return redirect()->back()->with('success','Berhasil Mengupdate Absensi Guru');
+
+    }
+    public function addlistguru(Request $request)
+    {
+        DB::select('CALL procedure_menambah_list_absensi_guru(?)',array($request->id_thnakademik));
+        return redirect()->back()->with('success','Mengupdate List Guru');
+    }
     public function listabsensiguru(Request $request)
     {
         $tahun=collect(DB::select('SELECT * FROM tahun_akademiks WHERE id='.$request->id_thnakademik.''))->first();

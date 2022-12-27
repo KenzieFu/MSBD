@@ -172,7 +172,7 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
     //6.Jadwal
     Route::get('/update-jadwal',[AdminViewController::class,'updateJadwal'])->name('updateJadwal');
-    Route::post('/update-jadwal',[AdminCRUDController::class,'updateJadwal'])->name('updateJadwal');
+    Route::post('/update-jadwal',[AdminCRUDController::class,'updateJadwal'])->name('updatesJadwal');
 
 
     //7.Pengumuman
@@ -183,7 +183,8 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     //8.Absensi-Guru
     Route::get('/view-absensi-guru',[AdminViewController::class,'thnabsensiguru'])->name('view-absensi-guru');
     Route::get('/update-absensi-guru',[AdminCRUDController::class,'listabsensiguru'])->name('list-absensi-guru');
-   /*  Route::get('/tambah-list-guru',[AdminCRUDController::class,'thnabsensiguru'])->name('view-absensi-guru'); */
+    Route::post('/tambah-list-guru',[AdminCRUDController::class,'addlistguru'])->name('add-absensi-guru');
+    Route::post('/update-absensi-guru',[AdminCRUDController::class,'updateabsensiguru'])->name('update-absensi-guru');
    
     
 
