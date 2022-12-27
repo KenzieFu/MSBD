@@ -76,13 +76,19 @@ class AdminViewController extends Controller
 
     //fungsi untuk menampilkan page form menambahkan siswa baru
     public function pageAddUser(){
+
         $daftarkelas=Kelas::get();
   
         $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
+       
         if(!$active)
         {
             return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
         }
+        elseif($active->Pembelajaran =="Selesai")
+        return redirect()->back()->with("success","Tidak Bisa Menambahkan Siswa Karena Tahun Ajaran Saat Ini Telah Selesai");
+
+
         return view('admin.page.CRUD.createSiswa',compact('daftarkelas'));
     }
 
@@ -93,6 +99,8 @@ class AdminViewController extends Controller
         {
             return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
         }
+     
+
         return view('admin.page.CRUD.createGuru');
     }
 
@@ -107,6 +115,9 @@ class AdminViewController extends Controller
         {
             return redirect()->back()->with("success","Aktifkan Tahun Ajaran Terlebih dahulu");
         }
+        elseif($active->Pembelajaran =="Selesai")
+        return redirect()->back()->with("success","Tidak Bisa Menambahkan Rombel Karena Tahun Ajaran Saat Ini Telah Selesai");
+
         $daftarkelas=Kelas::get();
         $wali=DB::select(DB::raw('SELECT * FROM teachers t WHERE status="Aktif" AND NOT EXISTS(SELECT * FROM rombels r WHERE r.id_thnakademik ='.$active->id.' && r.id_wali=t.NIG)'));
      
