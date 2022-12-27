@@ -3,11 +3,17 @@
 <div class="m-3">Hi {{ auth()->guard('admin')->user()->name }}</div>
 
 @php
-    $start = Carbon\Carbon::parse( $ann->created_at );
-$end= \Carbon\Carbon::parse( now());
+$diff_in_minutes=0;
+if($ann !=null)
+{
+
+  $start = Carbon\Carbon::parse( $ann->created_at );
+  $end= \Carbon\Carbon::parse( now());
 
 
 $diff_in_minutes = $end->diffInMinutes($start);
+}
+  
 
 @endphp
 @if($ann && $diff_in_minutes <2)
