@@ -43,5 +43,24 @@ class RosterSeeder extends Seeder
             'sesi2'=>"12:00",
 
         ]);
+
+        roster_rombel::create([
+            'id_mapel'=>5,
+            'Hari'=>"Senin",
+            'id_rombel'=>2,
+            'id_guru'=>"0102003",
+            'sesi1'=>"08:20",
+            'sesi2'=>"09:00",
+
+        ]);
+
+        roster_rombel::create([
+            'id_mapel'=>1,
+            'Hari'=>"Selasa",
+            'id_rombel'=>2,
+            'id_guru'=>"0102005",
+            'sesi1'=>"10:00",
+            'sesi2'=>"10:40",
+        ]);
     }
 }

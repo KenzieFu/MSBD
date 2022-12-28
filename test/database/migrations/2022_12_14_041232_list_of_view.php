@@ -44,7 +44,7 @@ return new class extends Migration
         //View yang memudahkan kita melakukan penginputan berdasarkan guru mapelny
         DB::unprepared('CREATE OR REPLACE VIEW input_nilai_mapel AS SELECT ns.id_rsiswa,ns.id,ns.id_mapel,s.NIS,s.name  as nama_siswa,rs.id_rombel, m.mapel,m.KKM, ns.nilai FROM nilai_siswas ns INNER JOIN rombel_siswas rs ON rs.id=ns.id_rsiswa INNER JOIN students s ON s.NIS=rs.id_siswa INNER JOIN mapels m ON m.id=ns.id_mapel');
 
-        //View 
+        
         DB::unprepared('CREATE OR REPLACE VIEW view_daftar_absensi_guru AS SELECT dag.id,dag.id_thnakademik,t.NIG,t.name,th.TahunAjaran,dag.absen,dag.izin,dag.sakit  FROM daftar_absensi_gurus dag INNER JOIN tahun_akademiks th ON th.id=dag.id_thnakademik INNER JOIN teachers t ON t.NIG=dag.id_guru');
 
         
