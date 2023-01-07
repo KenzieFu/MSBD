@@ -1,43 +1,118 @@
 @extends('admin.layout.template')
 @section('adminContent')
 
-    <div class="border  shadow-lg  mx-40 p-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ">
-    <div class="flex justify-center items-center">
-        <h1 class="text-2xl text-white">Registrasi Guru</h1>
+
+<div class="max-w m-3 p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+   
+    <div class="mb-5">
+        <h1 class="text-3xl">Create Guru</h1>
     </div>
-    <div class="m-5 text-xl text-black font-bold">
-        <form action="{{ route('admin.cGuru') }}" method="POST">
-            @csrf
-        <div class="flex flex-col gap-3 items-center ">
-            
-        <input required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="email"    type="email" placeholder="Email">
-
-        <input required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="name"    type="text" placeholder="Nama" >
+    <div class="flex  justify-end ml-5 ">
+    <form method="POST" action="{{ route('admin.cGuru') }}">
+        @csrf
+        <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Create</button>
+    </div>
+    <table style="border-collapse: collapse;" class="w-[80%]  mb-3">
+        <tr  style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Nama</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> <input required type="text" name="name" ></td>
+        </tr>
         
-        <input required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="alias"    type="text" placeholder="Alias" >
-        
-        
-        <input required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="Kota_Lahir"    type="text" placeholder="Kota Kelahiran" >
-        
-        <textarea required class=" flex items-center justify-center placeholder:text-lg placeholder:text-slate-400 text-lg mx-2 w-96 rounded-lg outline-none focus:ring-lime-300 focus:ring-2 focus:border-lime-300 focus:ring-offset-0" name="alamat" cols="30" rows="2" placeholder="Alamat"></textarea>
-
-        <div class="flex  justify-around gap-5  -ml-[220px] items-end left-0">
-            <label class="flex items-center   text-white" for="gender">Gender</label>
-            <select required class=" h-10 " name="gender" id="gender">
-                <option value="L">L</option>
-                <option value="P">P</option>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Alias</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <input required   type="text" name="alias"  >
+            </td>
+           
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>NUPTK</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <input required  type="text" name="NUPTK"  >
+            </td>
+           
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Agama</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <select required name="agama" >
+                    <option  value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option  value="Buddha">Buddha</option>
+                    <option  value="Kong Hu Chu">Kong Hu Chu</option>
+                    <option  value="Hindu">Hindu</option>
+                </select>
+            </td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Status Kepegawaian</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <select required name="status_kepegawaian" >
+                    <option  value="Guru Honor Sekolah">Guru Honor Sekolah</option>
+                    <option value="GTY/PTY">GTY/PTY</option>
+                  
+                </select>
+            </td>
+        </tr>
+       
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Gender</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <select required name="gender" >
+                    <option  value="L">L</option>
+                    <option  value="P">P</option>
+                </select>
+            </td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Tanggal Lahir</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <input required   type="date" name="Tanggal_Lahir"  >
+            </td>
+        </tr>
+     
+       
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Tempat Lahir</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> 
+                <select required name="Tempat_Lahir" >
+                    @foreach($kota as $k)
+                    <option  value={{ $k->id }}>{{ $k->Kota }}</option>
+                    @endforeach
             </select>
-
-        </div>
+        </td>
+        </tr>
+   
        
 
-        <div class="mt-5">
-            <button type="submit" class="bg-green-400 flex  justify-center align-center p-2 rounded-lg text-white">Tambahkan</button>
-        </div>
-        
-        </div>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Alamat</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td><textarea name="alamat"  cols="60" rows="10" min></textarea></td>
+        </tr>
+       
+    </table>
     </form>
+
+    <div class="flex gap-x-3">
+    <form action="{{ route('admin.tGuru') }}">
+        @csrf
+        <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Back</button>
+    </form>
+
     </div>
+</form>
 </div>
+
+
+
 
 @endsection

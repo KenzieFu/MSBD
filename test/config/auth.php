@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'table'=>'students',
+    'table'=>'users',
 
     'defaults' => [
         'guard' => 'web',

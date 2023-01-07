@@ -43,12 +43,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $table="students";
+    protected $table="users";
 
-    public function class()
-    {
-       return $this->belongsTo(Kelas::class,'id_kelas');
-    }
 
-    protected $primaryKey='NIS';
+    protected $primaryKey='id';
 }

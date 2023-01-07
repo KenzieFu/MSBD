@@ -30,7 +30,7 @@ class TeacherController extends Controller
        }
 
        
-        $nig=str_pad(auth()->guard('teacher')->user()->NIG,7,"0",STR_PAD_LEFT);
+        $nig=str_pad(auth()->user()->id,7,"0",STR_PAD_LEFT);
         $rombel=collect(DB::select('SELECT * FROM data_rombel WHERE status="Aktif" '))->first();
 
         if($rombel == null)
@@ -162,7 +162,7 @@ class TeacherController extends Controller
        }
 
        
-        $nig=str_pad(auth()->guard('teacher')->user()->NIG,7,"0",STR_PAD_LEFT);
+        $nig=str_pad(auth()->user()->id,7,"0",STR_PAD_LEFT);
         $jadwal=DB::select('SELECT * FROM semua_jadwal WHERE NIG="'.$nig.'" AND status_tahun="Aktif" ');
 
        
@@ -173,7 +173,7 @@ class TeacherController extends Controller
 
     public function inputnilai(Request $request)
     {
-        $nig=str_pad(auth()->guard('teacher')->user()->NIG,7,"0",STR_PAD_LEFT);
+        $nig=str_pad(auth()->user()->id,7,"0",STR_PAD_LEFT);
         $jadwal=collect(DB::select('SELECT  * FROM semua_jadwal WHERE NIG="'.$nig.'" AND id_rombel= '.$request->id_rombel.''))->first();
     
         $daftar_siswa=DB::select('SELECT * FROM input_nilai_mapel WHERE id_rombel= '.$request->id_rombel.' AND id_mapel='.$request->id_mapel.'');
@@ -196,7 +196,7 @@ class TeacherController extends Controller
        }
 
        
-        $nig=str_pad(auth()->guard('teacher')->user()->NIG,7,"0",STR_PAD_LEFT);
+        $nig=str_pad(auth()->user()->id,7,"0",STR_PAD_LEFT);
         $jadwal=DB::select('SELECT DISTINCT alias,nama_kelas,SMP,mapel,TahunAjaran,id_rombel,id_mapel FROM semua_jadwal WHERE NIG="'.$nig.'" AND status_tahun="Aktif" ');
 
        
@@ -221,7 +221,7 @@ class TeacherController extends Controller
 
     public function rekapwali(Request $request)
     {
-        $nig=str_pad(auth()->guard('teacher')->user()->NIG,7,"0",STR_PAD_LEFT);
+        $nig=str_pad(auth()->user()->id,7,"0",STR_PAD_LEFT);
         $rombel=DB::select('SELECT * FROM data_rombel WHERE NIG='.$nig.'');
         return view('teacher.rekap-wali',compact('rombel'));
 
@@ -229,7 +229,7 @@ class TeacherController extends Controller
 
     public function rekapmapel(Request $request)
     {
-        $nig=str_pad(auth()->guard('teacher')->user()->NIG,7,"0",STR_PAD_LEFT);
+        $nig=str_pad(auth()->user()->id,7,"0",STR_PAD_LEFT);
         $jadwal=DB::select('SELECT DISTINCT alias,nama_kelas,SMP,mapel,TahunAjaran,id_rombel,id_mapel FROM semua_jadwal WHERE NIG="'.$nig.'"');
 
        

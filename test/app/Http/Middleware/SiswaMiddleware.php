@@ -5,9 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-
-class TeacherMiddleware
+class SiswaMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,17 +16,13 @@ class TeacherMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-      
         if(Auth::check() )
         {
             
-            if( Auth::user()->role == "guru")
+            if( Auth::user()->role == "siswa")
             return $next($request);
             
         }
-      
         return redirect()->route('login');
-        
-        
     }
 }

@@ -86,7 +86,7 @@ class SiswaController extends Controller
             $rombel=$r;
             break;
         }
-        $nis=str_pad(auth()->user()->NIS,7,"0",STR_PAD_LEFT);
+        $nis=str_pad(auth()->user()->id,7,"0",STR_PAD_LEFT);
         
         $rsiswa=collect(DB::select('SELECT * FROM rombel_siswas WHERE id_rombel='.$request->id_rombel.' AND id_siswa='.$nis.''))->first();
        
@@ -106,7 +106,7 @@ class SiswaController extends Controller
             $rombel=$r;
             break;
         }
-        $nis=str_pad(auth()->user()->NIS,7,"0",STR_PAD_LEFT);
+        $nis=str_pad(auth()->user()->id,7,"0",STR_PAD_LEFT);
         $data_siswa=collect(DB::select('SELECT * FROM students WHERE NIS='.$nis.''))->first();
       
         $absensi_siswa=collect(DB::select('SELECT * FROM absensisiswa WHERE  id_rombel='.$request->id_rombel.' AND NIS='.$nis.''))->first();
@@ -116,7 +116,7 @@ class SiswaController extends Controller
 
     public function rekapkelas(Request $request)
     {  
-        $nis=str_pad(auth()->user()->NIS,7,"0",STR_PAD_LEFT);
+        $nis=str_pad(auth()->user()->id,7,"0",STR_PAD_LEFT);
         
             $rombelsiswa=DB::select('SELECT * FROM data_rombel_siswa WHERE id_siswa='.$nis.'');
            

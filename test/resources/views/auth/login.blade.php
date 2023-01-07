@@ -4,7 +4,7 @@
         <x-slot name="logo">
             
             <a href="/">
-                <div>Student Login</div>
+                <div>Login</div>
                
             </a>
         </x-slot>
@@ -17,11 +17,11 @@
 
             <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('NIS')" />
+                <x-input-label for="email" :value="__('NIS/NIG/EMAIL')" />
 
-                <x-text-input id="email" class="block mt-1 w-full" type="text" name="NIS" :value="old('NIS')" required autofocus />
+                <x-text-input id="email" class="block mt-1 w-full" type="text" name="id" :value="old('id')" required autofocus />
 
-                <x-input-error :messages="$errors->get('NIS')" class="mt-2" />
+                <x-input-error :messages="$errors->get('id')" class="mt-2" />
             </div>
 
             <!-- Password -->

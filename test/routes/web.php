@@ -26,13 +26,13 @@ use App\Models\Admin;
 
 Route::get('/',function()
 {
-    return view('welcome');
+    return view('auth.login');
 });
 
 
 
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth','siswa'])->group(function(){
     Route::get('/dashboard',[SiswaController::class,'index'])->name('dashboard');
     Route::get('/profile',[SiswaController::class,'profile'])->name('profile');
     Route::post('/updtprofile',[SiswaController::class,'updtprofile'])->name('updtprofile');
@@ -60,7 +60,7 @@ Route::prefix('/teacher')->name('teacher.')->group(function(){
     Route::get('/login',[TeacherAuth::class,'create'])->middleware('guest:teacher')->name('login');
     Route::post('/login',[TeacherAuth::class,'store'])->middleware('guest:teacher');
 
-    Route::middleware('teacher')->group(function(){
+    Route::middleware(['teacher','auth'])->group(function(){
     Route::post('/logout',[TeacherAuth::class,'destroy'])->name('logout');
     Route::get('/dashboard',[TeacherController::class,'index'])->name('dashboard');
     Route::get('/wali-kelas',[TeacherController::class,'walikelas'])->name('walikelas');
@@ -103,7 +103,7 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
 
 
-    Route::middleware('admin')->group(function(){ // di grup agar hanya admin yang sudah login yang dapat mengaksesnya
+    Route::middleware(['admin','auth'])->group(function(){ // di grup agar hanya admin yang sudah login yang dapat mengaksesnya
 
 
         Route::post('/logout',[AdminAuth::class,'destroy'])->name('logout');
@@ -228,6 +228,20 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         Route::get('/laporan_kelas',[AdminViewController::class,'reportkelas'])->name('tes1');  //unfinish report kelas
         Route::get('/laporan_mata_pelajaran',[AdminViewController::class,'reportmapel'])->name('tes2');  //unfinish report matpel
         Route::get('/laporan_guru',[AdminViewController::class,'reportteacher'])->name('tes3');  //unfinish report teacher
+
+    //Create Akun
+        Route::post('/create-akun-siswa',[AdminCRUDController::class,'buatAkunSiswa'])->name('buatAkunSiswa');
+        Route::post('/delete-akun-siswa',[AdminCRUDController::class,'deleteAkunSiswa'])->name('deleteAkunSiswa');
+
+        Route::post('/create-akun-guru',[AdminCRUDController::class,'buatAkunGuru'])->name('buatAkunGuru');
+        Route::post('/delete-akun-guru',[AdminCRUDController::class,'deleteAkunGuru'])->name('deleteAkunGuru');
+
+    
+    //Tambah SIswa ke ROmbel
+    Route::post('/tambah-siswa-rombel',[AdminCRUDController::class,'tambahSiswaRombel'])->name('tambahSiswaRombel');
+
+    Route::post('/delete-siswa-rombel',[AdminCRUDController::class,'deleteSiswaRombel'])->name('deleteSiswaRombel');//hapus siswa dri rombel
+
     });
 
     

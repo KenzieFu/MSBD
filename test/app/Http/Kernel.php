@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\SiswaMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'teacher'=> \App\Http\Middleware\TeacherMiddleware::class,
         'admin'=> \App\Http\Middleware\AdminMiddleware::class,
+        'siswa'=>  \App\Http\Middleware\SiswaMiddleware::class
     ];
 }

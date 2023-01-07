@@ -12,15 +12,37 @@
             <td> {{ $guru->name }}</td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
-            <td>NIG</td>
-            <td>&nbsp;:&nbsp;</td>
-            <td> {{ $guru->NIG }}</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Alias</td>
             <td>&nbsp;:&nbsp;</td>
             <td> {{ $guru->alias }}</td>
         </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>NUPTK</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $guru->NUPTK }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>NIG</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $guru->NIG }}</td>
+        </tr>
+       
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Agama</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $guru->agama }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Status Kepegawaian</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $guru->status_kepegawaian }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Tanggal Lahir</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $guru->Tanggal_Lahir }}</td>
+        </tr>
+       
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Gender</td>
             <td>&nbsp;:&nbsp;</td>
@@ -32,9 +54,9 @@
             <td> {{ $guru->nama_kelas }}</td>
         </tr> --}}
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
-            <td>Kota Lahir</td>
+            <td>Tempat Lahir</td>
             <td>&nbsp;:&nbsp;</td>
-            <td> {{ $guru->Kota_Lahir }}</td>
+            <td> {{ $guru->Kota }}</td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Alamat</td>
@@ -44,7 +66,7 @@
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Tahun Masuk</td>
             <td>&nbsp;:&nbsp;</td>
-            <td> {{ $guru->TahunAjaran }}</td>
+            <td> {{ $guru->Tahun_Masuk }}</td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Status</td>

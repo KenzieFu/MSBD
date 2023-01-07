@@ -76,7 +76,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('teacher.logout') }}">
+                <form method="POST" action="{{ route('logout') }}">
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                     <button class="btn btn-secondary bg-red-500 text-white " type="button" data-dismiss="modal">Cancel</button>

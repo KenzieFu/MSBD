@@ -17,10 +17,13 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::guard('admin')->check())
+        if(Auth::check() )
         {
-            return redirect()->route('admin.login'); 
+            if(Auth::user()->role == "admin")
+            return $next($request);
+         
         }
-        return $next($request);
+        return redirect()->route('login'); 
+        
     }
 }

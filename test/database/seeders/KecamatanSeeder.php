@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\TahunAkademik;
+use App\Models\Kecamatan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TahunAkademikSeeder extends Seeder
+class KecamatanSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,12 +15,12 @@ class TahunAkademikSeeder extends Seeder
      */
     public function run()
     {
-        TahunAkademik::create([
-            "TahunAjaran"=>"2021/2022",
-            "kurikulum"=>"K13",
-            
-            
+        Kecamatan::create([
+            'Kecamatan'=>'Kec. Medan Area'
         ]);
-      
+        Kecamatan::create([
+            'Kecamatan'=>'Kec. Medan Denai'
+        ]);
+     
     }
 }

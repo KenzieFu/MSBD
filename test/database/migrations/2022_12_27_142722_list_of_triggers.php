@@ -15,7 +15,24 @@ return new class extends Migration
      */
     public function up()
     {
-        //Trigger setelah daftar siswa ,masukkan siswa ke kelas yang tersedia jika ada
+        //Trigger Tambahan
+        //1.Trigger yang akan dijalankan untuk menyediakan/membuat tingkatan dari seorang siswa(apakah siswa itu di saat ini di tingkat 1/2/3 ?)
+        DB::unprepared('
+            CREATE OR REPLACE TRIGGER tingkat_siswa BEFORE INSERT ON students FOR EACH ROW
+            BEGIN
+            DECLARE test INT(1);
+
+            SET test = (SELECT COUNT(*) FROM status_tingkatan_siswas)+1;
+            INSERT INTO status_tingkatan_siswas (id) 
+            VALUES(test);
+           SET  NEW.tingkatan=test;
+            END;
+        ');
+
+        //
+
+
+       /*  //Trigger setelah daftar siswa ,masukkan siswa ke kelas yang tersedia jika ada
         DB::unprepared('
         CREATE OR REPLACE TRIGGER masuk_kelas AFTER INSERT ON students FOR EACH ROW
             BEGIN
@@ -27,7 +44,7 @@ return new class extends Migration
                 
                 END IF;
             END;
-        ');
+        '); */
       
 
         //Trigger validasi pengaktifan tahun ajaran
@@ -37,15 +54,15 @@ return new class extends Migration
                 CALL validasi_statusAkademik();
                 END;
         ');
-        //Trigger untuk Validasi insert untuk menentukan angkatan
+       /*  //Trigger untuk Validasi insert untuk menentukan angkatan
         DB::unprepared('
             CREATE OR REPLACE TRIGGER angkatan_thnAka BEFORE INSERT ON tahun_akademiks FOR EACH ROW
             BEGIN
             SET NEW.angkatan=(SELECT COUNT(*) as row FROM tahun_akademiks)+1;
             END;
-        ');
+        '); */
 
-        //Trigger Menginsert siswa ke kelas masing2
+     /*    //Trigger Menginsert siswa ke kelas masing2
         DB::unprepared('
             CREATE OR REPLACE TRIGGER atur_kelas AFTER INSERT ON rombels FOR EACH ROW
             BEGIN
@@ -53,7 +70,7 @@ return new class extends Migration
              INSERT INTO rombel_siswas (id_rombel,id_siswa,created_at,updated_at)
               SELECT NEW.id, NIS,now(),now() FROM students s WHERE s.SMP=NEW.SMP AND s.id_kelas=NEW.id_kelas AND s.status="Aktif";
             END;
-        ');
+        '); */
 
         //Trigger insert validasi roster kelas jika terjadi bentrok jam pada hari yang bersamaan Pake fungsi timediff
         DB::unprepared('
@@ -108,12 +125,12 @@ return new class extends Migration
         BEGIN 
             
             IF (OLD.Pembelajaran !=NEW.Pembelajaran) THEN
-            UPDATE students
+            UPDATE  students s INNER JOIN status_tingkatan_siswas sts ON sts.id=s.tingkatan
                 SET 
-                status=(CASE WHEN SMP=3 THEN "Tamat" ELSE status END),
-                SMP=( CASE WHEN SMP  <3 THEN SMP+1 ELSE SMP END)
-             
-                WHERE status ="Aktif";
+                s.status=(CASE WHEN sts.tingkat=3 THEN "Tamat" ELSE s.status END),
+                sts.tingkat=( CASE WHEN sts.tingkat  <3 THEN sts.tingkat+1 ELSE sts.tingkat END)
+               
+                WHERE s.status ="Aktif";
          
 
             END IF;
@@ -122,7 +139,7 @@ return new class extends Migration
         END;
         ');
 
-        //Trigger tahun akademik tidak bs dinonaktifkan jika Pembelajaran belum selesai
+     /*    //Trigger tahun akademik tidak bs dinonaktifkan jika Pembelajaran belum selesai
         DB::unprepared('
         CREATE OR REPLACE TRIGGER cek_pembelajaran BEFORE UPDATE ON tahun_akademiks FOR EACH ROW
         BEGIN
@@ -135,7 +152,7 @@ return new class extends Migration
             
         END;
         
-        ');
+        '); */
 
         //TRigger  tahun akademik jika pembelajaran selesai tidak bs mengedit pembelajaran menjadi belum selesai
         DB::unprepared('

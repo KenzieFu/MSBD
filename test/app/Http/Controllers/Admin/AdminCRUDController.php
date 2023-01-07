@@ -17,11 +17,96 @@ use App\Models\daftar_absensi_guru;
 use App\Models\Mapel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
+use App\Models\Student;
+use App\Models\RombelSiswa;
 use Illuminate\Support\Facades\Hash;
 
 class AdminCRUDController extends Controller
 {
+
+    //Tambahan
+    public function buatAkunSiswa(Request $request)
+    {
+        $student=Student::find($request->NIS);
+        User::create([
+            'id'=>$request->NIS,
+            'email'=>$request->email,
+            'username'=>$student->name,
+            'role'=>'siswa',
+            'password'=>Hash::make($request->NIS)
+        ]);
+
+        $student->id_user=$request->NIS;
+        $student->save();
+
+        return redirect()->back()->with('success','Akun Berhasil dibuat');
+    }
+
+    public function deleteAkunSiswa(Request $request)
+    {
+
+        $users=User::find($request->NIS);
+        $users->delete();
+        return redirect()->back()->with('success','Akun Berhasil dihapus');
+    }
+
+
+    public function buatAkunGuru(Request $request)
+    {
+        $Teacher=Teacher::find($request->NIG);
+        User::create([
+            'id'=>$request->NIG,
+            'email'=>$request->email,
+            'username'=>$Teacher->name,
+            'role'=>'guru',
+            'password'=>Hash::make($request->NIG)
+        ]);
+
+        $Teacher->id_user=$request->NIG;
+        $Teacher->save();
+
+        return redirect()->back()->with('success','Akun Berhasil dibuat');
+    }
+
+    public function deleteAkunGuru(Request $request)
+    {
+
+        $users=User::find($request->NIG);
+        $users->delete();
+        return redirect()->back()->with('success','Akun Berhasil dihapus');
+    }
+
+    public function tambahSiswaRombel(Request $request)
+    {
+        
+        if($request->get('NIS') !=NULL)
+        {
+            
+            for($x=0;$x<count($request->get('NIS'));$x++)
+            {    
+                    $siswaRombel=new RombelSiswa();
+                    $siswaRombel->id_rombel=$request->id_rombel;
+                    $siswaRombel->id_siswa=$request->get('NIS')[$x];
+                    
+                    $siswaRombel->save();
+            }
+        }
+      
+        
+       
+        return redirect()->back()->with('success','Siswa Berhasil Dimasukkan');
+    }
+
+    public function deleteSiswaRombel(Request $request)
+    {
+        $siswa=RombelSiswa::find($request->id_rsiswa);
+        $siswa->delete();
+        return redirect()->back()->with('success','Siswa Berhasil Dihapus');
+    }
+
+
+    //
+
     public function updateabsensiguru(Request $request)
     {
       
@@ -64,31 +149,28 @@ class AdminCRUDController extends Controller
    
     
     public function createSiswa(Request $request){
-       $angkatan=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
-       
-        $nis=collect(DB::select('SELECT generate_nim('.$angkatan->angkatan.',no_urut('.$angkatan->angkatan.')) as res'))->first();
-       
-            $request->validate([
-                'name' => 'required|string|max:255',
-               
-                'email' => 'required|string|email|max:255|',
-                'Kota_Lahir'=>'required|string|max:255|',
-                'alamat'=>'required|string|max:255|',
-                'gender'=>'required',
-                
-            ]);
-            
-     
-             $user = User::create([
+        
+        $tahunMasuk=collect(DB::select('SELECT * FROM tahun_akademiks WHERE status="Aktif"'))->first();
+        
+       $angkatan=collect(DB::select('SELECT f_menentukan_angkatan() as res'))->first();
+        $nis=collect(DB::select('SELECT generate_nim('.$angkatan->res.',no_urut('.$angkatan->res.')) as res'))->first();
+
+             $user = Student::create([
                 'name' => $request->name,
                 'NIS'=>$nis->res,
-                'email' => $request->email,
-                'angkatan'=>$angkatan->angkatan,
-                'Kota_Lahir'=>$request->Kota_Lahir,
+                'NIPD'=>$request->NIPD,
+                'NISN'=>$request->NISN,
+                'NIK'=>$request->NIK,
+                'agama'=>$request->agama,
+                'Tanggal_Lahir'=>$request->Tanggal_Lahir,
+                'Tempat_Lahir'=>$request->Tempat_Lahir,
+                'id_kecamatan'=>$request->id_kecamatan,
+                'id_kelurahan'=>$request->id_kelurahan,
+                'Tahun_Masuk'=>$tahunMasuk->id,
+                'angkatan'=>$angkatan->res,
                 'alamat'=>$request->alamat,
                 'gender'=>$request->gender,
-                'id_kelas'=>$request->kelas,
-                'password' => Hash::make($nis->res)
+          
             ]); 
         
       
@@ -105,32 +187,32 @@ class AdminCRUDController extends Controller
 
 
     public function createGuru(Request $request){
-        $angkatan=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
-        
      
-         $nig=collect(DB::select('SELECT generate_nig('.$angkatan->angkatan.',no_urut_guru('.$angkatan->angkatan.')) as res'))->first();
         
-             $request->validate([
-                 'name' => 'required|string|max:255',
-                
-                 'email' => 'required|string|email|max:255|',
-                 'alias'=>'required|string|max:255|',
-                 'gender'=>'required',
-                 
-             ]);
+        $tahunMasuk=collect(DB::select('SELECT * FROM tahun_akademiks WHERE status="Aktif"'))->first();
+        
+        $angkatan=collect(DB::select('SELECT f_menentukan_angkatan() as res'))->first();
+         $nig=collect(DB::select('SELECT generate_nig('.$angkatan->res.',no_urut_guru('.$angkatan->res.')) as res'))->first();
+        
+        
+          
            
      
               $teacher = Teacher::create([
                  'name' => $request->name,
                  'NIG'=>$nig->res,
                  'alias'=>$request->alias,
-                 'email' => $request->email,
-                 'angkatan'=>$angkatan->angkatan,
-                 'Kota_Lahir'=>$request->Kota_Lahir,
+                'NUPTK'=>$request->NUPTK,
+                 'Tahun_Daftar'=>$tahunMasuk->id,
+                 'Tempat_Lahir'=>$request->Tempat_Lahir,
+                 'Tanggal_Lahir'=>$request->Tanggal_Lahir,
                  'alamat'=>$request->alamat,
                  'gender'=>$request->gender,
+                 'agama'=>$request->agama,
+                 'angkatan'=>$angkatan->res,
+                 'status_kepegawaian'=>$request->status_kepegawaian,
              
-                 'password' => Hash::make($nig->res)
+                 
              ]); 
              
           
@@ -161,15 +243,8 @@ class AdminCRUDController extends Controller
         $thn=TahunAkademik::find($request->id);
         if($thn->status =="Aktif")
         {
-            if($thn->Pembelajaran =="Selesai")
-            {
-                $thn->status="Tidak Aktif";
-            }
-            else if($thn->Pembelajaran =="Belum Selesai")
-            {
-                return redirect()->back()->with('success','Harus Menyelesaikan Tahun Ajaran Terlebih Dahulu');
-            }
-            
+        
+                $thn->status="Tidak Aktif";  
         }
         else
         {
@@ -326,37 +401,49 @@ class AdminCRUDController extends Controller
      ///1. Table Students
         public function info_siswa(Request $request)
         {
-            $siswa=collect(DB::select('SELECT s.*,k.nama_kelas,th.TahunAjaran FROM students s INNER JOIN kelas k ON k.id=id_kelas INNER JOIN tahun_akademiks th ON th.angkatan=s.angkatan WHERE NIS='.$request->id_siswa.''))->first();
+      
+            $siswa=collect(DB::select('SELECT * FROM view_data_siswa WHERE NIS='.$request->id_siswa.''))->first();
            
             return view('admin.page.CRUD.info-siswa',compact('siswa'));
         }
         public function update_siswa(Request $request)
         {
-            $siswa=collect(DB::select('SELECT s.*,k.nama_kelas FROM students s INNER JOIN kelas k ON k.id=id_kelas WHERE NIS='.$request->id_siswa.''))->first();
-            $kelas=Kelas::get();
-            return view('admin.page.CRUD.updatesiswa',compact('siswa','kelas'));
+            $siswa=collect(DB::select('SELECT * FROM view_data_siswa  WHERE NIS='.$request->id_siswa.''))->first();
+            $kota=DB::select('SELECT * FROM kotas');
+            $kecamatan=DB::select('SELECT * FROM kecamatans');
+            $kelurahan=DB::select("SELECT * FROM kelurahans");
+            return view('admin.page.CRUD.updatesiswa',compact('siswa','kota','kecamatan','kelurahan'));
         }
 
         public function updt_siswa(Request $request)
         {
            
-            $siswa=User::find($request->NIS);
+            $siswa=Student::find($request->NIS);
           
             $siswa->name=$request->name;
+            $siswa->NISN=$request->NISN;
+            $siswa->NIPD=$request->NIPD;
+            $siswa->NIK=$request->NIK;
+            $siswa->agama=$request->agama;
+            $siswa->Tanggal_Lahir=$request->Tanggal_Lahir;
+            $siswa->Jenis_Tinggal=$request->Jenis_Tinggal;
+            $siswa->Tempat_Lahir=$request->Tempat_Lahir;
+            $siswa->id_kecamatan=$request->id_kecamatan;
+            $siswa->id_kelurahan=$request->id_kelurahan;
             $siswa->gender=$request->gender;
-            $siswa->SMP=$request->SMP;
-            $siswa->id_kelas=$request->id_kelas;
-            $siswa->Kota_Lahir=$request->Kota_Lahir;
             $siswa->alamat=$request->alamat;
             $siswa->save();
-
+     
             return redirect()->back()->with('success','Siswa dengan NIS '.$siswa->NIS.' Berhasil Di Update');
         }
 
         public function delete_siswa(Request $request)
         {
-            $siswa=User::find($request->id_siswa);
+            $siswa=Student::find($request->id_siswa);
             $siswa->delete();
+            $user=User::find($request->id_siswa);
+            if($user !=null)
+            $user->delete();
             return redirect()->back()->with('success','Siswa 0'.$siswa->NIS.' Berhasil di delete');
         }
 
@@ -364,16 +451,16 @@ class AdminCRUDController extends Controller
 
         public function info_guru(Request $request)
         {
-            $guru=collect(DB::select('SELECT t.*, th.TahunAjaran FROM teachers t INNER JOIN tahun_akademiks th ON th.angkatan=t.angkatan WHERE NIG='.$request->id_guru.''))->first();
+            $guru=collect(DB::select('SELECT * FROM data_guru  t  WHERE NIG='.$request->id_guru.''))->first();
            
             return view('admin.page.CRUD.info-guru',compact('guru'));
         }
 
         public function update_guru(Request $request)
         {
-            $guru=collect(DB::select('SELECT t.*, th.TahunAjaran FROM teachers t INNER JOIN tahun_akademiks th ON th.angkatan=t.angkatan WHERE NIG='.$request->id_guru.''))->first();
-         
-            return view('admin.page.CRUD.updateguru',compact('guru'));
+            $guru=collect(DB::select('SELECT * FROM data_guru t  WHERE NIG='.$request->id_guru.''))->first();
+            $kota=DB::select('SELECT * FROM kotas');
+            return view('admin.page.CRUD.updateguru',compact('guru','kota'));
         }
 
         public function updt_guru(Request $request)
@@ -381,9 +468,13 @@ class AdminCRUDController extends Controller
             $guru=Teacher::find($request->NIG);
             
             $guru->name=$request->name;
+            $guru->NUPTK=$request->NUPTK;
             $guru->alias=$request->alias;
+            $guru->agama=$request->agama;
             $guru->alamat=$request->alamat;
-            $guru->Kota_Lahir=$request->Kota_Lahir;
+            $guru->status_kepegawaian=$request->status_kepegawaian;
+            $guru->Tanggal_Lahir=$request->Tanggal_Lahir;
+            $guru->Tempat_Lahir=$request->Tempat_Lahir;
             $guru->gender=$request->gender;
             $guru->save();
         
@@ -395,6 +486,9 @@ class AdminCRUDController extends Controller
         {
             $guru=Teacher::find($request->id_guru);
             $guru->delete();
+            $user=User::find($request->id_guru);
+            if($user !=null)
+            $user->delete();
             return redirect()->back()->with('success','Guru Berhasil di delete');
         }
 
@@ -412,7 +506,7 @@ class AdminCRUDController extends Controller
 
         public function update_status_siswa(Request $request)
         {
-            $siswa=User::find($request->NIS);
+            $siswa=Student::find($request->NIS);
             if($siswa->status =="Aktif")
                 $siswa->status="Tidak Aktif";
             else   

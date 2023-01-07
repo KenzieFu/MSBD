@@ -57,7 +57,7 @@ class AdminViewController extends Controller
 
     //Fungsi page menampilkan daftar siswa
     public function userTable(){
-        $users=DB::select('SELECT * FROM data_siswa');
+        $users=DB::select('SELECT * FROM view_data_siswa');
     
         return view('admin.page.siswa',compact('users'));
     }
@@ -77,7 +77,9 @@ class AdminViewController extends Controller
     //fungsi untuk menampilkan page form menambahkan siswa baru
     public function pageAddUser(){
 
-        $daftarkelas=Kelas::get();
+        $kota=DB::select('SELECT * FROM kotas');
+        $kecamatan=DB::select('SELECT * FROM kecamatans');
+        $kelurahan=DB::select("SELECT * FROM kelurahans");
   
         $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
        
@@ -89,11 +91,12 @@ class AdminViewController extends Controller
         return redirect()->back()->with("success","Tidak Bisa Menambahkan Siswa Karena Tahun Ajaran Saat Ini Telah Selesai");
 
 
-        return view('admin.page.CRUD.createSiswa',compact('daftarkelas'));
+        return view('admin.page.CRUD.createSiswa',compact('kota','kecamatan','kelurahan'));
     }
 
     public function pageAddGuru()
     {
+        $kota=DB::select('SELECT * FROM kotas');
         $active=DB::table("tahun_akademiks")->where("status","=","Aktif")->first();
         if(!$active)
         {
@@ -101,7 +104,7 @@ class AdminViewController extends Controller
         }
      
 
-        return view('admin.page.CRUD.createGuru');
+        return view('admin.page.CRUD.createGuru',compact('kota'));
     }
 
 
@@ -171,15 +174,18 @@ class AdminViewController extends Controller
     {
        
         $rombel=DB::select('SELECT * FROM data_rombel WHERE id= ?',array($request->id_rombel));
-       
+  
+      
+      
         foreach($rombel as $r)
         {
             $rombel=$r;
             break;
         }
+        $siswa=DB::select('SELECT * FROM view_data_siswa s WHERE status="Aktif" AND tingkat='.$rombel->SMP.' AND NOT EXISTS(SELECT NIS FROM data_rombel_siswa rs WHERE rs.id_thnakademik='.$rombel->id_thnakademik.' AND rs.NIS=s.NIS )');
         $daftar_siswa=DB::select('SELECT * FROM data_rombel_siswa WHERE id_rombel= ?',array($request->id_rombel));
        
-        return view('admin.page.detailrombel',compact('rombel','daftar_siswa'));
+        return view('admin.page.detailrombel',compact('rombel','daftar_siswa','siswa'));
     }
 
     public function mapel()

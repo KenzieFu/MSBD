@@ -14,7 +14,25 @@ return new class extends Migration
      */
     public function up()
     {
+        //Tambahan
+        //Function untuk menentukan angkatan saat ingin mendaftarkan guru/murid
+        DB::unprepared('
+        CREATE OR REPLACE FUNCTION f_menentukan_angkatan() RETURNS VARCHAR(2)
+        BEGIN
+        DECLARE angkatan VARCHAR(2);
+        RETURN (SELECT COUNT(*) FROM tahun_akademiks WHERE Pembelajaran="Selesai")+1;
+        END;
+        ');
 
+        //Function untuk mengecek apakah siswa/guru sudah punya akun atau belum
+        DB::unprepared('
+        CREATE OR REPLACE Function p_cek_akun(NIS VARCHAR(7)) RETURNS INT(2)
+        BEGIN
+         RETURN (SELECT COUNT(*) FROM users WHERE id=NIS);
+        END;
+        ');
+        ///
+   
 
         //Function menghasilkan Nim siswa
         DB::unprepared('
@@ -27,6 +45,7 @@ return new class extends Migration
             return res;
             END;
         ');
+        
         //Function untuk menentukan 3 nim blkng siswa yang merupakan no urut
         DB::unprepared('
         CREATE OR REPLACE FUNCTION no_urut (thn_aktif VARCHAR(2)) RETURNS VARCHAR(3)

@@ -1,10 +1,11 @@
 @extends('admin.layout.template')
 @section('adminContent')
 
+
 <div class="max-w m-3 p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
    
     <div class="mb-5">
-        <h1 class="text-3xl">Update Siswa</h1>
+        <h1 class="text-3xl">Update Siswa </h1>
     </div>
     <div class="flex  justify-end ml-5 ">
     <form method="POST" action="{{ route('admin.updt_siswa') }}">
@@ -27,6 +28,43 @@
            
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>NISN</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <input required   type="text" name="NISN" value="{{ $siswa->NISN }}" >
+            </td>
+           
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>NIPD</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <input required   type="text" name="NIPD" value="{{ $siswa->NIPD }}" >
+            </td>
+           
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>NIK</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <input required  type="text" name="NIK" value="{{ $siswa->NIK }}" >
+            </td>
+           
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Agama</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <select required name="agama" >
+                    <option @php if($siswa->agama =="Islam") echo "selected" @endphp value="Islam">Islam</option>
+                    <option @php if($siswa->agama =="Kristen") echo "selected" @endphp value="Kristen">Kristen</option>
+                    <option @php if($siswa->agama =="Buddha") echo "selected" @endphp value="Buddha">Buddha</option>
+                    <option @php if($siswa->agama =="Kong Hu Chu") echo "selected" @endphp value="Kong Hu Chu">Kong Hu Chu</option>
+                    <option @php if($siswa->agama =="Hindu") echo "selected" @endphp value="Hindu">Hindu</option>
+                </select>
+            </td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Gender</td>
             <td>&nbsp;:&nbsp;</td>
             <td>
@@ -37,32 +75,61 @@
             </td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
-            <td>SMP</td>
+            <td>Tanggal Lahir</td>
             <td>&nbsp;:&nbsp;</td>
             <td>
-                <select required name="SMP" >
-                <option @php if($siswa->SMP =="1") echo "selected" @endphp value="1">1</option>
-                <option @php if($siswa->SMP =="2") echo "selected" @endphp value="2">2</option>
-                <option @php if($siswa->SMP =="3") echo "selected" @endphp value="3">3</option>
-            </select>
-        </td>
+                <input required   type="date" name="Tanggal_Lahir" value="{{ $siswa->Tanggal_Lahir }}" >
+            </td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
-            <td>Kelas</td>
+            <td>Jenis Tinggal</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td>
+                <select required name="Jenis_Tinggal" >
+                    <option @php if($siswa->Jenis_Tinggal =="Bersama Orang Tua") echo "selected" @endphp value="Bersama Orang Tua">Bersama Orang Tua</option>
+                    <option @php if($siswa->Jenis_Tinggal =="Sendiri") echo "selected" @endphp value="P">Sendiri</option>
+                </select>
+            </td>
+        </tr>
+       
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Tempat Lahir</td>
             <td>&nbsp;:&nbsp;</td>
             <td> 
-                <select required name="id_kelas" >
-                    @foreach($kelas as $k)
-                    <option @php if($siswa->id_kelas ==$k->id) echo "selected" @endphp value={{ $k->id }}>{{ $k->nama_kelas }}</option>
+                <select required name="Tempat_Lahir" >
+                    @foreach($kota as $k)
+                    <option @php if($siswa->Tempat_Lahir ==$k->id) echo "selected" @endphp value={{ $k->id }}>{{ $k->Kota }}</option>
                     @endforeach
             </select>
         </td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
-            <td>Kota Lahir</td>
+            <td>Kecamatan</td>
             <td>&nbsp;:&nbsp;</td>
-            <td> <input  name="Kota_Lahir"  type="text" value="{{ $siswa->Kota_Lahir }}" ></td>
+            <td> 
+                <select onchange="success()" required id="kecamatans" name="id_kecamatan" >
+                    <option value=""></option>
+                    @foreach($kecamatan as $kec)
+                    <option @php if($siswa->id_kecamatan ==$kec->id) echo "selected" @endphp value={{ $kec->id }}>{{ $kec->Kecamatan }}</option>
+                    @endforeach
+            </select>
+        </td>
         </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Kelurahan</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> 
+                <select id="kelurahan"  required name="id_kelurahan" >
+                    @foreach($kelurahan as $kel) 
+             
+                  
+                    <option @php if($siswa->id_kelurahan ==$kel->id) echo "selected" @endphp value={{ $kel->id }}>{{ $kel->Kelurahan }}</option>
+                   
+                    @endforeach
+            </select>
+        </td>
+        </tr>
+
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Alamat</td>
             <td>&nbsp;:&nbsp;</td>
@@ -81,5 +148,8 @@
     </div>
 </form>
 </div>
+
+
+
 
 @endsection

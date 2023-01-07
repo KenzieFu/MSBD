@@ -17,56 +17,85 @@ class TeacherSeeder extends Seeder
      */
     public function run()
     {
+     
       Teacher::create([
         "NIG"=>"0102001",
+        "NUPTK"=>"343214352523521",
         "angkatan"=>1,
         "alias"=>"GZL",
+        "agama"=>"Islam",
         'name'=>"Gozali",
+        "status_kepegawaian"=>"Guru Honor Sekolah",
+        "Tanggal_Lahir"=>"12-10-09",
         "gender"=>"L",
-        "Kota_Lahir"=>"Medan",
-        'email'=>"teacher@gmail.com",
-        'password'=>Hash::make("0102001")
+        "Tempat_Lahir"=>1,
+        "Tahun_Daftar"=>1,
+        "alamat"=>"Jalan Semangka, No 24B",
+        
       ]);
       Teacher::create([
         "NIG"=>"0102002",
-        "alias"=>"TBS",
-        'name'=>"Tobias",
-        "gender"=>"L",
-        'email'=>"tob@gmail.com",
-        
+        "NUPTK"=>"343214352523522",
         "angkatan"=>1,
-        'password'=>Hash::make("0102002")
+        "alias"=>"TBS",
+        "agama"=>"Islam",
+        'name'=>"Tobias",
+        "status_kepegawaian"=>"GTY/PTY",
+        "Tanggal_Lahir"=>"12-10-01",
+        "gender"=>"L",
+        "Tempat_Lahir"=>1,
+        "Tahun_Daftar"=>1,
+        "alamat"=>"Jalan Apel, No 24B",
+        
       ]);
+
       Teacher::create([
         "NIG"=>"0102003",
-        "alias"=>"MNA",
-        'name'=>"Mana",
-        "gender"=>"P",
-        'email'=>"mana@gmail.com",
-        
+        "NUPTK"=>"343214352523523",
         "angkatan"=>1,
-        'password'=>Hash::make("0102003")
+        "alias"=>"ALF",
+        "agama"=>"Islam",
+        'name'=>"Alif",
+        "status_kepegawaian"=>"GTY/PTY",
+        "Tanggal_Lahir"=>"12-10-01",
+        "gender"=>"L",
+        "Tempat_Lahir"=>3,
+        "Tahun_Daftar"=>1,
+        "alamat"=>"Jalan Rukun, No 20B",
+        
       ]);
       Teacher::create([
         "NIG"=>"0102004",
-        "alias"=>"Ema",
-        'name'=>"EMA",
-        "gender"=>"P",
-        'email'=>"ema@gmail.com",
-        
+        "NUPTK"=>"343214352523524",
         "angkatan"=>1,
-        'password'=>Hash::make("0102004")
+        "alias"=>"MWR",
+        "agama"=>"Islam",
+        'name'=>"Mawar",
+        "status_kepegawaian"=>"GTY/PTY",
+        "Tanggal_Lahir"=>"12-10-01",
+        "gender"=>"P",
+        "Tempat_Lahir"=>1,
+        "Tahun_Daftar"=>1,
+        "alamat"=>"Jalan Rukun, No 5B",
+        
       ]);
       Teacher::create([
         "NIG"=>"0102005",
-        "alias"=>"Lana",
-        'name'=>"LNA",
-        "gender"=>"P",
-        'email'=>"lana@gmail.com",
-        
+        "NUPTK"=>"343214352523525",
         "angkatan"=>1,
-        'password'=>Hash::make("0102005")
+        "alias"=>"BNG",
+        "agama"=>"Islam",
+        'name'=>"Bang",
+        "status_kepegawaian"=>"GTY/PTY",
+        "Tanggal_Lahir"=>"12-10-02",
+        "gender"=>"L",
+        "Tempat_Lahir"=>1,
+        "Tahun_Daftar"=>1,
+        "alamat"=>"Jalan Sejati, No 5B",
+        
       ]);
+      
+      
 
 
 

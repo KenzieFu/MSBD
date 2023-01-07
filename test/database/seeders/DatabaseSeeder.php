@@ -11,6 +11,9 @@ use Database\Seeders\TahunAkademikSeeder;
 use Database\Seeders\KelasSeeder;
 use Database\Seeders\StudentSeeder;
 use Database\Seeders\RosterSeeder;
+use Database\Seeders\KotaSeeder;
+use Database\Seeders\KelurahanSeeder;
+use Database\Seeders\KecamatanSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,12 +25,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            TeacherSeeder::class,
+            
             MapelSeeder::class,
-            AdminSeeder::class,
+            
+            KotaSeeder::class,
+            KecamatanSeeder::class,
+            KelurahanSeeder::class,
+            AdminSeeder::class, 
+
             TahunAkademikSeeder::class,
-            KelasSeeder::class,
             StudentSeeder::class,
+            TeacherSeeder::class,
+            KelasSeeder::class,
+            
             RombelSeeder::class,
             RosterSeeder::class,
             PengumumanSeeder::class,

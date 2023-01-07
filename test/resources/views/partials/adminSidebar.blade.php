@@ -4,7 +4,7 @@
     $id_r=null;
     if($active)
     {
-        $id_r=collect(DB::select('SELECT *   FROM data_rombel_siswa WHERE id_siswa="0'.auth()->user()->NIS.'" AND id_thnakademik=?',array($active->id)))->first();
+        $id_r=collect(DB::select('SELECT *   FROM data_rombel_siswa WHERE id_siswa="0'.auth()->user()->id.'" AND id_thnakademik=?',array($active->id)))->first();
     }
     
     

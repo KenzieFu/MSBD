@@ -16,25 +16,61 @@
             <td>&nbsp;:&nbsp;</td>
             <td> {{ $siswa->NIS }}</td>
         </tr>
+       
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>NIPD</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $siswa->NIPD }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>NISN</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $siswa->NISN }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>NIK</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $siswa->NIK }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Agama</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $siswa->agama }}</td>
+        </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Gender</td>
             <td>&nbsp;:&nbsp;</td>
             <td> {{ $siswa->gender }}</td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
-            <td>SMP</td>
+            <td>Tanggal Lahir</td>
             <td>&nbsp;:&nbsp;</td>
-            <td> {{ $siswa->SMP }}</td>
+            <td> {{ $siswa->Tanggal_Lahir }}</td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
-            <td>Kelas</td>
+            <td>Jenis Tinggal</td>
             <td>&nbsp;:&nbsp;</td>
-            <td> {{ $siswa->nama_kelas }}</td>
+            <td> {{ $siswa->Jenis_Tinggal }}</td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Kota Lahir</td>
             <td>&nbsp;:&nbsp;</td>
-            <td> {{ $siswa->Kota_Lahir }}</td>
+            <td> {{ $siswa->Kota }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Kecamatan</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $siswa->Kecamatan }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Kelurahan</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $siswa->Kelurahan }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Kode Pos</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $siswa->Kode_Pos }}</td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Alamat</td>
@@ -45,6 +81,11 @@
             <td>Tahun Masuk</td>
             <td>&nbsp;:&nbsp;</td>
             <td> {{ $siswa->TahunAjaran }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
+            <td>Angkatan</td>
+            <td>&nbsp;:&nbsp;</td>
+            <td> {{ $siswa->angkatan }}</td>
         </tr>
         <tr style="border-bottom: 1px solid #ccc; line-height: 1.8em;" class="w-[100%]">
             <td>Status</td>
